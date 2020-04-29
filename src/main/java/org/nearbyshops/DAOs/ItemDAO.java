@@ -545,6 +545,26 @@ public class ItemDAO {
 
 
 
+
+
+
+
+		if(Globals.licensingRestrictionsEnabled)
+		{
+			double latMarket = Globals.getMarketConfiguration().getLatCenter();
+			double lonMarket = Globals.getMarketConfiguration().getLonCenter();
+
+
+			queryJoin = queryJoin + " AND (6371.01 * acos(cos( radians(" + latMarket + ")) * cos( radians(" + Shop.LAT_CENTER
+					+ " )) * cos(radians( " + Shop.LON_CENTER + ") - radians(" + lonMarket + "))"
+					+ " + sin( radians(" + latMarket + ")) * sin(radians(" + Shop.LAT_CENTER + ")))) <= " + Globals.maxMarketRangeInKms ;
+		}
+
+
+
+
+
+
 		// Applying filters
 
 		if(latCenter !=null && lonCenter !=null)
@@ -568,6 +588,11 @@ public class ItemDAO {
 
 
 
+
+
+
+
+
 		if(deliveryRangeMin !=null  ||deliveryRangeMax !=null){
 
 			// apply delivery range filter
@@ -581,6 +606,8 @@ public class ItemDAO {
 
 			//+ " <= " + deliveryRange;
 		}
+
+
 
 
 

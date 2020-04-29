@@ -44,6 +44,9 @@ public class ShopResource {
 	public Response createShop(Shop shop)
 	{
 
+
+
+
 		User user = (User) Globals.accountApproved;
 
 		int idOfInsertedRow = shopDAO.insertShop(shop,user.getUserID());
@@ -74,6 +77,29 @@ public class ShopResource {
 	@RolesAllowed({GlobalConstants.ROLE_ADMIN, GlobalConstants.ROLE_STAFF})
 	public Response updateShopByAdmin(Shop shop, @PathParam("ShopID")int ShopID)
 	{
+
+
+
+
+		if(Globals.licensingRestrictionsEnabled)
+		{
+			double latMarket = Globals.getMarketConfiguration().getLatCenter();
+			double lonMarket = Globals.getMarketConfiguration().getLonCenter();
+
+
+			float distance = Globals.distFrom(latMarket,lonMarket,shop.getLatCenter(),shop.getLonCenter());
+
+
+
+			if(distance > Globals.maxMarketRangeInKms)
+			{
+				return Response.status(Status.NOT_MODIFIED)
+						.build();
+			}
+		}
+
+
+
 
 
 		User user = (User) Globals.accountApproved;
@@ -117,6 +143,24 @@ public class ShopResource {
 	@RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN})
 	public Response updateShopByOwner(Shop shop)
 	{
+
+		if(Globals.licensingRestrictionsEnabled)
+		{
+			double latMarket = Globals.getMarketConfiguration().getLatCenter();
+			double lonMarket = Globals.getMarketConfiguration().getLonCenter();
+
+
+			float distance = Globals.distFrom(latMarket,lonMarket,shop.getLatCenter(),shop.getLonCenter());
+
+			if(distance > Globals.maxMarketRangeInKms)
+			{
+				return Response.status(Status.NOT_MODIFIED)
+						.build();
+			}
+		}
+
+
+
 
 
 		shop.setShopAdminID(((User)Globals.accountApproved).getUserID());

@@ -83,6 +83,8 @@ public class ServiceConfigurationResource {
 		{
 			updateMarketEntryAtSDS();
 
+			Globals.setMarketConfig(null);
+
 			return Response.status(Status.OK)
 					.build();
 		}

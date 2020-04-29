@@ -8,7 +8,8 @@ import org.apache.commons.configuration2.builder.fluent.Parameters;
 import org.apache.commons.configuration2.convert.DefaultListDelimiterHandler;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 
-
+import javax.ws.rs.core.Response;
+import java.util.Arrays;
 
 
 public class GlobalConfig {
@@ -110,6 +111,44 @@ public class GlobalConfig {
         GlobalConstants.enable_login_using_otp_value = configuration.getBoolean("enable_login_using_otp");
 
         GlobalConstants.trusted_market_aggregators_value = configuration.getStringArray("trusted_market_aggregators");
+
+
+
+//        if(Globals.licensingRestrictionsEnabled)
+//        {
+            // automatic sds linking code
+            boolean default_sds_url_exists = false;
+
+            for(String url : GlobalConstants.trusted_market_aggregators_value)
+            {
+
+//            System.out.println("URL SDS : " + url);
+
+                if(url.equals(GlobalConstants.SDS_URL))
+                {
+                    default_sds_url_exists = true;
+                    break;
+                }
+            }
+
+
+            if(!default_sds_url_exists)
+            {
+                // add a default sds url
+                GlobalConstants.trusted_market_aggregators_value = Arrays.copyOf(GlobalConstants.trusted_market_aggregators_value,GlobalConstants.trusted_market_aggregators_value.length+1);
+                GlobalConstants.trusted_market_aggregators_value[GlobalConstants.trusted_market_aggregators_value.length-1] = GlobalConstants.SDS_URL;
+
+//            System.out.println("Insertion Made ");
+
+//            for(String url : GlobalConstants.trusted_market_aggregators_value)
+//            {
+//                System.out.println("URL SDS After : " + url);
+//            }
+            }
+//        }
+
+
+
 
         GlobalConstants.url_for_notification_icon_value = configuration.getString("url_for_notification_icon");
 

@@ -43,7 +43,11 @@ public class CartStatsResource {
 
 		GenericEntity<List<CartStats>> listEntity = new GenericEntity<List<CartStats>>(cartStats){
 		};
-		
+
+
+
+
+
 		if(cartStats.size()<=0)
 		{
 

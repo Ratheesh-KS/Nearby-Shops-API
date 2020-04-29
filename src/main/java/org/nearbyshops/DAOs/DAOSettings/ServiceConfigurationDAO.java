@@ -15,12 +15,6 @@ public class ServiceConfigurationDAO {
 	private HikariDataSource dataSource = Globals.getDataSource();
 
 
-	@Override
-	protected void finalize() throws Throwable {
-		// TODO Auto-generated method stub
-		super.finalize();	
-	}
-
 
 	public int saveService(ServiceConfigurationLocal serviceConfigurationLocal)
 	{
@@ -343,9 +337,7 @@ public class ServiceConfigurationDAO {
 	
 
 
-	
-	
-	
+
 	public ArrayList<ServiceConfigurationLocal> readServices(Integer serviceLevel, Integer serviceType,
                                                              Double latCenterQuery, Double lonCenterQuery,
                                                              String sortBy,
@@ -613,6 +605,8 @@ public class ServiceConfigurationDAO {
 
 
 
+
+
 	public ServiceConfigurationLocal getServiceConfiguration(Double latCenter, Double lonCenter)
 	{
 		
@@ -755,14 +749,6 @@ public class ServiceConfigurationDAO {
 	
 		return serviceConfigurationLocal;
 	}
-
-
-
-
-
-
-
-
 
 
 

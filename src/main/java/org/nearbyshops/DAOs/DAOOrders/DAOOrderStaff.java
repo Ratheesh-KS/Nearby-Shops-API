@@ -434,62 +434,11 @@ public class DAOOrderStaff {
     public int paymentReceived(int orderID)
     {
 
-
-        String createTransaction;
-
-
-
         String updateStatement = "UPDATE " + Order.TABLE_NAME
 
                 + " SET " + " " + Order.STATUS_HOME_DELIVERY + " = ?"
                 + " WHERE " + Order.ORDER_ID + " = ?"
                 + " AND "  + Order.STATUS_HOME_DELIVERY + " = ? ";
-
-
-
-        String updateAccountBalance = "UPDATE " + Shop.TABLE_NAME
-
-                + " SET " + " " + Shop.ACCOUNT_BALANCE + " = " + Shop.ACCOUNT_BALANCE + " - ? "
-                + " WHERE " + Shop.SHOP_ID
-                + " = ( SELECT " + Order.SHOP_ID + " FROM " + Order.TABLE_NAME + " WHERE " + Order.ORDER_ID + " = ? )";
-
-
-
-
-        createTransaction = "INSERT INTO " + Transaction.TABLE_NAME
-                + "("
-
-                + Transaction.USER_ID + ","
-
-                + Transaction.TITLE + ","
-                + Transaction.DESCRIPTION + ","
-
-                + Transaction.TRANSACTION_TYPE + ","
-                + Transaction.TRANSACTION_AMOUNT + ","
-
-                + Transaction.IS_CREDIT + ","
-
-                + Transaction.BALANCE_AFTER_TRANSACTION + ""
-
-                + ") "
-                + " SELECT "
-
-                + User.TABLE_NAME + "." + User.USER_ID + ","
-
-                + " 'App fee : ' ,"
-                + " 'App fee for Order ID '" +  " || " + Order.TABLE_NAME + "." +  Order.ORDER_ID + "::text " + ","
-
-                + Transaction.TRANSACTION_TYPE_APP_FEE + ","
-                + " ? ,"
-
-                + " false " + ","
-                + Shop.TABLE_NAME + "." + Shop.ACCOUNT_BALANCE + ""
-
-                + " FROM " + User.TABLE_NAME
-                + " INNER JOIN " + Shop.TABLE_NAME + " ON ( " + Shop.TABLE_NAME + "." +  Shop.SHOP_ADMIN_ID + " = " + User.TABLE_NAME + "." + User.USER_ID + " ) "
-                + " INNER JOIN " + Order.TABLE_NAME + " ON ( " + Order.TABLE_NAME + "." + Order.SHOP_ID + " = " + Shop.TABLE_NAME + "." + Shop.SHOP_ID + " ) "
-                + " WHERE " + Order.TABLE_NAME + "." + Order.ORDER_ID + " = ? ";
-
 
 
 
@@ -511,32 +460,9 @@ public class DAOOrderStaff {
             statement.setObject(++i, OrderStatusHomeDelivery.DELIVERED);
 
             updatedRows = statement.executeUpdate();
-//            System.out.println("Total rows updated: " + updatedRows);
 
 
 
-            statement = connection.prepareStatement(updateAccountBalance);
-            i = 0;
-
-            statement.setObject(++i, GlobalConstants.app_service_charge_home_delivery_value);
-            statement.setObject(++i,orderID);
-
-            updatedRows = statement.executeUpdate();
-
-
-            statement = connection.prepareStatement(createTransaction);
-            i = 0;
-
-            statement.setObject(++i, GlobalConstants.app_service_charge_home_delivery_value);
-            statement.setObject(++i,orderID);
-
-            updatedRows = statement.executeUpdate();
-
-
-
-
-
-            //conn.close();
 
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -769,62 +695,12 @@ public class DAOOrderStaff {
     public int paymentReceivedPFS(int orderID)
     {
 
-        String createTransaction;
-
 
         String updateStatement = "UPDATE " + Order.TABLE_NAME
 
                 + " SET " + " " + Order.STATUS_PICK_FROM_SHOP + " = ?"
                 + " WHERE " + Order.ORDER_ID + " = ?"
                 + " AND "  + Order.STATUS_PICK_FROM_SHOP + " = ? ";
-
-
-
-
-        String updateAccountBalance = "UPDATE " + Shop.TABLE_NAME
-
-                + " SET " + " " + Shop.ACCOUNT_BALANCE + " = " + Shop.ACCOUNT_BALANCE + " - ? "
-                + " WHERE " + Shop.SHOP_ID
-                + " = ( SELECT " + Order.SHOP_ID + " FROM " + Order.TABLE_NAME + " WHERE " + Order.ORDER_ID + " = ? )";
-
-
-
-
-        createTransaction = "INSERT INTO " + Transaction.TABLE_NAME
-                + "("
-
-                + Transaction.USER_ID + ","
-
-                + Transaction.TITLE + ","
-                + Transaction.DESCRIPTION + ","
-
-                + Transaction.TRANSACTION_TYPE + ","
-                + Transaction.TRANSACTION_AMOUNT + ","
-
-                + Transaction.IS_CREDIT + ","
-
-                + Transaction.BALANCE_AFTER_TRANSACTION + ""
-
-                + ") "
-                + " SELECT "
-
-                + User.TABLE_NAME + "." + User.USER_ID + ","
-
-                + " 'App fee : ' ,"
-                + " 'App fee for Order ID '" +  " || " + Order.TABLE_NAME + "." +  Order.ORDER_ID + "::text " + ","
-
-                + Transaction.TRANSACTION_TYPE_APP_FEE + ","
-                + " ? ,"
-
-                + " false " + ","
-                + Shop.TABLE_NAME + "." + Shop.ACCOUNT_BALANCE + ""
-
-                + " FROM " + User.TABLE_NAME
-                + " INNER JOIN " + Shop.TABLE_NAME + " ON ( " + Shop.TABLE_NAME + "." +  Shop.SHOP_ADMIN_ID + " = " + User.TABLE_NAME + "." + User.USER_ID + " ) "
-                + " INNER JOIN " + Order.TABLE_NAME + " ON ( " + Order.TABLE_NAME + "." + Order.SHOP_ID + " = " + Shop.TABLE_NAME + "." + Shop.SHOP_ID + " ) "
-                + " WHERE " + Order.TABLE_NAME + "." + Order.ORDER_ID + " = ? ";
-
-
 
 
 
@@ -849,26 +725,6 @@ public class DAOOrderStaff {
 //            System.out.println("Total rows updated: " + updatedRows);
 
 
-
-            statement = connection.prepareStatement(updateAccountBalance);
-
-            i = 0;
-
-            statement.setObject(++i, GlobalConstants.app_service_charge_pick_for_shop_value);
-            statement.setObject(++i,orderID);
-
-            updatedRows = statement.executeUpdate();
-
-
-
-            statement = connection.prepareStatement(createTransaction);
-
-            i = 0;
-
-            statement.setObject(++i, GlobalConstants.app_service_charge_pick_for_shop_value);
-            statement.setObject(++i,orderID);
-
-            updatedRows = statement.executeUpdate();
 
 
 

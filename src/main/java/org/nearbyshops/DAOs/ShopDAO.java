@@ -1212,7 +1212,6 @@ public class ShopDAO {
 			// Applying shop visibility filter. Gives all the shops which are visible at the given location defined by
 			// latCenter and lonCenter. For more information see the API documentation.
 
-
 			queryJoin = queryJoin + " AND (6371.01 * acos(cos( radians("
 					+ latCenter + ")) * cos( radians(" + Shop.LAT_CENTER + " )) * cos(radians( " + Shop.LON_CENTER
 					+ ") - radians(" + lonCenter
@@ -1248,6 +1247,22 @@ public class ShopDAO {
 
 
 
+
+		if(Globals.licensingRestrictionsEnabled)
+		{
+			double latMarket = Globals.getMarketConfiguration().getLatCenter();
+			double lonMarket = Globals.getMarketConfiguration().getLonCenter();
+
+			queryJoin = queryJoin + " AND (6371.01 * acos(cos( radians(" + latMarket + ")) * cos( radians(" + Shop.LAT_CENTER
+					+ " )) * cos(radians( " + Shop.LON_CENTER + ") - radians(" + lonMarket + "))"
+					+ " + sin( radians(" + latMarket + ")) * sin(radians(" + Shop.LAT_CENTER + ")))) <= " + Globals.maxMarketRangeInKms ;;
+		}
+
+
+
+
+
+
 		if(searchString !=null)
 		{
 			String queryPartSearch = Shop.TABLE_NAME + "." + Shop.SHOP_NAME +" ilike '%" + searchString + "%'"
@@ -1257,6 +1272,7 @@ public class ShopDAO {
 
 			queryJoin = queryJoin + " AND " + queryPartSearch;
 		}
+
 
 
 
@@ -1715,10 +1731,6 @@ public class ShopDAO {
 
 			return endPoint;
 	}
-
-
-
-
 
 
 

@@ -25,6 +25,7 @@ import org.nearbyshops.DAOs.DAOSettings.ServiceConfigurationDAO;
 import org.nearbyshops.DAOs.DAOPushNotifications.DAOOneSignal;
 import org.nearbyshops.DAOs.*;
 import org.nearbyshops.DAOs.DAORoles.*;
+import org.nearbyshops.Model.ModelSettings.ServiceConfigurationLocal;
 import org.simplejavamail.mailer.Mailer;
 import org.simplejavamail.mailer.MailerBuilder;
 
@@ -170,30 +171,6 @@ public class Globals {
 
 
 
-//    // mailgun configuration
-
-//    private static Configuration configurationMailgun;
-//
-//
-//    public static Configuration getMailgunConfiguration()
-//    {
-//
-//        if(configurationMailgun==null)
-//        {
-//
-//            configurationMailgun = new Configuration()
-//                    .domain(GlobalConstants.MAILGUN_DOMAIN)
-//                    .apiKey(GlobalConstants.MAILGUN_API_KEY)
-//                    .from(GlobalConstants.MAILGUN_NAME,GlobalConstants.MAILGUN_EMAIL);
-//
-//            return configurationMailgun;
-//        }
-//        else
-//        {
-//            return configurationMailgun;
-//        }
-//    }
-
 
 
 
@@ -213,6 +190,40 @@ public class Globals {
 
 
 
+
+
+
+
+    public static boolean licensingRestrictionsEnabled = false;
+    private static ServiceConfigurationLocal serviceConfigurationLocal;
+
+
+    public static double maxMarketRangeInKms = 50;
+
+
+
+        public static ServiceConfigurationLocal getMarketConfiguration()
+        {
+            if(serviceConfigurationLocal==null)
+            {
+
+                serviceConfigurationLocal = Globals.serviceConfigDAO.getServiceConfiguration(0.0,0.0);
+
+                return serviceConfigurationLocal;
+            }
+            else
+            {
+                return serviceConfigurationLocal;
+            }
+        }
+
+
+
+
+        public static void setMarketConfig(ServiceConfigurationLocal serviceConfig)
+        {
+            serviceConfigurationLocal = serviceConfig;
+        }
 
 
 
@@ -241,22 +252,36 @@ public class Globals {
 
 
 
-        
-
-    private static Random randomNew = new Random();
+        private static Random randomNew = new Random();
 
 
-    public static char[] generateOTP(int length) {
-        String numbers = "1234567890";
+        public static char[] generateOTP(int length) {
+            String numbers = "1234567890";
 
-        char[] otp = new char[length];
+            char[] otp = new char[length];
 
-        for(int i = 0; i< length ; i++) {
-            otp[i] = numbers.charAt(randomNew.nextInt(numbers.length()));
+            for(int i = 0; i< length ; i++) {
+                otp[i] = numbers.charAt(randomNew.nextInt(numbers.length()));
+            }
+
+            return otp;
         }
 
-        return otp;
-    }
 
+        public static float distFrom(double lat1, double lng1, double lat2, double lng2) {
+
+            double earthRadius = 6371; //kilometers
+            double dLat = Math.toRadians(lat2-lat1);
+            double dLng = Math.toRadians(lng2-lng1);
+            double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                    Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
+                            Math.sin(dLng/2) * Math.sin(dLng/2);
+            double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            float dist = (float) (earthRadius * c);
+
+    //        System.out.println("Distance : " + dist);
+
+            return dist;
+        }
 
 }

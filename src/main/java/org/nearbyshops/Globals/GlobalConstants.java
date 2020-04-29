@@ -129,6 +129,10 @@ public class GlobalConstants {
 
 
 
+
+    public static final String SDS_URL = "http://sds.nearbyshops.org";
+
+
     public static final String NOTIFICATION_ORDER_RECIEVED = "NOTIFICATION_ORDER_RECIEVED";
     public static final String NOTIFICATION_ORDER_PACKED = "NOTIFICATION_ORDER_PACKED";
 

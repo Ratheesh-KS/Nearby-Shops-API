@@ -4,6 +4,8 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.nearbyshops.Globals.GlobalConstants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.*;
+import org.nearbyshops.Model.ModelBilling.Transaction;
+import org.nearbyshops.Model.ModelRoles.User;
 import org.nearbyshops.Model.ModelStats.CartStats;
 
 import java.sql.*;
@@ -132,6 +134,58 @@ public class PlaceOrderDAO {
 
 
 
+
+
+        String updateAccountBalance = "UPDATE " + Shop.TABLE_NAME
+
+                + " SET " + " " + Shop.ACCOUNT_BALANCE + " = " + Shop.ACCOUNT_BALANCE + " - ? "
+                + " WHERE " + Shop.SHOP_ID
+                + " = ( SELECT " + Order.SHOP_ID + " FROM " + Order.TABLE_NAME + " WHERE " + Order.ORDER_ID + " = ? )";
+
+
+
+
+
+        String createTransactionRecord = "INSERT INTO " + Transaction.TABLE_NAME
+                + "("
+
+                + Transaction.USER_ID + ","
+
+                + Transaction.TITLE + ","
+                + Transaction.DESCRIPTION + ","
+
+                + Transaction.TRANSACTION_TYPE + ","
+                + Transaction.TRANSACTION_AMOUNT + ","
+
+                + Transaction.IS_CREDIT + ","
+
+                + Transaction.BALANCE_AFTER_TRANSACTION + ""
+
+                + ") "
+                + " SELECT "
+
+                + User.TABLE_NAME + "." + User.USER_ID + ","
+
+                + " 'App fee : ' ,"
+                + " 'App fee for Order ID '" +  " || " + Order.TABLE_NAME + "." +  Order.ORDER_ID + "::text " + ","
+
+                + Transaction.TRANSACTION_TYPE_APP_FEE + ","
+                + " ? ,"
+
+                + " false " + ","
+                + Shop.TABLE_NAME + "." + Shop.ACCOUNT_BALANCE + ""
+
+                + " FROM " + User.TABLE_NAME
+                + " INNER JOIN " + Shop.TABLE_NAME + " ON ( " + Shop.TABLE_NAME + "." +  Shop.SHOP_ADMIN_ID + " = " + User.TABLE_NAME + "." + User.USER_ID + " ) "
+                + " INNER JOIN " + Order.TABLE_NAME + " ON ( " + Order.TABLE_NAME + "." + Order.SHOP_ID + " = " + Shop.TABLE_NAME + "." + Shop.SHOP_ID + " ) "
+                + " WHERE " + Order.TABLE_NAME + "." + Order.ORDER_ID + " = ? ";
+
+
+
+
+
+
+
         try {
 
             connection = dataSource.getConnection();
@@ -224,6 +278,32 @@ public class PlaceOrderDAO {
             statement = connection.prepareStatement(deleteCartItems,PreparedStatement.RETURN_GENERATED_KEYS);
             statement.setInt(1,cartID);
             statement.executeUpdate();
+
+
+
+
+
+            statement = connection.prepareStatement(updateAccountBalance);
+
+            int i = 0;
+
+            statement.setObject(++i, appServiceCharge);
+            statement.setObject(++i,orderID);
+
+            statement.executeUpdate();
+
+
+
+
+            statement = connection.prepareStatement(createTransactionRecord);
+
+            i = 0;
+
+            statement.setObject(++i, appServiceCharge);
+            statement.setObject(++i,orderID);
+
+            statement.executeUpdate();
+
 
 
 

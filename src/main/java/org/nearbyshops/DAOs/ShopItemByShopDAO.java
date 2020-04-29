@@ -58,6 +58,7 @@ public class ShopItemByShopDAO {
 					+ Item.TABLE_NAME + "." + Item.ITEM_IMAGE_URL + ","
 					+ Item.TABLE_NAME + "." + Item.ITEM_NAME + ","
 					+ Item.TABLE_NAME + "." + Item.QUANTITY_UNIT + ","
+					+ Item.TABLE_NAME + "." + Item.LIST_PRICE + ","
 
 //					+ Item.TABLE_NAME + "." + Item.ITEM_CATEGORY_ID + ","
 //					+ Item.TABLE_NAME + "." + Item.ITEM_DESC + ","
@@ -298,6 +299,7 @@ public class ShopItemByShopDAO {
 					item.setItemName(rs.getString(Item.ITEM_NAME));
 					item.setItemImageURL(rs.getString(Item.ITEM_IMAGE_URL));
 					item.setQuantityUnit(rs.getString(Item.QUANTITY_UNIT));
+					item.setListPrice(rs.getFloat(Item.LIST_PRICE));
 
 //					item.setItemCategoryID(rs.getInt(Item.ITEM_CATEGORY_ID));
 //					item.setItemDescriptionLong(rs.getString(Item.ITEM_DESCRIPTION_LONG));

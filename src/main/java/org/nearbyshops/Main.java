@@ -526,6 +526,7 @@ public class Main {
     private static void setupPing()
     {
 
+
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
@@ -536,6 +537,7 @@ public class Main {
                     // for each url send a ping
                     sendPing(url);
                 }
+
 
             }
         };
@@ -548,6 +550,9 @@ public class Main {
         // send ping to the sds server at every 3 hours
         timer.scheduleAtFixedRate(timerTask,0,3*60*60*1000);
     }
+
+
+
 
 
     private static final OkHttpClient client = new OkHttpClient();
@@ -590,7 +595,7 @@ public class Main {
 
 
         } catch (IOException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
 
 
