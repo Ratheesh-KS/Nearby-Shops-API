@@ -80,7 +80,7 @@ public class ShopItemDAO {
 //			statement.setObject(2,shopItem.getItemPrice());
 			statement.setObject(2,shopItem.getItemID());
 
-			statement.setObject(3,0);
+			statement.setObject(3,10);
 			statement.setObject(4,0);
 			statement.setTimestamp(5,new Timestamp(System.currentTimeMillis()));
 
