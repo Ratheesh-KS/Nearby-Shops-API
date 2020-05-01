@@ -1,7 +1,7 @@
 package org.nearbyshops.DAOs.DAOOrders.Backups;
 
 import com.zaxxer.hikari.HikariDataSource;
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.*;
 import org.nearbyshops.Model.ModelStats.CartStats;
@@ -218,7 +218,7 @@ public class PlaceOrderDAOBackup25Feb20 {
                 {
 
                     deliveryCharges = 0;
-                    appServiceCharge = GlobalConstants.app_service_charge_pick_for_shop_value;
+                    appServiceCharge = Constants.app_service_charge_pick_for_shop_value;
                 }
                 else
                 {
@@ -233,7 +233,7 @@ public class PlaceOrderDAOBackup25Feb20 {
                         deliveryCharges = 0; // delivery free above this amount
                     }
 
-                    appServiceCharge = GlobalConstants.app_service_charge_home_delivery_value;
+                    appServiceCharge = Constants.app_service_charge_home_delivery_value;
                 }
 
                 netPayable = itemTotal + appServiceCharge + deliveryCharges;

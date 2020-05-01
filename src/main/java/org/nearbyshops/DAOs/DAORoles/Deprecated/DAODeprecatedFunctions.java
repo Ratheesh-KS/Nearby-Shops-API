@@ -1,7 +1,7 @@
 package org.nearbyshops.DAOs.DAORoles.Deprecated;
 
 import com.zaxxer.hikari.HikariDataSource;
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.ModelRoles.*;
 import org.nearbyshops.Model.Shop;
@@ -265,7 +265,7 @@ public class DAODeprecatedFunctions {
 
 
 
-            if(user.getRole()== GlobalConstants.ROLE_SHOP_ADMIN_CODE)
+            if(user.getRole()== Constants.ROLE_SHOP_ADMIN_CODE)
             {
                 if (rowCountItems == 1)
                 {
@@ -621,7 +621,7 @@ public class DAODeprecatedFunctions {
 
 
 
-            if(user.getRole()== GlobalConstants.ROLE_SHOP_ADMIN_CODE)
+            if(user.getRole()== Constants.ROLE_SHOP_ADMIN_CODE)
             {
                 if (rowCountItems == 1)
                 {
@@ -640,7 +640,7 @@ public class DAODeprecatedFunctions {
 
 
 
-            if(idOfInsertedRow!=-1 && user.getRole()==GlobalConstants.ROLE_SHOP_STAFF_CODE)
+            if(idOfInsertedRow!=-1 && user.getRole()== Constants.ROLE_SHOP_STAFF_CODE)
             {
 
                 statementPermissions = connection.prepareStatement(insertShopStaffPermissions,PreparedStatement.RETURN_GENERATED_KEYS);
@@ -664,7 +664,7 @@ public class DAODeprecatedFunctions {
             if(idOfInsertedRow!=-1)
             {
 
-                if( (user.getRole()== GlobalConstants.ROLE_DELIVERY_GUY_SELF_CODE || user.getRole() ==GlobalConstants.ROLE_DELIVERY_GUY_CODE))
+                if( (user.getRole()== Constants.ROLE_DELIVERY_GUY_SELF_CODE || user.getRole() == Constants.ROLE_DELIVERY_GUY_CODE))
                 {
                     statementDeliveryGuyData = connection.prepareStatement(insertDeliveryGuyData,PreparedStatement.RETURN_GENERATED_KEYS);
                     i = 0;
@@ -900,7 +900,7 @@ public class DAODeprecatedFunctions {
 
 
 
-            if(idOfInsertedRow!=-1 && user.getRole()==GlobalConstants.ROLE_SHOP_STAFF_CODE)
+            if(idOfInsertedRow!=-1 && user.getRole()== Constants.ROLE_SHOP_STAFF_CODE)
             {
 
                 statementPermissions = connection.prepareStatement(insertShopStaffPermissions,PreparedStatement.RETURN_GENERATED_KEYS);
@@ -924,7 +924,7 @@ public class DAODeprecatedFunctions {
             if(idOfInsertedRow!=-1)
             {
 
-                if( (user.getRole()== GlobalConstants.ROLE_DELIVERY_GUY_SELF_CODE || user.getRole() ==GlobalConstants.ROLE_DELIVERY_GUY_CODE))
+                if( (user.getRole()== Constants.ROLE_DELIVERY_GUY_SELF_CODE || user.getRole() == Constants.ROLE_DELIVERY_GUY_CODE))
                 {
                     statementDeliveryGuyData = connection.prepareStatement(insertDeliveryGuyData,PreparedStatement.RETURN_GENERATED_KEYS);
                     i = 0;
@@ -1317,9 +1317,9 @@ public class DAODeprecatedFunctions {
                 + " FROM " + User.TABLE_NAME
                 + " LEFT OUTER JOIN " + StaffPermissions.TABLE_NAME + " ON (" + StaffPermissions.TABLE_NAME + "." + StaffPermissions.STAFF_ID + " = " + User.TABLE_NAME + "." + User.USER_ID + ")"
                 + " WHERE TRUE "
-                + " AND ( " + User.TABLE_NAME + "." + User.ROLE + " = " + GlobalConstants.ROLE_STAFF_CODE
+                + " AND ( " + User.TABLE_NAME + "." + User.ROLE + " = " + Constants.ROLE_STAFF_CODE
                 + " OR "
-                + User.TABLE_NAME + "." + User.ROLE + " = " + GlobalConstants.ROLE_ADMIN_CODE + " ) ";
+                + User.TABLE_NAME + "." + User.ROLE + " = " + Constants.ROLE_ADMIN_CODE + " ) ";
 
 
 
@@ -1618,9 +1618,9 @@ public class DAODeprecatedFunctions {
                 + " FROM " + User.TABLE_NAME
                 + " LEFT OUTER JOIN " + StaffPermissions.TABLE_NAME + " ON (" + StaffPermissions.TABLE_NAME + "." + StaffPermissions.STAFF_ID + " = " + User.TABLE_NAME + "." + User.USER_ID + ")"
                 + " WHERE TRUE "
-                + " AND ( " + User.TABLE_NAME + "." + User.ROLE + " = " + GlobalConstants.ROLE_STAFF_CODE
+                + " AND ( " + User.TABLE_NAME + "." + User.ROLE + " = " + Constants.ROLE_STAFF_CODE
                 + " OR "
-                + User.TABLE_NAME + "." + User.ROLE + " = " + GlobalConstants.ROLE_ADMIN_CODE + " ) ";
+                + User.TABLE_NAME + "." + User.ROLE + " = " + Constants.ROLE_ADMIN_CODE + " ) ";
 
 
 //        + " AND " + User.TABLE_NAME + "." + User.ROLE + " = " + GlobalConstantsNBS.ROLE_STAFF_CODE;
@@ -2149,8 +2149,8 @@ public class DAODeprecatedFunctions {
                 + " FROM " + User.TABLE_NAME
                 + " INNER JOIN " + DeliveryGuyData.TABLE_NAME + " ON (" + DeliveryGuyData.TABLE_NAME + "." + DeliveryGuyData.STAFF_USER_ID + " = " + User.TABLE_NAME + "." + User.USER_ID + ")"
                 + " WHERE TRUE "
-                + " AND ( " + User.TABLE_NAME + "." + User.ROLE + " = " + GlobalConstants.ROLE_DELIVERY_GUY_SELF_CODE
-                + " OR " + User.TABLE_NAME + "." + User.ROLE + " = " + GlobalConstants.ROLE_DELIVERY_GUY_CODE +  " ) ";
+                + " AND ( " + User.TABLE_NAME + "." + User.ROLE + " = " + Constants.ROLE_DELIVERY_GUY_SELF_CODE
+                + " OR " + User.TABLE_NAME + "." + User.ROLE + " = " + Constants.ROLE_DELIVERY_GUY_CODE +  " ) ";
 
 
 
@@ -2760,8 +2760,8 @@ public class DAODeprecatedFunctions {
                 + " FROM " + User.TABLE_NAME
                 + " LEFT OUTER JOIN " + ShopStaffPermissions.TABLE_NAME + " ON (" + ShopStaffPermissions.TABLE_NAME + "." + ShopStaffPermissions.STAFF_ID + " = " + User.TABLE_NAME + "." + User.USER_ID + ")"
                 + " WHERE " + ShopStaffPermissions.TABLE_NAME + "." + ShopStaffPermissions.SHOP_ID + " = ? "
-                + " AND ( " + User.TABLE_NAME + "." + User.ROLE + " = " + GlobalConstants.ROLE_SHOP_STAFF_CODE
-                + " OR " + User.TABLE_NAME + "." + User.ROLE + " = " + GlobalConstants.ROLE_SHOP_ADMIN_CODE + " ) ";
+                + " AND ( " + User.TABLE_NAME + "." + User.ROLE + " = " + Constants.ROLE_SHOP_STAFF_CODE
+                + " OR " + User.TABLE_NAME + "." + User.ROLE + " = " + Constants.ROLE_SHOP_ADMIN_CODE + " ) ";
 
 
 
@@ -3077,9 +3077,9 @@ public class DAODeprecatedFunctions {
                 + " FROM " + User.TABLE_NAME
                 + " LEFT OUTER JOIN " + StaffPermissions.TABLE_NAME + " ON (" + StaffPermissions.TABLE_NAME + "." + StaffPermissions.STAFF_ID + " = " + User.TABLE_NAME + "." + User.USER_ID + ")"
                 + " WHERE TRUE "
-                + " AND ( " + User.TABLE_NAME + "." + User.ROLE + " = " + GlobalConstants.ROLE_SHOP_STAFF_CODE
+                + " AND ( " + User.TABLE_NAME + "." + User.ROLE + " = " + Constants.ROLE_SHOP_STAFF_CODE
                 + " OR "
-                + User.TABLE_NAME + "." + User.ROLE + " = " + GlobalConstants.ROLE_SHOP_ADMIN_CODE + " ) ";
+                + User.TABLE_NAME + "." + User.ROLE + " = " + Constants.ROLE_SHOP_ADMIN_CODE + " ) ";
 
 
 //        + " AND " + User.TABLE_NAME + "." + User.ROLE + " = " + GlobalConstantsNBS.ROLE_STAFF_CODE;

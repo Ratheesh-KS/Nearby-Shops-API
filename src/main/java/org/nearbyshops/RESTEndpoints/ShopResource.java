@@ -3,7 +3,7 @@ package org.nearbyshops.RESTEndpoints;
 import net.coobird.thumbnailator.Thumbnails;
 import org.nearbyshops.DAOs.DAOBilling.DAOAddBalance;
 import org.nearbyshops.DAOs.ShopDAO;
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.Image;
 import org.nearbyshops.Model.Shop;
@@ -23,7 +23,6 @@ import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
 
 
 @Path("/api/v1/Shop")
@@ -40,7 +39,7 @@ public class ShopResource {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_END_USER})
+	@RolesAllowed({Constants.ROLE_END_USER})
 	public Response createShop(Shop shop)
 	{
 
@@ -74,7 +73,7 @@ public class ShopResource {
 	@PUT
 	@Path("/UpdateByAdmin/{ShopID}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_ADMIN, GlobalConstants.ROLE_STAFF})
+	@RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF})
 	public Response updateShopByAdmin(Shop shop, @PathParam("ShopID")int ShopID)
 	{
 
@@ -104,7 +103,7 @@ public class ShopResource {
 
 		User user = (User) Globals.accountApproved;
 
-		if(user.getRole()==GlobalConstants.ROLE_STAFF_CODE) {
+		if(user.getRole()== Constants.ROLE_STAFF_CODE) {
 
 			StaffPermissions permissions = Globals.daoStaff.getStaffPermissions(user.getUserID());
 
@@ -140,7 +139,7 @@ public class ShopResource {
 	@PUT
 	@Path("/UpdateBySelf")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN})
+	@RolesAllowed({Constants.ROLE_SHOP_ADMIN})
 	public Response updateShopByOwner(Shop shop)
 	{
 
@@ -187,7 +186,7 @@ public class ShopResource {
 	@PUT
 	@Path("/SetShopOpen")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN})
+	@RolesAllowed({Constants.ROLE_SHOP_ADMIN})
 	public Response setShopOpen()
 	{
 
@@ -215,7 +214,7 @@ public class ShopResource {
 	@PUT
 	@Path("/SetShopClosed")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN})
+	@RolesAllowed({Constants.ROLE_SHOP_ADMIN})
 	public Response setShopClosed()
 	{
 
@@ -242,18 +241,18 @@ public class ShopResource {
 
 	@DELETE
 	@Path("/{ShopID}")
-	@RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN, GlobalConstants.ROLE_ADMIN, GlobalConstants.ROLE_STAFF})
+	@RolesAllowed({Constants.ROLE_SHOP_ADMIN, Constants.ROLE_ADMIN, Constants.ROLE_STAFF})
 	public Response deleteShop(@PathParam("ShopID")int shopID)
 	{
 
 
 		User user = (User) Globals.accountApproved;
 
-		if(user.getRole()==GlobalConstants.ROLE_SHOP_ADMIN_CODE)
+		if(user.getRole()== Constants.ROLE_SHOP_ADMIN_CODE)
 		{
 			shopID = Globals.daoUserUtility.getShopIDForShopAdmin(user.getUserID());
 		}
-		else if(user.getRole()==GlobalConstants.ROLE_STAFF_CODE)
+		else if(user.getRole()== Constants.ROLE_STAFF_CODE)
 		{
 
 			StaffPermissions permissions = Globals.daoStaff.getStaffPermissions(user.getUserID());
@@ -325,7 +324,7 @@ public class ShopResource {
 	@GET
 	@Path("/GetShopForShopAdmin")
 	@Produces(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN})
+	@RolesAllowed({Constants.ROLE_SHOP_ADMIN})
 	public Response getShopForShopAdmin()
 	{
 		User user = ((User) Globals.accountApproved);
@@ -358,7 +357,7 @@ public class ShopResource {
 	@GET
 	@Path("/GetShopForShopStaff")
 	@Produces(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_SHOP_STAFF})
+	@RolesAllowed({Constants.ROLE_SHOP_STAFF})
 	public Response getShopForShopStaff()
 	{
 		User user = ((User) Globals.accountApproved);
@@ -423,7 +422,7 @@ public class ShopResource {
 	@PUT
 	@Path("/AddBalance/{ShopAdminID}/{AmountToAdd}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_ADMIN,GlobalConstants.ROLE_STAFF})
+	@RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF})
 	public Response addBalance(@PathParam("ShopAdminID") int shopAdminID, @PathParam("AmountToAdd") double amountToAdd)
 	{
 
@@ -432,7 +431,7 @@ public class ShopResource {
 
 		// check staff permissions
 
-		if(user.getRole()!=GlobalConstants.ROLE_ADMIN_CODE)
+		if(user.getRole()!= Constants.ROLE_ADMIN_CODE)
 		{
 			if(permissions==null || !permissions.isPermitApproveShops())
 			{
@@ -486,9 +485,9 @@ public class ShopResource {
 	{
 
 
-		if(limit >= GlobalConstants.max_limit)
+		if(limit >= Constants.max_limit)
 		{
-			limit = GlobalConstants.max_limit;
+			limit = Constants.max_limit;
 		}
 
 
@@ -503,7 +502,7 @@ public class ShopResource {
 
 
 		endPoint.setLimit(limit);
-		endPoint.setMax_limit(GlobalConstants.max_limit);
+		endPoint.setMax_limit(Constants.max_limit);
 		endPoint.setOffset(offset);
 
 
@@ -545,9 +544,9 @@ public class ShopResource {
 
 
 
-		if(limit >= GlobalConstants.max_limit)
+		if(limit >= Constants.max_limit)
 		{
-			limit = GlobalConstants.max_limit;
+			limit = Constants.max_limit;
 		}
 
 
@@ -564,7 +563,7 @@ public class ShopResource {
 
 		endPoint.setLimit(limit);
 		endPoint.setOffset(offset);
-		endPoint.setMax_limit(GlobalConstants.max_limit);
+		endPoint.setMax_limit(Constants.max_limit);
 
 
 
@@ -597,9 +596,9 @@ public class ShopResource {
 
 
 
-		if(limit >= GlobalConstants.max_limit)
+		if(limit >= Constants.max_limit)
 		{
-			limit = GlobalConstants.max_limit;
+			limit = Constants.max_limit;
 		}
 
 
@@ -616,7 +615,7 @@ public class ShopResource {
 
 		endPoint.setLimit(limit);
 		endPoint.setOffset(offset);
-		endPoint.setMax_limit(GlobalConstants.max_limit);
+		endPoint.setMax_limit(Constants.max_limit);
 
 
 /*
@@ -689,7 +688,7 @@ public class ShopResource {
 	@POST
 	@Path("/Image")
 	@Consumes({MediaType.APPLICATION_OCTET_STREAM})
-	@RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN, GlobalConstants.ROLE_ADMIN})
+	@RolesAllowed({Constants.ROLE_SHOP_ADMIN, Constants.ROLE_ADMIN})
 	public Response uploadImage(InputStream in, @HeaderParam("Content-Length") long fileSize,
                                 @QueryParam("PreviousImageName") String previousImageName
 	) throws Exception
@@ -809,7 +808,7 @@ public class ShopResource {
 
 	@DELETE
 	@Path("/Image/{name}")
-	@RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN,GlobalConstants.ROLE_ADMIN})
+	@RolesAllowed({Constants.ROLE_SHOP_ADMIN, Constants.ROLE_ADMIN})
 	public Response deleteImageFile(@PathParam("name")String fileName)
 	{
 

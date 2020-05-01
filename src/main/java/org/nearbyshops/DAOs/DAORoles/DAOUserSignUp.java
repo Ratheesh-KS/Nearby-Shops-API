@@ -1,7 +1,7 @@
 package org.nearbyshops.DAOs.DAORoles;
 
 import com.zaxxer.hikari.HikariDataSource;
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.ModelRoles.EmailVerificationCode;
 import org.nearbyshops.Model.ModelRoles.PhoneVerificationCode;
@@ -265,7 +265,7 @@ public class DAOUserSignUp {
                 statement.setObject(++i,user.isAccountPrivate());
                 statement.setObject(++i,user.getReferredBy());
 
-                if(user.getRole()== GlobalConstants.ROLE_END_USER_CODE)
+                if(user.getRole()== Constants.ROLE_END_USER_CODE)
                 {
                     statement.setObject(++i,true);
                 }
@@ -316,7 +316,7 @@ public class DAOUserSignUp {
 
 
 
-                if (user.getRole() == GlobalConstants.ROLE_END_USER_CODE) {
+                if (user.getRole() == Constants.ROLE_END_USER_CODE) {
                     statement.setObject(++i, true);
                 } else {
                     statement.setObject(++i, false);
@@ -345,7 +345,7 @@ public class DAOUserSignUp {
 
 
 
-            if(user.getRole()== GlobalConstants.ROLE_SHOP_ADMIN_CODE)
+            if(user.getRole()== Constants.ROLE_SHOP_ADMIN_CODE)
             {
                 if (rowCountItems == 1)
                 {
@@ -375,13 +375,13 @@ public class DAOUserSignUp {
                     statement = connection.prepareStatement(applyJoiningCreditSQL);
                     i = 0;
 
-                    if(user.getRole()== GlobalConstants.ROLE_SHOP_ADMIN_CODE)
+                    if(user.getRole()== Constants.ROLE_SHOP_ADMIN_CODE)
                     {
-                        statement.setObject(++i, GlobalConstants.joining_credit_for_shop_owner_value);
+                        statement.setObject(++i, Constants.joining_credit_for_shop_owner_value);
                     }
-                    else if(user.getRole()== GlobalConstants.ROLE_END_USER_CODE)
+                    else if(user.getRole()== Constants.ROLE_END_USER_CODE)
                     {
-                        statement.setObject(++i, GlobalConstants.joining_credit_for_end_user_value);
+                        statement.setObject(++i, Constants.joining_credit_for_end_user_value);
                     }
                     else
                     {
@@ -400,14 +400,14 @@ public class DAOUserSignUp {
                     i = 0;
 
 
-                    if(user.getRole()== GlobalConstants.ROLE_SHOP_ADMIN_CODE)
+                    if(user.getRole()== Constants.ROLE_SHOP_ADMIN_CODE)
                     {
 
-                        statement.setObject(++i, GlobalConstants.joining_credit_for_shop_owner_value);
+                        statement.setObject(++i, Constants.joining_credit_for_shop_owner_value);
                     }
-                    else if(user.getRole()== GlobalConstants.ROLE_END_USER_CODE)
+                    else if(user.getRole()== Constants.ROLE_END_USER_CODE)
                     {
-                        statement.setObject(++i, GlobalConstants.joining_credit_for_end_user_value);
+                        statement.setObject(++i, Constants.joining_credit_for_end_user_value);
                     }
                     else
                     {
@@ -429,9 +429,9 @@ public class DAOUserSignUp {
                     i = 0;
 
 
-                    if(user.getRole()== GlobalConstants.ROLE_END_USER_CODE)
+                    if(user.getRole()== Constants.ROLE_END_USER_CODE)
                     {
-                        statement.setObject(++i, GlobalConstants.REFERRAL_CREDIT_FOR_END_USER_REGISTRATION);
+                        statement.setObject(++i, Constants.REFERRAL_CREDIT_FOR_END_USER_REGISTRATION);
                     }
                     else
                     {
@@ -450,9 +450,9 @@ public class DAOUserSignUp {
                     i = 0;
 
 
-                    if(user.getRole()== GlobalConstants.ROLE_END_USER_CODE)
+                    if(user.getRole()== Constants.ROLE_END_USER_CODE)
                     {
-                        statement.setObject(++i, GlobalConstants.REFERRAL_CREDIT_FOR_END_USER_REGISTRATION);
+                        statement.setObject(++i, Constants.REFERRAL_CREDIT_FOR_END_USER_REGISTRATION);
                     }
                     else
                     {

@@ -1,7 +1,7 @@
 package org.nearbyshops.DAOs.Backups;
 
 import com.zaxxer.hikari.HikariDataSource;
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.Item;
 import org.nearbyshops.Model.ItemCategory;
@@ -33,9 +33,9 @@ public class ShopDAOBackup {
 
 		// add joining credit to the users account
 		String updateRole =  " UPDATE " + User.TABLE_NAME
-				+ " SET " + User.ROLE + " = " + GlobalConstants.ROLE_SHOP_ADMIN_CODE
+				+ " SET " + User.ROLE + " = " + Constants.ROLE_SHOP_ADMIN_CODE
 				+ " WHERE " + User.TABLE_NAME + "." + User.USER_ID + " = ? "
-				+ " AND " + User.TABLE_NAME + "." + User.ROLE + " = " + GlobalConstants.ROLE_END_USER_CODE ;
+				+ " AND " + User.TABLE_NAME + "." + User.ROLE + " = " + Constants.ROLE_END_USER_CODE ;
 
 
 
@@ -1398,7 +1398,7 @@ public class ShopDAOBackup {
 				+ " AND " + Shop.TABLE_NAME + "." + Shop.IS_OPEN + " = TRUE "
 				+ " AND " + Shop.TABLE_NAME + "." + Shop.SHOP_ENABLED + " = TRUE "
 				+ " AND " + ShopItem.TABLE_NAME + "." + ShopItem.ITEM_PRICE + " > 0 "
-				+ " AND " + Shop.TABLE_NAME + "." + Shop.ACCOUNT_BALANCE + ">=" + GlobalConstants.min_account_balance_for_shop;
+				+ " AND " + Shop.TABLE_NAME + "." + Shop.ACCOUNT_BALANCE + ">=" + Constants.min_account_balance_for_shop;
 
 
 

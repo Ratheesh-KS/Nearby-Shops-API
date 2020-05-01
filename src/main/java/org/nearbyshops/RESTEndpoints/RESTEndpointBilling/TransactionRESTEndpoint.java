@@ -1,7 +1,7 @@
 package org.nearbyshops.RESTEndpoints.RESTEndpointBilling;
 
 
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.ModelBilling.TransactionEndpoint;
 import org.nearbyshops.Model.ModelRoles.User;
@@ -26,7 +26,7 @@ public class TransactionRESTEndpoint {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({GlobalConstants.ROLE_END_USER,GlobalConstants.ROLE_SHOP_ADMIN})
+    @RolesAllowed({Constants.ROLE_END_USER, Constants.ROLE_SHOP_ADMIN})
     public Response getTransactions(
             @QueryParam("IsCredit") Boolean isCredit,
             @QueryParam("TransactionType") Integer transactionType,
@@ -39,9 +39,9 @@ public class TransactionRESTEndpoint {
 
         if(limit!=null)
         {
-            if(limit >= GlobalConstants.max_limit)
+            if(limit >= Constants.max_limit)
             {
-                limit = GlobalConstants.max_limit;
+                limit = Constants.max_limit;
             }
 
             if(offset==null)

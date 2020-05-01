@@ -1,6 +1,6 @@
 package org.nearbyshops.RESTEndpoints.RESTEndpointsOrder.Backups;
 
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.ModelEndpoint.OrderEndPoint;
 import org.nearbyshops.Model.ModelRoles.User;
@@ -17,7 +17,7 @@ public class DeprecatedMethods {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({GlobalConstants.ROLE_END_USER,GlobalConstants.ROLE_ADMIN})
+    @RolesAllowed({Constants.ROLE_END_USER, Constants.ROLE_ADMIN})
     public Response getOrders(
             @QueryParam("OrderID")Integer orderID,
             @QueryParam("ShopID")Integer shopID,
@@ -47,9 +47,9 @@ public class DeprecatedMethods {
 
             if(limit!=null)
             {
-                if(limit >= GlobalConstants.max_limit)
+                if(limit >= Constants.max_limit)
                 {
-                    limit = GlobalConstants.max_limit;
+                    limit = Constants.max_limit;
                 }
 
                 if(offset==null)
@@ -79,7 +79,7 @@ public class DeprecatedMethods {
             {
                 endpoint.setLimit(limit);
                 endpoint.setOffset(offset);
-                endpoint.setMax_limit(GlobalConstants.max_limit);
+                endpoint.setMax_limit(Constants.max_limit);
             }
 
 
@@ -107,7 +107,7 @@ public class DeprecatedMethods {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({GlobalConstants.ROLE_SHOP_STAFF, GlobalConstants.ROLE_SHOP_ADMIN, GlobalConstants.ROLE_DELIVERY_GUY_SELF,GlobalConstants.ROLE_DELIVERY_GUY})
+    @RolesAllowed({Constants.ROLE_SHOP_STAFF, Constants.ROLE_SHOP_ADMIN, Constants.ROLE_DELIVERY_GUY_SELF, Constants.ROLE_DELIVERY_GUY})
     public Response getOrders(@QueryParam("OrderID")Integer orderID,
                               @QueryParam("EndUserID")Integer endUserID,
                               @QueryParam("ShopID")Integer shopID,
@@ -131,9 +131,9 @@ public class DeprecatedMethods {
 
         if(limit!=null)
         {
-            if(limit >= GlobalConstants.max_limit)
+            if(limit >= Constants.max_limit)
             {
-                limit = GlobalConstants.max_limit;
+                limit = Constants.max_limit;
             }
 
             if(offset==null)
@@ -163,7 +163,7 @@ public class DeprecatedMethods {
         {
             endpoint.setLimit(limit);
             endpoint.setOffset(offset);
-            endpoint.setMax_limit(GlobalConstants.max_limit);
+            endpoint.setMax_limit(Constants.max_limit);
         }
 
 

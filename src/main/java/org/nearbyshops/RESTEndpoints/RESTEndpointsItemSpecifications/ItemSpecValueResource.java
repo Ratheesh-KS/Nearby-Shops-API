@@ -5,7 +5,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import org.nearbyshops.DAOs.DAOItemSpecification.ItemSpecValueDAOJoinOuter;
 import org.nearbyshops.DAOs.DAOItemSpecification.ItemSpecificationValueDAO;
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.Image;
 import org.nearbyshops.Model.ModelItemSpecification.EndPoints.ItemSpecValueEndPoint;
@@ -44,7 +44,7 @@ public class ItemSpecValueResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({GlobalConstants.ROLE_ADMIN, GlobalConstants.ROLE_STAFF})
+    @RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF})
     public Response saveItemSpecValue(ItemSpecificationValue itemSpecValue)
     {
         int idOfInsertedRow = -1;
@@ -84,7 +84,7 @@ public class ItemSpecValueResource {
     @PUT
     @Path("/{ImageID}")
     @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({GlobalConstants.ROLE_ADMIN, GlobalConstants.ROLE_STAFF})
+    @RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF})
     public Response updateItemSpec(ItemSpecificationValue itemSpecValue, @PathParam("ImageID")int imageID)
     {
 
@@ -148,7 +148,7 @@ public class ItemSpecValueResource {
     @DELETE
     @Path("/{ItemSpecNameID}")
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({GlobalConstants.ROLE_ADMIN, GlobalConstants.ROLE_STAFF})
+    @RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF})
     public Response deleteItemSpecValue(@PathParam("ItemSpecNameID")int itemSpecNameID)
     {
 
@@ -478,7 +478,7 @@ public class ItemSpecValueResource {
     @POST
     @Path("/Image")
     @Consumes({MediaType.APPLICATION_OCTET_STREAM})
-    @RolesAllowed({GlobalConstants.ROLE_ADMIN, GlobalConstants.ROLE_STAFF})
+    @RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF})
     public Response uploadImage(InputStream in, @HeaderParam("Content-Length") long fileSize,
                                 @QueryParam("PreviousImageName") String previousImageName
     ) throws Exception
@@ -598,7 +598,7 @@ public class ItemSpecValueResource {
 
     @DELETE
     @Path("/Image/{name}")
-    @RolesAllowed({GlobalConstants.ROLE_ADMIN, GlobalConstants.ROLE_STAFF})
+    @RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF})
     public Response deleteImageFile(@PathParam("name")String fileName)
     {
 

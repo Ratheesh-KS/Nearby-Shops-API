@@ -2,7 +2,7 @@ package org.nearbyshops.RESTEndpoints.RESTEndpointRoles;
 
 
 
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Globals.SendSMS;
 import org.nearbyshops.Model.ModelRoles.User;
@@ -141,7 +141,7 @@ public class ResetPasswordRESTEndpoint {
             timestampExpiry
                     = new Timestamp(
                     System.currentTimeMillis()
-                            + GlobalConstants.PASSWORD_RESET_CODE_EXPIRY_MINUTES * 60 * 1000
+                            + Constants.PASSWORD_RESET_CODE_EXPIRY_MINUTES * 60 * 1000
             );
 
 
@@ -166,7 +166,7 @@ public class ResetPasswordRESTEndpoint {
 
 
                     Email email = EmailBuilder.startingBlank()
-                            .from(GlobalConstants.EMAIL_SENDER_NAME, GlobalConstants.EMAIL_ADDRESS_FOR_SENDER)
+                            .from(Constants.EMAIL_SENDER_NAME, Constants.EMAIL_ADDRESS_FOR_SENDER)
                             .to(user.getName(),user.getEmail())
                             .withSubject("E-mail Verification Code")
                             .withHTMLText(message)
@@ -213,7 +213,7 @@ public class ResetPasswordRESTEndpoint {
 
 
                 Email email = EmailBuilder.startingBlank()
-                        .from(GlobalConstants.EMAIL_SENDER_NAME, GlobalConstants.EMAIL_ADDRESS_FOR_SENDER)
+                        .from(Constants.EMAIL_SENDER_NAME, Constants.EMAIL_ADDRESS_FOR_SENDER)
                         .to(user.getName(),user.getEmail())
                         .withSubject("E-mail Verification Code")
                         .withHTMLText(message)

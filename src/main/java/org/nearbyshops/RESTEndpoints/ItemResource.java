@@ -6,7 +6,7 @@ import okhttp3.Request;
 import org.nearbyshops.DAOs.ItemCategoryDAO;
 import org.nearbyshops.DAOs.ItemDAO;
 import org.nearbyshops.DAOs.ItemDAOJoinOuter;
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.Image;
 import org.nearbyshops.Model.Item;
@@ -46,14 +46,14 @@ public class ItemResource {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_ADMIN, GlobalConstants.ROLE_STAFF,GlobalConstants.ROLE_SHOP_ADMIN})
+	@RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF, Constants.ROLE_SHOP_ADMIN})
 	public Response createItem(Item item)
 	{
 
 
 		User user = (User) Globals.accountApproved;
 
-		if(user.getRole()==GlobalConstants.ROLE_STAFF_CODE) {
+		if(user.getRole()== Constants.ROLE_STAFF_CODE) {
 
 			StaffPermissions permissions = Globals.daoStaff.getStaffPermissions(user.getUserID());
 
@@ -64,7 +64,7 @@ public class ItemResource {
 				throw new ForbiddenException("Not Permitted");
 			}
 		}
-		else if (user.getRole()==GlobalConstants.ROLE_SHOP_ADMIN_CODE)
+		else if (user.getRole()== Constants.ROLE_SHOP_ADMIN_CODE)
 		{
 
 			Shop shop = Globals.daoUserUtility.getShopForShopAdmin(user.getUserID());
@@ -102,13 +102,13 @@ public class ItemResource {
 	@PUT
 	@Path("/ChangeParent/{ItemID}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_ADMIN, GlobalConstants.ROLE_STAFF})
+	@RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF})
 	public Response changeParent(Item item, @PathParam("ItemID")int itemID)
 	{
 
 		User user = (User) Globals.accountApproved;
 
-		if(user.getRole()==GlobalConstants.ROLE_STAFF_CODE) {
+		if(user.getRole()== Constants.ROLE_STAFF_CODE) {
 
 			StaffPermissions permissions = Globals.daoStaff.getStaffPermissions(user.getUserID());
 
@@ -155,14 +155,14 @@ public class ItemResource {
 	@PUT
 	@Path("/ChangeParent")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_ADMIN, GlobalConstants.ROLE_STAFF})
+	@RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF})
 	public Response changeParentBulk(List<Item> itemList)
 	{
 
 
 		User user = (User) Globals.accountApproved;
 
-		if(user.getRole()==GlobalConstants.ROLE_STAFF_CODE) {
+		if(user.getRole()== Constants.ROLE_STAFF_CODE) {
 
 			StaffPermissions permissions = Globals.daoStaff.getStaffPermissions(user.getUserID());
 
@@ -215,14 +215,14 @@ public class ItemResource {
 	@PUT
 	@Path("/{ItemID}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_ADMIN, GlobalConstants.ROLE_STAFF,GlobalConstants.ROLE_SHOP_ADMIN})
+	@RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF, Constants.ROLE_SHOP_ADMIN})
 	public Response updateItem(Item item, @PathParam("ItemID")int itemID)
 	{
 
 
 		User user = (User) Globals.accountApproved;
 
-		if(user.getRole()==GlobalConstants.ROLE_STAFF_CODE) {
+		if(user.getRole()== Constants.ROLE_STAFF_CODE) {
 
 			StaffPermissions permissions = Globals.daoStaff.getStaffPermissions(user.getUserID());
 
@@ -232,7 +232,7 @@ public class ItemResource {
 				throw new ForbiddenException("Not Permitted");
 			}
 		}
-		else if (user.getRole()==GlobalConstants.ROLE_SHOP_ADMIN_CODE)
+		else if (user.getRole()== Constants.ROLE_SHOP_ADMIN_CODE)
 		{
 
 			Shop shop = Globals.daoUserUtility.getShopForShopAdmin(user.getUserID());
@@ -279,14 +279,14 @@ public class ItemResource {
 	@DELETE
 	@Path("/{ItemID}")
 	@Produces(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_ADMIN, GlobalConstants.ROLE_STAFF})
+	@RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF})
 	public Response deleteItem(@PathParam("ItemID")int itemID)
 	{
 
 
 		User user = (User) Globals.accountApproved;
 
-		if(user.getRole()==GlobalConstants.ROLE_STAFF_CODE) {
+		if(user.getRole()== Constants.ROLE_STAFF_CODE) {
 
 			StaffPermissions permissions = Globals.daoStaff.getStaffPermissions(user.getUserID());
 
@@ -357,9 +357,9 @@ public class ItemResource {
 		List<ItemCategory> subcategories;
 
 
-		if(limit >= GlobalConstants.max_limit)
+		if(limit >= Constants.max_limit)
 		{
-			limit = GlobalConstants.max_limit;
+			limit = Constants.max_limit;
 		}
 
 
@@ -403,7 +403,7 @@ public class ItemResource {
 
 		endPoint.setLimit(limit);
 		endPoint.setOffset(offset);
-		endPoint.setMax_limit(GlobalConstants.max_limit);
+		endPoint.setMax_limit(Constants.max_limit);
 
 
 
@@ -436,9 +436,9 @@ public class ItemResource {
 
 
 
-		if (limit >= GlobalConstants.max_limit) {
+		if (limit >= Constants.max_limit) {
 
-			limit = GlobalConstants.max_limit;
+			limit = Constants.max_limit;
 		}
 
 
@@ -470,7 +470,7 @@ public class ItemResource {
 
 
 		endPoint.setLimit(limit);
-		endPoint.setMax_limit(GlobalConstants.max_limit);
+		endPoint.setMax_limit(Constants.max_limit);
 		endPoint.setOffset(offset);
 
 
@@ -633,7 +633,7 @@ public class ItemResource {
 	@POST
 	@Path("/Image")
 	@Consumes({MediaType.APPLICATION_OCTET_STREAM})
-	@RolesAllowed({GlobalConstants.ROLE_ADMIN, GlobalConstants.ROLE_STAFF, GlobalConstants.ROLE_SHOP_ADMIN})
+	@RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF, Constants.ROLE_SHOP_ADMIN})
 	public Response uploadImage(InputStream in, @HeaderParam("Content-Length") long fileSize,
                                 @QueryParam("PreviousImageName") String previousImageName
 	) throws Exception
@@ -784,7 +784,7 @@ public class ItemResource {
 
 	@DELETE
 	@Path("/Image/{name}")
-	@RolesAllowed({GlobalConstants.ROLE_ADMIN, GlobalConstants.ROLE_STAFF})
+	@RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF})
 	public Response deleteImageFile(@PathParam("name")String fileName)
 	{
 

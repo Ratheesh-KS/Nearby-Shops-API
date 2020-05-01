@@ -1,7 +1,7 @@
 package org.nearbyshops.RESTEndpoints.RESTEndpointRoles;
 
 import org.nearbyshops.DAOs.DAORoles.DAOUserSignUp;
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Globals.SendSMS;
 import org.nearbyshops.Model.ModelRoles.EmailVerificationCode;
@@ -38,7 +38,7 @@ public class UserSignUpRESTEndpoint {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response RegisterEndUser(User user)
     {
-        return userRegistration(user,GlobalConstants.ROLE_END_USER_CODE);
+        return userRegistration(user, Constants.ROLE_END_USER_CODE);
     }
 
 
@@ -51,7 +51,7 @@ public class UserSignUpRESTEndpoint {
 //    @Consumes(MediaType.APPLICATION_JSON)
     public Response RegisterShopAdmin(User user)
     {
-        return userRegistration(user,GlobalConstants.ROLE_SHOP_ADMIN_CODE);
+        return userRegistration(user, Constants.ROLE_SHOP_ADMIN_CODE);
     }
 
 
@@ -101,7 +101,7 @@ public class UserSignUpRESTEndpoint {
 
                     // registration successful therefore send email to notify the user
                     Email email = EmailBuilder.startingBlank()
-                            .from(GlobalConstants.EMAIL_SENDER_NAME, GlobalConstants.EMAIL_ADDRESS_FOR_SENDER)
+                            .from(Constants.EMAIL_SENDER_NAME, Constants.EMAIL_ADDRESS_FOR_SENDER)
                             .to(user.getName(),user.getEmail())
                             .withSubject("Registration successful for your account")
                             .withHTMLText(message)
@@ -115,13 +115,13 @@ public class UserSignUpRESTEndpoint {
                     String message = "";
 
 
-                    if(user.getRole()==GlobalConstants.ROLE_SHOP_ADMIN_CODE)
+                    if(user.getRole()== Constants.ROLE_SHOP_ADMIN_CODE)
                     {
-                        message = "Thank you for registering with " + GlobalConstants.service_name_for_sms_value;
+                        message = "Thank you for registering with " + Constants.service_name_for_sms_value;
                     }
                     else
                     {
-                        message = "Congratulations your account has been registered with " + GlobalConstants.service_name_for_sms_value;
+                        message = "Congratulations your account has been registered with " + Constants.service_name_for_sms_value;
                     }
 
 
@@ -256,7 +256,7 @@ public class UserSignUpRESTEndpoint {
             Timestamp timestampExpiry
                     = new Timestamp(
                     System.currentTimeMillis()
-                            + GlobalConstants.EMAIL_VERIFICATION_CODE_EXPIRY_MINUTES *60*1000
+                            + Constants.EMAIL_VERIFICATION_CODE_EXPIRY_MINUTES *60*1000
             );
 
 
@@ -299,7 +299,7 @@ public class UserSignUpRESTEndpoint {
 
 
                 Email emailComposed = EmailBuilder.startingBlank()
-                        .from(GlobalConstants.EMAIL_SENDER_NAME, GlobalConstants.EMAIL_ADDRESS_FOR_SENDER)
+                        .from(Constants.EMAIL_SENDER_NAME, Constants.EMAIL_ADDRESS_FOR_SENDER)
                         .to("user",email)
                         .withSubject("E-mail Verification Code")
                         .withHTMLText(htmlText)
@@ -344,7 +344,7 @@ public class UserSignUpRESTEndpoint {
 
 
             Email emailComposed = EmailBuilder.startingBlank()
-                    .from(GlobalConstants.EMAIL_SENDER_NAME, GlobalConstants.EMAIL_ADDRESS_FOR_SENDER)
+                    .from(Constants.EMAIL_SENDER_NAME, Constants.EMAIL_ADDRESS_FOR_SENDER)
                     .to("user",email)
                     .withSubject("E-mail Verification Code")
                     .withHTMLText(htmlText)
@@ -503,7 +503,7 @@ public class UserSignUpRESTEndpoint {
             Timestamp timestampExpiry
                     = new Timestamp(
                     System.currentTimeMillis()
-                            + GlobalConstants.PHONE_OTP_EXPIRY_MINUTES *60*1000
+                            + Constants.PHONE_OTP_EXPIRY_MINUTES *60*1000
             );
 
 

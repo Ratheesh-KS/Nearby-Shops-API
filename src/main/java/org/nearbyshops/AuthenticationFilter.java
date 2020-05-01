@@ -5,7 +5,7 @@ package org.nearbyshops;
 
 import org.nearbyshops.DAOs.DAORoles.DAOUserNew;
 import org.nearbyshops.DAOs.DAORoles.DAOUserTokens;
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.ModelRoles.User;
 
@@ -178,61 +178,61 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 //                System.out.println("Shop Admin null ...");
 
 
-            if(role.equals(GlobalConstants.ROLE_ADMIN))
+            if(role.equals(Constants.ROLE_ADMIN))
             {
 
-                if(user.getRole()==GlobalConstants.ROLE_ADMIN_CODE)
+                if(user.getRole()== Constants.ROLE_ADMIN_CODE)
                 {
                     return user;
                 }
 
             }
-            else if(role.equals(GlobalConstants.ROLE_STAFF))
+            else if(role.equals(Constants.ROLE_STAFF))
             {
 
-                if(user.getRole()==GlobalConstants.ROLE_ADMIN_CODE ||
-                        user.getRole()==GlobalConstants.ROLE_STAFF_CODE)
+                if(user.getRole()== Constants.ROLE_ADMIN_CODE ||
+                        user.getRole()== Constants.ROLE_STAFF_CODE)
                 {
                     return user;
                 }
 
             }
-            else if(role.equals(GlobalConstants.ROLE_SHOP_ADMIN))
+            else if(role.equals(Constants.ROLE_SHOP_ADMIN))
             {
 
-                if(user.getRole()==GlobalConstants.ROLE_SHOP_ADMIN_CODE)
+                if(user.getRole()== Constants.ROLE_SHOP_ADMIN_CODE)
                 {
                     return user;
                 }
 
             }
-            else if(role.equals(GlobalConstants.ROLE_DELIVERY_GUY_SELF))
+            else if(role.equals(Constants.ROLE_DELIVERY_GUY_SELF))
             {
 
-                if(user.getRole()==GlobalConstants.ROLE_DELIVERY_GUY_SELF_CODE)
+                if(user.getRole()== Constants.ROLE_DELIVERY_GUY_SELF_CODE)
                 {
                     return user;
                 }
 
             }
-            else if(role.equals(GlobalConstants.ROLE_SHOP_STAFF))
+            else if(role.equals(Constants.ROLE_SHOP_STAFF))
             {
 
-                if(user.getRole()==GlobalConstants.ROLE_SHOP_STAFF_CODE)
+                if(user.getRole()== Constants.ROLE_SHOP_STAFF_CODE)
                 {
                     return user;
                 }
             }
-            else if(role.equals(GlobalConstants.ROLE_DELIVERY_GUY))
+            else if(role.equals(Constants.ROLE_DELIVERY_GUY))
             {
 
-                if(user.getRole()==GlobalConstants.ROLE_DELIVERY_GUY_CODE)
+                if(user.getRole()== Constants.ROLE_DELIVERY_GUY_CODE)
                 {
                     return user;
                 }
 
             }
-            else if(role.equals(GlobalConstants.ROLE_END_USER))
+            else if(role.equals(Constants.ROLE_END_USER))
             {
 
                 return user;

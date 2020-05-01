@@ -4,7 +4,7 @@ import net.coobird.thumbnailator.Thumbnails;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import org.nearbyshops.DAOs.DAOImages.ShopImageDAO;
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.Image;
 import org.nearbyshops.Model.ShopImage;
@@ -34,7 +34,7 @@ public class ShopImageResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN})
+    @RolesAllowed({Constants.ROLE_SHOP_ADMIN})
     public Response createShopImage(ShopImage shopImage)
     {
         int idOfInsertedRow = -1;
@@ -74,7 +74,7 @@ public class ShopImageResource {
     @PUT
     @Path("/{ImageID}")
     @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN})
+    @RolesAllowed({Constants.ROLE_SHOP_ADMIN})
     public Response updateShopImage(ShopImage shopImage, @PathParam("ImageID")int imageID)
     {
 
@@ -109,7 +109,7 @@ public class ShopImageResource {
     @DELETE
     @Path("/{ImageID}")
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN})
+    @RolesAllowed({Constants.ROLE_SHOP_ADMIN})
     public Response deleteShopImage(@PathParam("ImageID")int imageID)
     {
 
@@ -171,9 +171,9 @@ public class ShopImageResource {
         User user = (User) Globals.accountApproved;
 
 
-        if(limit!=null && limit >= GlobalConstants.max_limit)
+        if(limit!=null && limit >= Constants.max_limit)
         {
-            limit = GlobalConstants.max_limit;
+            limit = Constants.max_limit;
         }
 
 
@@ -190,7 +190,7 @@ public class ShopImageResource {
         {
             endpoint.setLimit(limit);
             endpoint.setOffset(offset);
-            endpoint.setMax_limit(GlobalConstants.max_limit);
+            endpoint.setMax_limit(Constants.max_limit);
         }
 
 
@@ -355,8 +355,8 @@ public class ShopImageResource {
     @POST
     @Path("/Image")
     @Consumes({MediaType.APPLICATION_OCTET_STREAM})
-    @RolesAllowed({GlobalConstants.ROLE_ADMIN, GlobalConstants.ROLE_STAFF,
-            GlobalConstants.ROLE_SHOP_ADMIN, GlobalConstants.ROLE_SHOP_STAFF})
+    @RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF,
+            Constants.ROLE_SHOP_ADMIN, Constants.ROLE_SHOP_STAFF})
     public Response uploadImage(InputStream in, @HeaderParam("Content-Length") long fileSize,
                                 @QueryParam("PreviousImageName") String previousImageName
     ) throws Exception
@@ -488,7 +488,7 @@ public class ShopImageResource {
 
     @DELETE
     @Path("/Image/{name}")
-    @RolesAllowed({GlobalConstants.ROLE_ADMIN, GlobalConstants.ROLE_STAFF, GlobalConstants.ROLE_SHOP_ADMIN, GlobalConstants.ROLE_SHOP_STAFF})
+    @RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF, Constants.ROLE_SHOP_ADMIN, Constants.ROLE_SHOP_STAFF})
     public Response deleteImageFile(@PathParam("name")String fileName)
     {
 

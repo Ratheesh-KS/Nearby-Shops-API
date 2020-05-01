@@ -1,7 +1,7 @@
 package org.nearbyshops.DAOs.DAORoles;
 
 import com.zaxxer.hikari.HikariDataSource;
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.Shop;
 import org.nearbyshops.Model.ModelRoles.ShopStaffPermissions;
@@ -180,7 +180,7 @@ public class DAOUserUtility {
                 shop.setAccountBalance(rs.getDouble(Shop.ACCOUNT_BALANCE));
 
 
-                shop.setRt_min_balance(GlobalConstants.min_account_balance_for_shop - rs.getDouble(Shop.EXTENDED_CREDIT_LIMIT));
+                shop.setRt_min_balance(Constants.min_account_balance_for_shop - rs.getDouble(Shop.EXTENDED_CREDIT_LIMIT));
 
             }
 
@@ -739,7 +739,7 @@ public class DAOUserUtility {
             statement = connection.prepareStatement(insertItemSubmission,PreparedStatement.RETURN_GENERATED_KEYS);
             int i = 0;
 
-            statement.setObject(++i, GlobalConstants.ROLE_ADMIN_CODE);
+            statement.setObject(++i, Constants.ROLE_ADMIN_CODE);
             statement.setString(++i,user.getEmail());
             statement.setString(++i,user.getPassword());
 
@@ -813,7 +813,7 @@ public class DAOUserUtility {
 
         String updateStatement = "UPDATE " + User.TABLE_NAME
 
-                + " SET " + User.ROLE + " = " + GlobalConstants.ROLE_ADMIN_CODE
+                + " SET " + User.ROLE + " = " + Constants.ROLE_ADMIN_CODE
                 + " WHERE " + User.USER_ID + " = " + userID;
 
         // Please note there is supposed to be only one admin for the service. If that is not the case
@@ -897,7 +897,7 @@ public class DAOUserUtility {
             statement = connection.prepareStatement(insertItemSubmission,PreparedStatement.RETURN_GENERATED_KEYS);
             int i = 0;
 
-            statement.setObject(++i,GlobalConstants.ROLE_ADMIN_CODE);
+            statement.setObject(++i, Constants.ROLE_ADMIN_CODE);
             statement.setString(++i,user.getUsername());
             statement.setString(++i,user.getPassword());
 
@@ -975,7 +975,7 @@ public class DAOUserUtility {
                 + User.E_MAIL + "=?,"
                 + User.PASSWORD + "=?"
 
-                + " WHERE " + User.ROLE + " = " + GlobalConstants.ROLE_ADMIN_CODE;
+                + " WHERE " + User.ROLE + " = " + Constants.ROLE_ADMIN_CODE;
 
         // Please note there is supposed to be only one admin for the service. If that is not the case
         // then this method will not work for updating admin profile

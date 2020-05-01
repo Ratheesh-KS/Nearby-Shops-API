@@ -1,6 +1,6 @@
 package org.nearbyshops.RESTEndpoints.RESTEndpointsOrder;
 
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.ModelEndpoint.OrderItemEndPoint;
 
@@ -17,7 +17,7 @@ public class OrderItemResource {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN, GlobalConstants.ROLE_SHOP_STAFF, GlobalConstants.ROLE_END_USER})
+	@RolesAllowed({Constants.ROLE_SHOP_ADMIN, Constants.ROLE_SHOP_STAFF, Constants.ROLE_END_USER})
 	public Response getOrderItem(@QueryParam("OrderID")Integer orderID,
                                  @QueryParam("ItemID")Integer itemID,
 								 @QueryParam("ShopID")Integer shopID,
@@ -29,9 +29,9 @@ public class OrderItemResource {
 
 
 
-		if(limit!=null && limit >= GlobalConstants.max_limit)
+		if(limit!=null && limit >= Constants.max_limit)
 		{
-			limit = GlobalConstants.max_limit;
+			limit = Constants.max_limit;
 		}
 
 
@@ -56,7 +56,7 @@ public class OrderItemResource {
 		{
 			endPoint.setLimit(limit);
 			endPoint.setOffset(offset);
-			endPoint.setMax_limit(GlobalConstants.max_limit);
+			endPoint.setMax_limit(Constants.max_limit);
 		}
 
 

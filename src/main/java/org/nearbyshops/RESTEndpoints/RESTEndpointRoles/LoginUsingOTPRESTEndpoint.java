@@ -4,10 +4,8 @@ import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import org.nearbyshops.DAOs.DAORoles.*;
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
-import org.nearbyshops.Globals.SendSMS;
-import org.nearbyshops.Model.ModelRoles.PhoneVerificationCode;
 import org.nearbyshops.Model.ModelRoles.ShopStaffPermissions;
 import org.nearbyshops.Model.ModelRoles.StaffPermissions;
 import org.nearbyshops.Model.ModelRoles.User;
@@ -17,11 +15,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.sql.Timestamp;
 import java.util.Base64;
 import java.util.StringTokenizer;
-
-import static org.nearbyshops.Globals.Globals.generateOTP;
 
 
 @Path("/api/v1/User/LoginUsingOTP")
@@ -99,7 +94,7 @@ public class LoginUsingOTPRESTEndpoint {
 
 
 
-            if(user.getRole() == GlobalConstants.ROLE_STAFF_CODE) {
+            if(user.getRole() == Constants.ROLE_STAFF_CODE) {
 
                 StaffPermissions permissions = Globals.daoStaff.getStaffPermissions(user.getUserID());
 
@@ -108,7 +103,7 @@ public class LoginUsingOTPRESTEndpoint {
                     user.setRt_staff_permissions(permissions);
                 }
             }
-            else if (user.getRole() == GlobalConstants.ROLE_SHOP_STAFF_CODE)
+            else if (user.getRole() == Constants.ROLE_SHOP_STAFF_CODE)
             {
                 ShopStaffPermissions permissions = Globals.daoShopStaff.getShopStaffPermissions(user.getUserID());
 
@@ -286,7 +281,7 @@ public class LoginUsingOTPRESTEndpoint {
 
         boolean trusted = false;
 
-        for(String url : GlobalConstants.trusted_market_aggregators_value)
+        for(String url : Constants.trusted_market_aggregators_value)
         {
 
 //            System.out.println("URL SDS : " + url);
@@ -472,7 +467,7 @@ public class LoginUsingOTPRESTEndpoint {
 
 
                 if (getServiceConfig) {
-                    userProfile.setServiceConfigurationLocal(Globals.serviceConfigDAO.getServiceConfiguration(0.0, 0.0));
+                    userProfile.setMarket(Globals.serviceConfigDAO.getServiceConfiguration(0.0, 0.0));
                 }
 
                 if (getUserProfileGlobal) {

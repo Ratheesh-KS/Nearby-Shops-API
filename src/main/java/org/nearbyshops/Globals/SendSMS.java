@@ -23,10 +23,10 @@ public class SendSMS {
 //        Gson gson = gsonBuilder.setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create();
 //        String json = gson.toJson(firebaseNotification);
 
-        String urlOTP = "https://control.msg91.com/api/sendhttp.php?authkey=" + GlobalConstants.MSG91_SMS_SERVICE_API_KEY +
+        String urlOTP = "https://control.msg91.com/api/sendhttp.php?authkey=" + Constants.MSG91_SMS_SERVICE_API_KEY +
                 "&mobiles=" + phone +
-                "&message=Your one time password (OTP) for " + GlobalConstants.service_name_for_sms_value + " is " + otp +
-                "&sender=" + GlobalConstants.sender_id_for_sms_value +
+                "&message=Your one time password (OTP) for " + Constants.service_name_for_sms_value + " is " + otp +
+                "&sender=" + Constants.sender_id_for_sms_value +
                 "&route=4&country=0";
 
 //        + GlobalConstants.default_country_code_value
@@ -96,10 +96,10 @@ public class SendSMS {
 
 
 
-        String urlMessage = "http://api.msg91.com/api/sendhttp.php?authkey=" + GlobalConstants.MSG91_SMS_SERVICE_API_KEY
+        String urlMessage = "http://api.msg91.com/api/sendhttp.php?authkey=" + Constants.MSG91_SMS_SERVICE_API_KEY
                 + "&mobiles=" + phone
                 + "&message=" + message
-                + "&sender=" + GlobalConstants.sender_id_for_sms_value
+                + "&sender=" + Constants.sender_id_for_sms_value
                 + "&route=4&country=0";
 
 //        + GlobalConstants.default_country_code_value

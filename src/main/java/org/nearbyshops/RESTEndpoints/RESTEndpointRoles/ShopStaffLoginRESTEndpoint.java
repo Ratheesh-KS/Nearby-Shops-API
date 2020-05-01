@@ -1,7 +1,7 @@
 package org.nearbyshops.RESTEndpoints.RESTEndpointRoles;
 
 
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.ModelRoles.ShopStaffPermissions;
 import org.nearbyshops.Model.ModelRoles.User;
@@ -27,7 +27,7 @@ public class ShopStaffLoginRESTEndpoint {
     @PUT
     @Path("/UpdateStaffLocation")
     @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN,GlobalConstants.ROLE_SHOP_STAFF})
+    @RolesAllowed({Constants.ROLE_SHOP_ADMIN, Constants.ROLE_SHOP_STAFF})
     public Response updateStaffLocation(ShopStaffPermissions permissions)
     {
 
@@ -56,7 +56,7 @@ public class ShopStaffLoginRESTEndpoint {
     @PUT
     @Path("/UpgradeUser/{emailorphone}/{Role}/{SecretCode}")
     @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN})
+    @RolesAllowed({Constants.ROLE_SHOP_ADMIN})
     public Response upgradeUserToShopStaff(@PathParam("emailorphone")String emailorphone,@PathParam("Role")int role,
                                            @PathParam("SecretCode")int secretCode)
     {
@@ -91,7 +91,7 @@ public class ShopStaffLoginRESTEndpoint {
     @PUT
     @Path("/UpdateStaffPermissions")
     @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN})
+    @RolesAllowed({Constants.ROLE_SHOP_ADMIN})
     public Response updateStaffPermissions(ShopStaffPermissions permissions)
     {
 
@@ -125,7 +125,7 @@ public class ShopStaffLoginRESTEndpoint {
     @GET
     @Path("/GetStaffPermissions/{UserID}")
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN})
+    @RolesAllowed({Constants.ROLE_SHOP_ADMIN})
     public Response getPermissionDetails(@PathParam("UserID")int userID)
     {
 

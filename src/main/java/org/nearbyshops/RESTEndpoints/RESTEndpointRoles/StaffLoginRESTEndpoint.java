@@ -1,9 +1,8 @@
 package org.nearbyshops.RESTEndpoints.RESTEndpointRoles;
 
 
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
-import org.nearbyshops.Model.ModelRoles.ShopStaffPermissions;
 import org.nearbyshops.Model.ModelRoles.StaffPermissions;
 import org.nearbyshops.Model.ModelRoles.User;
 
@@ -13,7 +12,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import static org.nearbyshops.Globals.Globals.*;
-import static org.nearbyshops.Globals.Globals.daoShopStaff;
 
 /**
  * Created by sumeet on 30/8/17.
@@ -29,7 +27,7 @@ public class StaffLoginRESTEndpoint {
     @PUT
     @Path("/UpdateStaffLocation")
     @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({GlobalConstants.ROLE_STAFF})
+    @RolesAllowed({Constants.ROLE_STAFF})
     public Response updateStaffLocation(StaffPermissions permissions)
     {
 
@@ -58,14 +56,14 @@ public class StaffLoginRESTEndpoint {
     @PUT
     @Path("/UpgradeUser/{emailorphone}/{SecretCode}")
     @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({GlobalConstants.ROLE_ADMIN})
+    @RolesAllowed({Constants.ROLE_ADMIN})
     public Response upgradeUserToShopStaff(@PathParam("emailorphone")String emailorphone,
                                            @PathParam("SecretCode")int secretCode)
     {
 
         int userID = daoUserUtility.getUserID(emailorphone);
 
-        int rowCount = daoStaff.upgradeUserToStaff(userID,secretCode,GlobalConstants.ROLE_STAFF_CODE);
+        int rowCount = daoStaff.upgradeUserToStaff(userID,secretCode, Constants.ROLE_STAFF_CODE);
 
 
         if(rowCount >= 1)
@@ -89,7 +87,7 @@ public class StaffLoginRESTEndpoint {
     @PUT
     @Path("/UpdateStaffPermissions")
     @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({GlobalConstants.ROLE_ADMIN})
+    @RolesAllowed({Constants.ROLE_ADMIN})
     public Response updateStaffPermissions(StaffPermissions permissions)
     {
 
@@ -118,7 +116,7 @@ public class StaffLoginRESTEndpoint {
     @GET
     @Path("/GetStaffPermissions/{UserID}")
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({GlobalConstants.ROLE_ADMIN})
+    @RolesAllowed({Constants.ROLE_ADMIN})
     public Response getPermissionDetails(@PathParam("UserID")int userID)
     {
 

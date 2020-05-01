@@ -1,6 +1,6 @@
 package org.nearbyshops.Model.ModelRoles;
 
-import org.nearbyshops.Model.ModelSettings.ServiceConfigurationLocal;
+import org.nearbyshops.Model.ModelMarkets.Market;
 
 import java.sql.Timestamp;
 
@@ -95,7 +95,7 @@ public class UserPreferences {
     private String rt_oneSignalPlayerID;
 
 
-    private ServiceConfigurationLocal serviceConfigurationLocal;
+    private Market market;
 
 
 
@@ -143,12 +143,12 @@ public class UserPreferences {
 
 
 
-    public ServiceConfigurationLocal getServiceConfigurationLocal() {
-        return serviceConfigurationLocal;
+    public Market getMarket() {
+        return market;
     }
 
-    public void setServiceConfigurationLocal(ServiceConfigurationLocal serviceConfigurationLocal) {
-        this.serviceConfigurationLocal = serviceConfigurationLocal;
+    public void setMarket(Market market) {
+        this.market = market;
     }
 
     public DeliveryGuyData getRt_delivery_guy_data() {

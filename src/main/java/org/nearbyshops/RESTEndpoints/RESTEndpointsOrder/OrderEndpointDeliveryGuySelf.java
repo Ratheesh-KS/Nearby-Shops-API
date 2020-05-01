@@ -5,7 +5,7 @@ import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
 import org.nearbyshops.DAOs.DAOPushNotifications.DAOOneSignal;
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.Order;
 import org.nearbyshops.Model.ModelRoles.User;
@@ -29,7 +29,7 @@ public class OrderEndpointDeliveryGuySelf {
 	@PUT
 	@Path("/StartPickup/{OrderID}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_DELIVERY_GUY_SELF,GlobalConstants.ROLE_DELIVERY_GUY})
+	@RolesAllowed({Constants.ROLE_DELIVERY_GUY_SELF, Constants.ROLE_DELIVERY_GUY})
 	public Response startPickup(@PathParam("OrderID")int orderID)
 	{
 
@@ -62,7 +62,7 @@ public class OrderEndpointDeliveryGuySelf {
 	@PUT
 	@Path("/AcceptOrder/{OrderID}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_DELIVERY_GUY_SELF,GlobalConstants.ROLE_DELIVERY_GUY})
+	@RolesAllowed({Constants.ROLE_DELIVERY_GUY_SELF, Constants.ROLE_DELIVERY_GUY})
 	public Response acceptOrder(@PathParam("OrderID")int orderID)
 	{
 
@@ -133,7 +133,7 @@ public class OrderEndpointDeliveryGuySelf {
 	@PUT
 	@Path("/DeclineOrder/{OrderID}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_DELIVERY_GUY_SELF,GlobalConstants.ROLE_DELIVERY_GUY})
+	@RolesAllowed({Constants.ROLE_DELIVERY_GUY_SELF, Constants.ROLE_DELIVERY_GUY})
 	public Response declineOrder(@PathParam("OrderID")int orderID)
 	{
 
@@ -167,7 +167,7 @@ public class OrderEndpointDeliveryGuySelf {
 	@PUT
 	@Path("/ReturnPackage/{OrderID}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_DELIVERY_GUY_SELF,GlobalConstants.ROLE_DELIVERY_GUY})
+	@RolesAllowed({Constants.ROLE_DELIVERY_GUY_SELF, Constants.ROLE_DELIVERY_GUY})
 	public Response returnOrderPackage(@PathParam("OrderID")int orderID)
 	{
 //		Order order = Globals.orderService.readStatusHomeDelivery(orderID);
@@ -196,8 +196,8 @@ public class OrderEndpointDeliveryGuySelf {
 
 			Globals.oneSignalNotifications.sendNotificationToUser(
 					playerIDs,
-					GlobalConstants.ONE_SIGNAL_APP_ID_SHOP_OWNER_APP,
-					GlobalConstants.ONE_SIGNAL_API_KEY_SHOP_OWNER_APP,
+					Constants.ONE_SIGNAL_APP_ID_SHOP_OWNER_APP,
+					Constants.ONE_SIGNAL_API_KEY_SHOP_OWNER_APP,
 					"https://i1.wp.com/nearbyshops.org/wp-content/uploads/2017/02/cropped-backdrop_play_store-1.png?w=250&ssl=1",
 					null,
 					null,
@@ -229,7 +229,7 @@ public class OrderEndpointDeliveryGuySelf {
 	@PUT
 	@Path("/HandoverToUser/{OrderID}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_DELIVERY_GUY_SELF,GlobalConstants.ROLE_DELIVERY_GUY})
+	@RolesAllowed({Constants.ROLE_DELIVERY_GUY_SELF, Constants.ROLE_DELIVERY_GUY})
 	public Response deliverOrder(@PathParam("OrderID")int orderID)
 	{
 
@@ -261,8 +261,8 @@ public class OrderEndpointDeliveryGuySelf {
 
 			Globals.oneSignalNotifications.sendNotificationToUser(
 					playerIDs,
-					GlobalConstants.ONE_SIGNAL_APP_ID_SHOP_OWNER_APP,
-					GlobalConstants.ONE_SIGNAL_API_KEY_SHOP_OWNER_APP,
+					Constants.ONE_SIGNAL_APP_ID_SHOP_OWNER_APP,
+					Constants.ONE_SIGNAL_API_KEY_SHOP_OWNER_APP,
 					"https://i1.wp.com/nearbyshops.org/wp-content/uploads/2017/02/cropped-backdrop_play_store-1.png?w=250&ssl=1",
 					null,
 					null,

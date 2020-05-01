@@ -3,7 +3,7 @@ package org.nearbyshops.DAOs.DAOSettings;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.nearbyshops.Globals.Globals;
-import org.nearbyshops.Model.ModelSettings.ServiceConfigurationLocal;
+import org.nearbyshops.Model.ModelMarkets.Market;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class ServiceConfigurationDAO {
 
 
 
-	public int saveService(ServiceConfigurationLocal serviceConfigurationLocal)
+	public int saveService(Market market)
 	{
 
 		Connection connection = null;
@@ -24,39 +24,39 @@ public class ServiceConfigurationDAO {
 		int rowIdOfInsertedRow = -1;
 
 		String insertItemCategory = "INSERT INTO "
-				+ ServiceConfigurationLocal.TABLE_NAME
+				+ Market.TABLE_NAME
 				+ "("
 
 //				+ ServiceConfigurationLocal.IMAGE_PATH + ","
-				+ ServiceConfigurationLocal.LOGO_IMAGE_PATH + ","
-				+ ServiceConfigurationLocal.BACKDROP_IMAGE_PATH + ","
+				+ Market.LOGO_IMAGE_PATH + ","
+				+ Market.BACKDROP_IMAGE_PATH + ","
 
-				+ ServiceConfigurationLocal.SERVICE_NAME + ","
-				+ ServiceConfigurationLocal.HELPLINE_NUMBER + ","
+				+ Market.SERVICE_NAME + ","
+				+ Market.HELPLINE_NUMBER + ","
 
-				+ ServiceConfigurationLocal.DESCRIPTION_SHORT + ","
-				+ ServiceConfigurationLocal.DESCRIPTION_LONG + ","
+				+ Market.DESCRIPTION_SHORT + ","
+				+ Market.DESCRIPTION_LONG + ","
 
-				+ ServiceConfigurationLocal.ADDRESS + ","
-				+ ServiceConfigurationLocal.CITY + ","
-				+ ServiceConfigurationLocal.PINCODE + ","
-				+ ServiceConfigurationLocal.LANDMARK + ","
+				+ Market.ADDRESS + ","
+				+ Market.CITY + ","
+				+ Market.PINCODE + ","
+				+ Market.LANDMARK + ","
 
-				+ ServiceConfigurationLocal.STATE + ","
-				+ ServiceConfigurationLocal.COUNTRY + ","
-				+ ServiceConfigurationLocal.ISO_COUNTRY_CODE + ","
-				+ ServiceConfigurationLocal.ISO_LANGUAGE_CODE + ","
-				+ ServiceConfigurationLocal.ISO_CURRENCY_CODE + ","
+				+ Market.STATE + ","
+				+ Market.COUNTRY + ","
+				+ Market.ISO_COUNTRY_CODE + ","
+				+ Market.ISO_LANGUAGE_CODE + ","
+				+ Market.ISO_CURRENCY_CODE + ","
 
 //				+ ServiceConfigurationLocal.SERVICE_TYPE + ","
 //				+ ServiceConfigurationLocal.SERVICE_LEVEL + ","
 
-				+ ServiceConfigurationLocal.LAT_CENTER + ","
-				+ ServiceConfigurationLocal.LON_CENTER + ","
-				+ ServiceConfigurationLocal.SERVICE_RANGE + ","
+				+ Market.LAT_CENTER + ","
+				+ Market.LON_CENTER + ","
+				+ Market.SERVICE_RANGE + ","
 
-				+ ServiceConfigurationLocal.UPDATED + ","
-				+ ServiceConfigurationLocal.SERVICE_CONFIGURATION_ID + ""
+				+ Market.UPDATED + ","
+				+ Market.SERVICE_CONFIGURATION_ID + ""
 				+ " ) VALUES (?,? ,?,?,  ?,? ,?,?,?,? ,?,?,?,?,? ,?,?,? ,?,?)";
 		
 		try {
@@ -67,32 +67,32 @@ public class ServiceConfigurationDAO {
 			int i = 0;
 
 //			statement.setString(1,serviceConfigurationLocal.getImagePath());
-			statement.setString(++i, serviceConfigurationLocal.getLogoImagePath());
-			statement.setString(++i, serviceConfigurationLocal.getBackdropImagePath());
+			statement.setString(++i, market.getLogoImagePath());
+			statement.setString(++i, market.getBackdropImagePath());
 
-			statement.setString(++i, serviceConfigurationLocal.getServiceName());
-			statement.setString(++i, serviceConfigurationLocal.getHelplineNumber());
+			statement.setString(++i, market.getServiceName());
+			statement.setString(++i, market.getHelplineNumber());
 
-			statement.setString(++i, serviceConfigurationLocal.getDescriptionShort());
-			statement.setString(++i, serviceConfigurationLocal.getDescriptionLong());
+			statement.setString(++i, market.getDescriptionShort());
+			statement.setString(++i, market.getDescriptionLong());
 
-			statement.setString(++i, serviceConfigurationLocal.getAddress());
-			statement.setString(++i, serviceConfigurationLocal.getCity());
-			statement.setObject(++i, serviceConfigurationLocal.getPincode());
-			statement.setString(++i, serviceConfigurationLocal.getLandmark());
+			statement.setString(++i, market.getAddress());
+			statement.setString(++i, market.getCity());
+			statement.setObject(++i, market.getPincode());
+			statement.setString(++i, market.getLandmark());
 
-			statement.setString(++i, serviceConfigurationLocal.getState());
-			statement.setString(++i, serviceConfigurationLocal.getCountry());
-			statement.setString(++i, serviceConfigurationLocal.getISOCountryCode());
-			statement.setString(++i, serviceConfigurationLocal.getISOLanguageCode());
-			statement.setString(++i, serviceConfigurationLocal.getISOCurrencyCode());
+			statement.setString(++i, market.getState());
+			statement.setString(++i, market.getCountry());
+			statement.setString(++i, market.getISOCountryCode());
+			statement.setString(++i, market.getISOLanguageCode());
+			statement.setString(++i, market.getISOCurrencyCode());
 
 //			statement.setObject(++i, serviceConfigurationLocal.getServiceType());
 //			statement.setObject(++i, serviceConfigurationLocal.getServiceLevel());
 
-			statement.setObject(++i, serviceConfigurationLocal.getLatCenter());
-			statement.setObject(++i, serviceConfigurationLocal.getLonCenter());
-			statement.setObject(++i, serviceConfigurationLocal.getServiceRange());
+			statement.setObject(++i, market.getLatCenter());
+			statement.setObject(++i, market.getLonCenter());
+			statement.setObject(++i, market.getServiceRange());
 
 			statement.setTimestamp(++i,new Timestamp(System.currentTimeMillis()));
 			statement.setObject(++i,1);
@@ -147,7 +147,7 @@ public class ServiceConfigurationDAO {
 
 
 
-	public int updateService(ServiceConfigurationLocal serviceConfigurationLocal)
+	public int updateService(Market market)
 	{
 
 		// Ensure the service configuration row exist before being updated
@@ -156,43 +156,43 @@ public class ServiceConfigurationDAO {
 		}
 
 
-		String updateStatement = "UPDATE " + ServiceConfigurationLocal.TABLE_NAME
+		String updateStatement = "UPDATE " + Market.TABLE_NAME
 
 				+ " SET "
 
 //				+ ServiceConfigurationLocal.IMAGE_PATH + " = ?,"
-				+ ServiceConfigurationLocal.LOGO_IMAGE_PATH + " = ?,"
-				+ ServiceConfigurationLocal.BACKDROP_IMAGE_PATH + " = ?,"
+				+ Market.LOGO_IMAGE_PATH + " = ?,"
+				+ Market.BACKDROP_IMAGE_PATH + " = ?,"
 
-				+ ServiceConfigurationLocal.SERVICE_NAME + " = ?,"
-				+ ServiceConfigurationLocal.HELPLINE_NUMBER + " = ?,"
+				+ Market.SERVICE_NAME + " = ?,"
+				+ Market.HELPLINE_NUMBER + " = ?,"
 
-				+ ServiceConfigurationLocal.DESCRIPTION_SHORT + "=?,"
-				+ ServiceConfigurationLocal.DESCRIPTION_LONG + "=?,"
+				+ Market.DESCRIPTION_SHORT + "=?,"
+				+ Market.DESCRIPTION_LONG + "=?,"
 
-				+ ServiceConfigurationLocal.ADDRESS + " = ?,"
+				+ Market.ADDRESS + " = ?,"
 
-				+ ServiceConfigurationLocal.CITY + " = ?,"
-				+ ServiceConfigurationLocal.PINCODE + " = ?,"
-				+ ServiceConfigurationLocal.LANDMARK + " = ?,"
+				+ Market.CITY + " = ?,"
+				+ Market.PINCODE + " = ?,"
+				+ Market.LANDMARK + " = ?,"
 
-				+ ServiceConfigurationLocal.STATE + " = ?,"
-				+ ServiceConfigurationLocal.COUNTRY + " = ?,"
-				+ ServiceConfigurationLocal.ISO_COUNTRY_CODE + " = ?,"
+				+ Market.STATE + " = ?,"
+				+ Market.COUNTRY + " = ?,"
+				+ Market.ISO_COUNTRY_CODE + " = ?,"
 
-				+ ServiceConfigurationLocal.ISO_LANGUAGE_CODE + " = ?,"
-				+ ServiceConfigurationLocal.ISO_CURRENCY_CODE + " = ?,"
+				+ Market.ISO_LANGUAGE_CODE + " = ?,"
+				+ Market.ISO_CURRENCY_CODE + " = ?,"
 
 //				+ ServiceConfigurationLocal.SERVICE_TYPE + " = ?,"
 //				+ ServiceConfigurationLocal.SERVICE_LEVEL + " = ?,"
 
-				+ ServiceConfigurationLocal.LAT_CENTER + " = ?,"
-				+ ServiceConfigurationLocal.LON_CENTER + " = ?,"
-				+ ServiceConfigurationLocal.SERVICE_RANGE + " = ?,"
+				+ Market.LAT_CENTER + " = ?,"
+				+ Market.LON_CENTER + " = ?,"
+				+ Market.SERVICE_RANGE + " = ?,"
 
-				+ ServiceConfigurationLocal.UPDATED + " = ?"
+				+ Market.UPDATED + " = ?"
 				+ " WHERE "
-				+ ServiceConfigurationLocal.SERVICE_CONFIGURATION_ID + " = ?";
+				+ Market.SERVICE_CONFIGURATION_ID + " = ?";
 
 
 		Connection connection = null;
@@ -206,35 +206,35 @@ public class ServiceConfigurationDAO {
 
 			int i = 0;
 //			statement.setString(1,serviceConfigurationLocal.getImagePath());
-			statement.setString(++i, serviceConfigurationLocal.getLogoImagePath());
-			statement.setString(++i, serviceConfigurationLocal.getBackdropImagePath());
+			statement.setString(++i, market.getLogoImagePath());
+			statement.setString(++i, market.getBackdropImagePath());
 
-			statement.setString(++i, serviceConfigurationLocal.getServiceName());
-			statement.setString(++i, serviceConfigurationLocal.getHelplineNumber());
+			statement.setString(++i, market.getServiceName());
+			statement.setString(++i, market.getHelplineNumber());
 
 
-			statement.setString(++i, serviceConfigurationLocal.getDescriptionShort());
-			statement.setString(++i, serviceConfigurationLocal.getDescriptionLong());
+			statement.setString(++i, market.getDescriptionShort());
+			statement.setString(++i, market.getDescriptionLong());
 
-			statement.setString(++i, serviceConfigurationLocal.getAddress());
+			statement.setString(++i, market.getAddress());
 
-			statement.setString(++i, serviceConfigurationLocal.getCity());
-			statement.setObject(++i, serviceConfigurationLocal.getPincode());
-			statement.setString(++i, serviceConfigurationLocal.getLandmark());
+			statement.setString(++i, market.getCity());
+			statement.setObject(++i, market.getPincode());
+			statement.setString(++i, market.getLandmark());
 
-			statement.setString(++i, serviceConfigurationLocal.getState());
-			statement.setString(++i, serviceConfigurationLocal.getCountry());
-			statement.setString(++i, serviceConfigurationLocal.getISOCountryCode());
+			statement.setString(++i, market.getState());
+			statement.setString(++i, market.getCountry());
+			statement.setString(++i, market.getISOCountryCode());
 
-			statement.setString(++i, serviceConfigurationLocal.getISOLanguageCode());
-			statement.setString(++i, serviceConfigurationLocal.getISOCurrencyCode());
+			statement.setString(++i, market.getISOLanguageCode());
+			statement.setString(++i, market.getISOCurrencyCode());
 
 //			statement.setObject(++i, serviceConfigurationLocal.getServiceType());
 //			statement.setObject(++i, serviceConfigurationLocal.getServiceLevel());
 
-			statement.setObject(++i, serviceConfigurationLocal.getLatCenter());
-			statement.setObject(++i, serviceConfigurationLocal.getLonCenter());
-			statement.setObject(++i, serviceConfigurationLocal.getServiceRange());
+			statement.setObject(++i, market.getLatCenter());
+			statement.setObject(++i, market.getLonCenter());
+			statement.setObject(++i, market.getServiceRange());
 
 			statement.setTimestamp(++i,new Timestamp(System.currentTimeMillis()));
 
@@ -285,8 +285,8 @@ public class ServiceConfigurationDAO {
 	public int deleteService(int serviceID)
 	{
 		
-		String deleteStatement = "DELETE FROM " + ServiceConfigurationLocal.TABLE_NAME
-				+ " WHERE " + ServiceConfigurationLocal.SERVICE_CONFIGURATION_ID + " = ?";
+		String deleteStatement = "DELETE FROM " + Market.TABLE_NAME
+				+ " WHERE " + Market.SERVICE_CONFIGURATION_ID + " = ?";
 		
 		
 		Connection connection= null;
@@ -338,51 +338,51 @@ public class ServiceConfigurationDAO {
 
 
 
-	public ArrayList<ServiceConfigurationLocal> readServices(Integer serviceLevel, Integer serviceType,
-                                                             Double latCenterQuery, Double lonCenterQuery,
-                                                             String sortBy,
-                                                             int limit, int offset)
+	public ArrayList<Market> readServices(Integer serviceLevel, Integer serviceType,
+										  Double latCenterQuery, Double lonCenterQuery,
+										  String sortBy,
+										  int limit, int offset)
 	{
 
 
 		String queryNormal = "SELECT " + " 6371 * acos(cos( radians("
-							+ latCenterQuery + ")) * cos( radians( " + ServiceConfigurationLocal.LAT_CENTER
+							+ latCenterQuery + ")) * cos( radians( " + Market.LAT_CENTER
 							+ ")) * cos(radians( "
-							+ ServiceConfigurationLocal.LON_CENTER + ") - radians(" + lonCenterQuery + "))"
-							+ " + sin( radians(" + latCenterQuery+ ")) * sin(radians(" + ServiceConfigurationLocal.LAT_CENTER + "))) as distance" + ","
+							+ Market.LON_CENTER + ") - radians(" + lonCenterQuery + "))"
+							+ " + sin( radians(" + latCenterQuery+ ")) * sin(radians(" + Market.LAT_CENTER + "))) as distance" + ","
 
-							+ ServiceConfigurationLocal.SERVICE_CONFIGURATION_ID + ","
-							+ ServiceConfigurationLocal.LOGO_IMAGE_PATH + ","
-							+ ServiceConfigurationLocal.BACKDROP_IMAGE_PATH + ","
+							+ Market.SERVICE_CONFIGURATION_ID + ","
+							+ Market.LOGO_IMAGE_PATH + ","
+							+ Market.BACKDROP_IMAGE_PATH + ","
 
-							+ ServiceConfigurationLocal.SERVICE_NAME + ","
-							+ ServiceConfigurationLocal.HELPLINE_NUMBER + ","
+							+ Market.SERVICE_NAME + ","
+							+ Market.HELPLINE_NUMBER + ","
 
-							+ ServiceConfigurationLocal.DESCRIPTION_SHORT + ","
-							+ ServiceConfigurationLocal.DESCRIPTION_LONG + ","
+							+ Market.DESCRIPTION_SHORT + ","
+							+ Market.DESCRIPTION_LONG + ","
 
-							+ ServiceConfigurationLocal.ADDRESS + ","
-							+ ServiceConfigurationLocal.CITY + ","
-							+ ServiceConfigurationLocal.PINCODE + ","
-							+ ServiceConfigurationLocal.LANDMARK + ","
+							+ Market.ADDRESS + ","
+							+ Market.CITY + ","
+							+ Market.PINCODE + ","
+							+ Market.LANDMARK + ","
 
-							+ ServiceConfigurationLocal.STATE + ","
-							+ ServiceConfigurationLocal.COUNTRY + ","
-							+ ServiceConfigurationLocal.ISO_COUNTRY_CODE + ","
+							+ Market.STATE + ","
+							+ Market.COUNTRY + ","
+							+ Market.ISO_COUNTRY_CODE + ","
 
-							+ ServiceConfigurationLocal.ISO_LANGUAGE_CODE + ","
-							+ ServiceConfigurationLocal.ISO_CURRENCY_CODE + ","
+							+ Market.ISO_LANGUAGE_CODE + ","
+							+ Market.ISO_CURRENCY_CODE + ","
 
 //							+ ServiceConfigurationLocal.SERVICE_TYPE + ","
 //							+ ServiceConfigurationLocal.SERVICE_LEVEL + ","
 
-							+ ServiceConfigurationLocal.LAT_CENTER + ","
-							+ ServiceConfigurationLocal.LON_CENTER + ","
-							+ ServiceConfigurationLocal.SERVICE_RANGE + ","
+							+ Market.LAT_CENTER + ","
+							+ Market.LON_CENTER + ","
+							+ Market.SERVICE_RANGE + ","
 
-							+ ServiceConfigurationLocal.CREATED + ","
-							+ ServiceConfigurationLocal.UPDATED + ""
-							+ " FROM " + ServiceConfigurationLocal.TABLE_NAME
+							+ Market.CREATED + ","
+							+ Market.UPDATED + ""
+							+ " FROM " + Market.TABLE_NAME
 							+ " WHERE TRUE ";
 
 
@@ -432,18 +432,18 @@ public class ServiceConfigurationDAO {
 					+ " (6371.01 * acos(cos( radians("
 					+ latCenterQuery
 					+ ")) * cos( radians("
-					+ ServiceConfigurationLocal.LAT_CENTER
+					+ Market.LAT_CENTER
 					+ " )) * cos(radians( "
-					+ ServiceConfigurationLocal.LON_CENTER
+					+ Market.LON_CENTER
 					+ ") - radians("
 					+ lonCenterQuery
 					+ "))"
 					+ " + sin( radians("
 					+ latCenterQuery
 					+ ")) * sin(radians("
-					+ ServiceConfigurationLocal.LAT_CENTER
+					+ Market.LAT_CENTER
 					+ ")))) <= "
-					+ ServiceConfigurationLocal.SERVICE_RANGE ;
+					+ Market.SERVICE_RANGE ;
 
 
 			if(isFirst)
@@ -494,7 +494,7 @@ public class ServiceConfigurationDAO {
 
 
 
-		ArrayList<ServiceConfigurationLocal> servicesList = new ArrayList<ServiceConfigurationLocal>();
+		ArrayList<Market> servicesList = new ArrayList<Market>();
 		
 		Connection connection = null;
 		Statement statement = null;
@@ -510,39 +510,39 @@ public class ServiceConfigurationDAO {
 
 			while(rs.next())
 			{
-				ServiceConfigurationLocal serviceConfigurationLocal = new ServiceConfigurationLocal();
+				Market market = new Market();
 
-				serviceConfigurationLocal.setRt_distance(rs.getDouble("distance"));
+				market.setRt_distance(rs.getDouble("distance"));
 
-				serviceConfigurationLocal.setServiceID(rs.getInt(ServiceConfigurationLocal.SERVICE_CONFIGURATION_ID));
+				market.setServiceID(rs.getInt(Market.SERVICE_CONFIGURATION_ID));
 //				serviceConfigurationLocal.setImagePath(rs.getString(ServiceConfigurationLocal.IMAGE_PATH));
-				serviceConfigurationLocal.setLogoImagePath(rs.getString(ServiceConfigurationLocal.LOGO_IMAGE_PATH));
-				serviceConfigurationLocal.setBackdropImagePath(rs.getString(ServiceConfigurationLocal.BACKDROP_IMAGE_PATH));
+				market.setLogoImagePath(rs.getString(Market.LOGO_IMAGE_PATH));
+				market.setBackdropImagePath(rs.getString(Market.BACKDROP_IMAGE_PATH));
 
-				serviceConfigurationLocal.setServiceName(rs.getString(ServiceConfigurationLocal.SERVICE_NAME));
-				serviceConfigurationLocal.setHelplineNumber(rs.getString(ServiceConfigurationLocal.HELPLINE_NUMBER));
+				market.setServiceName(rs.getString(Market.SERVICE_NAME));
+				market.setHelplineNumber(rs.getString(Market.HELPLINE_NUMBER));
 
-				serviceConfigurationLocal.setDescriptionShort(rs.getString(ServiceConfigurationLocal.DESCRIPTION_SHORT));
-				serviceConfigurationLocal.setDescriptionLong(rs.getString(ServiceConfigurationLocal.DESCRIPTION_LONG));
+				market.setDescriptionShort(rs.getString(Market.DESCRIPTION_SHORT));
+				market.setDescriptionLong(rs.getString(Market.DESCRIPTION_LONG));
 
-				serviceConfigurationLocal.setAddress(rs.getString(ServiceConfigurationLocal.ADDRESS));
-				serviceConfigurationLocal.setCity(rs.getString(ServiceConfigurationLocal.CITY));
-				serviceConfigurationLocal.setPincode(rs.getLong(ServiceConfigurationLocal.PINCODE));
-				serviceConfigurationLocal.setLandmark(rs.getString(ServiceConfigurationLocal.LANDMARK));
+				market.setAddress(rs.getString(Market.ADDRESS));
+				market.setCity(rs.getString(Market.CITY));
+				market.setPincode(rs.getLong(Market.PINCODE));
+				market.setLandmark(rs.getString(Market.LANDMARK));
 
-				serviceConfigurationLocal.setState(rs.getString(ServiceConfigurationLocal.STATE));
-				serviceConfigurationLocal.setCountry(rs.getString(ServiceConfigurationLocal.COUNTRY));
-				serviceConfigurationLocal.setISOCountryCode(rs.getString(ServiceConfigurationLocal.ISO_COUNTRY_CODE));
-				serviceConfigurationLocal.setISOLanguageCode(rs.getString(ServiceConfigurationLocal.ISO_LANGUAGE_CODE));
-				serviceConfigurationLocal.setISOCurrencyCode(rs.getString(ServiceConfigurationLocal.ISO_CURRENCY_CODE));
+				market.setState(rs.getString(Market.STATE));
+				market.setCountry(rs.getString(Market.COUNTRY));
+				market.setISOCountryCode(rs.getString(Market.ISO_COUNTRY_CODE));
+				market.setISOLanguageCode(rs.getString(Market.ISO_LANGUAGE_CODE));
+				market.setISOCurrencyCode(rs.getString(Market.ISO_CURRENCY_CODE));
 
 //				serviceConfigurationLocal.setServiceType(rs.getInt(ServiceConfigurationLocal.SERVICE_TYPE));
 //				serviceConfigurationLocal.setServiceLevel(rs.getInt(ServiceConfigurationLocal.SERVICE_LEVEL));
 
-				serviceConfigurationLocal.setLatCenter(rs.getDouble(ServiceConfigurationLocal.LAT_CENTER));
-				serviceConfigurationLocal.setLonCenter(rs.getDouble(ServiceConfigurationLocal.LON_CENTER));
+				market.setLatCenter(rs.getDouble(Market.LAT_CENTER));
+				market.setLonCenter(rs.getDouble(Market.LON_CENTER));
 
-				serviceConfigurationLocal.setServiceRange(rs.getInt(ServiceConfigurationLocal.SERVICE_RANGE));
+				market.setServiceRange(rs.getInt(Market.SERVICE_RANGE));
 
 //				serviceConfigurationLocal.setLatMax(rs.getDouble(ServiceConfigurationLocal.LAT_MAX));
 //				serviceConfigurationLocal.setLonMax(rs.getDouble(ServiceConfigurationLocal.LON_MAX));
@@ -550,11 +550,11 @@ public class ServiceConfigurationDAO {
 //
 //				serviceConfigurationLocal.setLonMin(rs.getDouble(ServiceConfigurationLocal.LON_MIN));
 
-				serviceConfigurationLocal.setCreated(rs.getTimestamp(ServiceConfigurationLocal.CREATED));
-				serviceConfigurationLocal.setUpdated(rs.getTimestamp(ServiceConfigurationLocal.UPDATED));
+				market.setCreated(rs.getTimestamp(Market.CREATED));
+				market.setUpdated(rs.getTimestamp(Market.UPDATED));
 
 
-				servicesList.add(serviceConfigurationLocal);
+				servicesList.add(market);
 				
 			}
 			
@@ -607,53 +607,53 @@ public class ServiceConfigurationDAO {
 
 
 
-	public ServiceConfigurationLocal getServiceConfiguration(Double latCenter, Double lonCenter)
+	public Market getServiceConfiguration(Double latCenter, Double lonCenter)
 	{
 		
 		String query = " SELECT "
 						+ "6371 * acos(cos( radians("
-						+ latCenter + ")) * cos( radians( " + ServiceConfigurationLocal.LAT_CENTER + " ) ) * cos(radians( " + ServiceConfigurationLocal.LON_CENTER + " ) - radians("
+						+ latCenter + ")) * cos( radians( " + Market.LAT_CENTER + " ) ) * cos(radians( " + Market.LON_CENTER + " ) - radians("
 						+ lonCenter + "))"
-						+ " + sin( radians(" + latCenter + ")) * sin(radians( " + ServiceConfigurationLocal.LAT_CENTER + " ))) as distance" + ","
-						+ ServiceConfigurationLocal.SERVICE_CONFIGURATION_ID + ","
-						+ ServiceConfigurationLocal.LOGO_IMAGE_PATH + ","
-						+ ServiceConfigurationLocal.BACKDROP_IMAGE_PATH + ","
+						+ " + sin( radians(" + latCenter + ")) * sin(radians( " + Market.LAT_CENTER + " ))) as distance" + ","
+						+ Market.SERVICE_CONFIGURATION_ID + ","
+						+ Market.LOGO_IMAGE_PATH + ","
+						+ Market.BACKDROP_IMAGE_PATH + ","
 
-						+ ServiceConfigurationLocal.SERVICE_NAME + ","
-						+ ServiceConfigurationLocal.HELPLINE_NUMBER + ","
+						+ Market.SERVICE_NAME + ","
+						+ Market.HELPLINE_NUMBER + ","
 
-						+ ServiceConfigurationLocal.DESCRIPTION_SHORT + ","
-						+ ServiceConfigurationLocal.DESCRIPTION_LONG + ","
+						+ Market.DESCRIPTION_SHORT + ","
+						+ Market.DESCRIPTION_LONG + ","
 
-						+ ServiceConfigurationLocal.ADDRESS + ","
-						+ ServiceConfigurationLocal.CITY + ","
-						+ ServiceConfigurationLocal.PINCODE + ","
-						+ ServiceConfigurationLocal.LANDMARK + ","
+						+ Market.ADDRESS + ","
+						+ Market.CITY + ","
+						+ Market.PINCODE + ","
+						+ Market.LANDMARK + ","
 
-						+ ServiceConfigurationLocal.STATE + ","
-						+ ServiceConfigurationLocal.COUNTRY + ","
-						+ ServiceConfigurationLocal.ISO_COUNTRY_CODE + ","
+						+ Market.STATE + ","
+						+ Market.COUNTRY + ","
+						+ Market.ISO_COUNTRY_CODE + ","
 
-						+ ServiceConfigurationLocal.ISO_LANGUAGE_CODE + ","
-						+ ServiceConfigurationLocal.ISO_CURRENCY_CODE + ","
+						+ Market.ISO_LANGUAGE_CODE + ","
+						+ Market.ISO_CURRENCY_CODE + ","
 
 //						+ ServiceConfigurationLocal.SERVICE_TYPE + ","
 //						+ ServiceConfigurationLocal.SERVICE_LEVEL + ","
 
-						+ ServiceConfigurationLocal.LAT_CENTER + ","
-						+ ServiceConfigurationLocal.LON_CENTER + ","
-						+ ServiceConfigurationLocal.SERVICE_RANGE + ","
+						+ Market.LAT_CENTER + ","
+						+ Market.LON_CENTER + ","
+						+ Market.SERVICE_RANGE + ","
 
-						+ ServiceConfigurationLocal.CREATED + ","
-						+ ServiceConfigurationLocal.UPDATED + ""
-						+ " FROM " + ServiceConfigurationLocal.TABLE_NAME
-						+ " WHERE " + ServiceConfigurationLocal.SERVICE_CONFIGURATION_ID + " = " + 1;
+						+ Market.CREATED + ","
+						+ Market.UPDATED + ""
+						+ " FROM " + Market.TABLE_NAME
+						+ " WHERE " + Market.SERVICE_CONFIGURATION_ID + " = " + 1;
 		
 		Connection connection = null;
 		Statement statement = null;
 		ResultSet rs = null;
 
-		ServiceConfigurationLocal serviceConfigurationLocal = null;
+		Market market = null;
 
 		try {
 			
@@ -663,39 +663,39 @@ public class ServiceConfigurationDAO {
 			
 			while(rs.next())
 			{
-				serviceConfigurationLocal = new ServiceConfigurationLocal();
+				market = new Market();
 
-				serviceConfigurationLocal.setRt_distance(rs.getDouble("distance"));
-				serviceConfigurationLocal.setServiceID(rs.getInt(ServiceConfigurationLocal.SERVICE_CONFIGURATION_ID));
+				market.setRt_distance(rs.getDouble("distance"));
+				market.setServiceID(rs.getInt(Market.SERVICE_CONFIGURATION_ID));
 //				serviceConfigurationLocal.setImagePath(rs.getString(ServiceConfigurationLocal.IMAGE_PATH));
-				serviceConfigurationLocal.setLogoImagePath(rs.getString(ServiceConfigurationLocal.LOGO_IMAGE_PATH));
-				serviceConfigurationLocal.setBackdropImagePath(rs.getString(ServiceConfigurationLocal.BACKDROP_IMAGE_PATH));
+				market.setLogoImagePath(rs.getString(Market.LOGO_IMAGE_PATH));
+				market.setBackdropImagePath(rs.getString(Market.BACKDROP_IMAGE_PATH));
 
-				serviceConfigurationLocal.setServiceName(rs.getString(ServiceConfigurationLocal.SERVICE_NAME));
-				serviceConfigurationLocal.setHelplineNumber(rs.getString(ServiceConfigurationLocal.HELPLINE_NUMBER));
+				market.setServiceName(rs.getString(Market.SERVICE_NAME));
+				market.setHelplineNumber(rs.getString(Market.HELPLINE_NUMBER));
 
-				serviceConfigurationLocal.setDescriptionShort(rs.getString(ServiceConfigurationLocal.DESCRIPTION_SHORT));
-				serviceConfigurationLocal.setDescriptionLong(rs.getString(ServiceConfigurationLocal.DESCRIPTION_LONG));
+				market.setDescriptionShort(rs.getString(Market.DESCRIPTION_SHORT));
+				market.setDescriptionLong(rs.getString(Market.DESCRIPTION_LONG));
 
-				serviceConfigurationLocal.setAddress(rs.getString(ServiceConfigurationLocal.ADDRESS));
-				serviceConfigurationLocal.setCity(rs.getString(ServiceConfigurationLocal.CITY));
-				serviceConfigurationLocal.setPincode(rs.getLong(ServiceConfigurationLocal.PINCODE));
-				serviceConfigurationLocal.setLandmark(rs.getString(ServiceConfigurationLocal.LANDMARK));
+				market.setAddress(rs.getString(Market.ADDRESS));
+				market.setCity(rs.getString(Market.CITY));
+				market.setPincode(rs.getLong(Market.PINCODE));
+				market.setLandmark(rs.getString(Market.LANDMARK));
 
-				serviceConfigurationLocal.setState(rs.getString(ServiceConfigurationLocal.STATE));
-				serviceConfigurationLocal.setCountry(rs.getString(ServiceConfigurationLocal.COUNTRY));
-				serviceConfigurationLocal.setISOCountryCode(rs.getString(ServiceConfigurationLocal.ISO_COUNTRY_CODE));
-				serviceConfigurationLocal.setISOLanguageCode(rs.getString(ServiceConfigurationLocal.ISO_LANGUAGE_CODE));
-				serviceConfigurationLocal.setISOCurrencyCode(rs.getString(ServiceConfigurationLocal.ISO_CURRENCY_CODE));
+				market.setState(rs.getString(Market.STATE));
+				market.setCountry(rs.getString(Market.COUNTRY));
+				market.setISOCountryCode(rs.getString(Market.ISO_COUNTRY_CODE));
+				market.setISOLanguageCode(rs.getString(Market.ISO_LANGUAGE_CODE));
+				market.setISOCurrencyCode(rs.getString(Market.ISO_CURRENCY_CODE));
 
 //				serviceConfigurationLocal.setServiceType(rs.getInt(ServiceConfigurationLocal.SERVICE_TYPE));
 //				serviceConfigurationLocal.setServiceLevel(rs.getInt(ServiceConfigurationLocal.SERVICE_LEVEL));
 
 
-				serviceConfigurationLocal.setLatCenter(rs.getDouble(ServiceConfigurationLocal.LAT_CENTER));
-				serviceConfigurationLocal.setLonCenter(rs.getDouble(ServiceConfigurationLocal.LON_CENTER));
+				market.setLatCenter(rs.getDouble(Market.LAT_CENTER));
+				market.setLonCenter(rs.getDouble(Market.LON_CENTER));
 
-				serviceConfigurationLocal.setServiceRange(rs.getInt(ServiceConfigurationLocal.SERVICE_RANGE));
+				market.setServiceRange(rs.getInt(Market.SERVICE_RANGE));
 
 //				serviceConfigurationLocal.setLatMax(rs.getDouble(ServiceConfigurationLocal.LAT_MAX));
 //				serviceConfigurationLocal.setLonMax(rs.getDouble(ServiceConfigurationLocal.LON_MAX));
@@ -703,8 +703,8 @@ public class ServiceConfigurationDAO {
 //
 //				serviceConfigurationLocal.setLonMin(rs.getDouble(ServiceConfigurationLocal.LON_MIN));
 
-				serviceConfigurationLocal.setCreated(rs.getTimestamp(ServiceConfigurationLocal.CREATED));
-				serviceConfigurationLocal.setUpdated(rs.getTimestamp(ServiceConfigurationLocal.UPDATED));
+				market.setCreated(rs.getTimestamp(Market.CREATED));
+				market.setUpdated(rs.getTimestamp(Market.UPDATED));
 
 			}
 			
@@ -747,15 +747,15 @@ public class ServiceConfigurationDAO {
 			}
 		}
 	
-		return serviceConfigurationLocal;
+		return market;
 	}
 
 
 
 
-	private ServiceConfigurationLocal getDefaultConfiguration()
+	private Market getDefaultConfiguration()
 	{
-		ServiceConfigurationLocal configuration = new ServiceConfigurationLocal();
+		Market configuration = new Market();
 
 		configuration.setAddress("Address not set");
 		configuration.setCity("City not set");

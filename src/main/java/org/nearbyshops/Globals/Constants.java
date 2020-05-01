@@ -3,7 +3,7 @@ package org.nearbyshops.Globals;
 /**
  * Created by sumeet on 22/3/17.
  */
-public class GlobalConstants {
+public class Constants {
 
 
 
@@ -135,6 +135,9 @@ public class GlobalConstants {
 
     public static final String NOTIFICATION_ORDER_RECIEVED = "NOTIFICATION_ORDER_RECIEVED";
     public static final String NOTIFICATION_ORDER_PACKED = "NOTIFICATION_ORDER_PACKED";
+
+    public static final String NOTIFICATION_TYPE_ORDER_UPDATES = "NOTIFICATION_TYPE_ORDER_UPDATES";
+    public static final String NOTIFICATION_TYPE_GENERAL = "NOTIFICATION_TYPE_GENERAL";
 
 
 

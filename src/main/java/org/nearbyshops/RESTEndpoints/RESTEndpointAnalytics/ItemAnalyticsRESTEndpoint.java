@@ -2,7 +2,7 @@ package org.nearbyshops.RESTEndpoints.RESTEndpointAnalytics;
 
 
 import org.nearbyshops.DAOs.DAOAnalytics.DAOItemAnalytics;
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.ModelAnalytics.ItemAnalytics;
 import org.nearbyshops.Model.ModelAnalytics.ItemAnalyticsEndpoint;
@@ -38,9 +38,9 @@ public class ItemAnalyticsRESTEndpoint {
 
         if(limit!=null)
         {
-            if(limit >= GlobalConstants.max_limit)
+            if(limit >= Constants.max_limit)
             {
-                limit = GlobalConstants.max_limit;
+                limit = Constants.max_limit;
             }
 
             if(offset==null)
@@ -68,7 +68,7 @@ public class ItemAnalyticsRESTEndpoint {
         {
             endPoint.setLimit(limit);
             endPoint.setOffset(offset);
-            endPoint.setMax_limit(GlobalConstants.max_limit);
+            endPoint.setMax_limit(Constants.max_limit);
         }
 
 

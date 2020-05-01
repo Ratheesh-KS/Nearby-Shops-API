@@ -1,9 +1,7 @@
 package org.nearbyshops.DAOs.DAORoles;
 
 import com.zaxxer.hikari.HikariDataSource;
-import org.nearbyshops.Globals.GlobalConstants;
 import org.nearbyshops.Globals.Globals;
-import org.nearbyshops.Model.ModelRoles.DeliveryGuyData;
 import org.nearbyshops.Model.ModelRoles.ShopStaffPermissions;
 import org.nearbyshops.Model.ModelRoles.StaffPermissions;
 import org.nearbyshops.Model.ModelRoles.User;

@@ -1,7 +1,7 @@
 package org.nearbyshops.RESTEndpoints.RESTEndpointRoles;
 
 
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.ModelRoles.DeliveryGuyData;
 import org.nearbyshops.Model.ModelRoles.User;
@@ -26,7 +26,7 @@ public class DeliveryGuyLoginRESTEndpoint {
     @PUT
     @Path("/UpdateLocation")
     @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({GlobalConstants.ROLE_DELIVERY_GUY,GlobalConstants.ROLE_DELIVERY_GUY_SELF})
+    @RolesAllowed({Constants.ROLE_DELIVERY_GUY, Constants.ROLE_DELIVERY_GUY_SELF})
     public Response updateLocation(DeliveryGuyData deliveryGuyData)
     {
 

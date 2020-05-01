@@ -1,5 +1,9 @@
 package org.nearbyshops.Globals;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingException;
+import com.google.firebase.messaging.Message;
+import com.google.firebase.messaging.Notification;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.zaxxer.hikari.HikariConfig;
@@ -25,7 +29,7 @@ import org.nearbyshops.DAOs.DAOSettings.ServiceConfigurationDAO;
 import org.nearbyshops.DAOs.DAOPushNotifications.DAOOneSignal;
 import org.nearbyshops.DAOs.*;
 import org.nearbyshops.DAOs.DAORoles.*;
-import org.nearbyshops.Model.ModelSettings.ServiceConfigurationLocal;
+import org.nearbyshops.Model.ModelMarkets.Market;
 import org.simplejavamail.mailer.Mailer;
 import org.simplejavamail.mailer.MailerBuilder;
 
@@ -138,7 +142,7 @@ public class Globals {
         if (dataSource == null) {
 
 
-            org.apache.commons.configuration2.Configuration configuration = GlobalConfig.getConfiguration();
+            org.apache.commons.configuration2.Configuration configuration = ConfigUtility.getConfiguration();
 
 
             if(configuration==null)
@@ -158,9 +162,9 @@ public class Globals {
 
 
             HikariConfig config = new HikariConfig();
-            config.setJdbcUrl(GlobalConstants.POSTGRES_CONNECTION_URL);
-            config.setUsername(GlobalConstants.POSTGRES_USERNAME);
-            config.setPassword(GlobalConstants.POSTGRES_PASSWORD);
+            config.setJdbcUrl(Constants.POSTGRES_CONNECTION_URL);
+            config.setUsername(Constants.POSTGRES_USERNAME);
+            config.setPassword(Constants.POSTGRES_PASSWORD);
 
 
             dataSource = new HikariDataSource(config);
@@ -195,34 +199,34 @@ public class Globals {
 
 
     public static boolean licensingRestrictionsEnabled = false;
-    private static ServiceConfigurationLocal serviceConfigurationLocal;
+    private static Market market;
 
 
     public static double maxMarketRangeInKms = 50;
 
 
 
-        public static ServiceConfigurationLocal getMarketConfiguration()
+        public static Market getMarketConfiguration()
         {
-            if(serviceConfigurationLocal==null)
+            if(market ==null)
             {
 
-                serviceConfigurationLocal = Globals.serviceConfigDAO.getServiceConfiguration(0.0,0.0);
+                market = Globals.serviceConfigDAO.getServiceConfiguration(0.0,0.0);
 
-                return serviceConfigurationLocal;
+                return market;
             }
             else
             {
-                return serviceConfigurationLocal;
+                return market;
             }
         }
 
 
 
 
-        public static void setMarketConfig(ServiceConfigurationLocal serviceConfig)
+        public static void setMarketConfig(Market serviceConfig)
         {
-            serviceConfigurationLocal = serviceConfig;
+            market = serviceConfig;
         }
 
 
@@ -237,8 +241,8 @@ public class Globals {
             if(inHouseMailer==null)
             {
                 inHouseMailer = MailerBuilder
-                        .withSMTPServer(GlobalConstants.SMTP_SERVER_URL, GlobalConstants.SMTP_PORT,
-                                GlobalConstants.SMTP_USERNAME, GlobalConstants.SMTP_PASSWORD)
+                        .withSMTPServer(Constants.SMTP_SERVER_URL, Constants.SMTP_PORT,
+                                Constants.SMTP_USERNAME, Constants.SMTP_PASSWORD)
                         .buildMailer();
 
                 return inHouseMailer;
@@ -282,6 +286,44 @@ public class Globals {
     //        System.out.println("Distance : " + dist);
 
             return dist;
+        }
+
+
+
+
+
+        public static void sendFCMPushNotification(String topic, String title, String message, String notificationType)
+        {
+
+            if (notificationType==null)
+            {
+                notificationType = Constants.NOTIFICATION_TYPE_GENERAL;
+            }
+
+            // See documentation on defining a message payload.
+            Message messageEndUser = Message.builder()
+                    .setNotification(new Notification(title, message))
+                    .putData("notification_type", notificationType)
+                    .putData("notification_title", title)
+                    .putData("notification_message", message)
+                    .setTopic(topic)
+                    .build();
+
+
+            System.out.println("Topic : " + topic);
+
+
+            try {
+
+
+                String responseEndUser = FirebaseMessaging.getInstance().send(messageEndUser);
+                System.out.println("Sent Notification to EndUser: " + responseEndUser);
+
+
+            } catch (FirebaseMessagingException e) {
+                e.printStackTrace();
+            }
+
         }
 
 }

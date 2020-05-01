@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.zaxxer.hikari.HikariDataSource;
 import okhttp3.*;
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.ModelOneSignal.*;
 import org.nearbyshops.Model.Shop;
@@ -63,8 +63,8 @@ public class DAOOneSignal {
     {
 
         sendNotificationToUser(userID,
-                GlobalConstants.ONE_SIGNAL_APP_ID_SHOP_OWNER_APP,
-                GlobalConstants.ONE_SIGNAL_API_KEY_SHOP_OWNER_APP,
+                Constants.ONE_SIGNAL_APP_ID_SHOP_OWNER_APP,
+                Constants.ONE_SIGNAL_API_KEY_SHOP_OWNER_APP,
                 largeIcon,
                 bigPicture,
                 sound,
@@ -95,8 +95,8 @@ public class DAOOneSignal {
     {
 
         sendNotificationToUser(userID,
-                GlobalConstants.ONE_SIGNAL_APP_ID_END_USER_APP,
-                GlobalConstants.ONE_SIGNAL_API_KEY_END_USER_APP,
+                Constants.ONE_SIGNAL_APP_ID_END_USER_APP,
+                Constants.ONE_SIGNAL_API_KEY_END_USER_APP,
                 largeIcon,
                 bigPicture,
                 sound,

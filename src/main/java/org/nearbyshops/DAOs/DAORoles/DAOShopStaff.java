@@ -1,9 +1,8 @@
 package org.nearbyshops.DAOs.DAORoles;
 
 import com.zaxxer.hikari.HikariDataSource;
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
-import org.nearbyshops.Model.ModelReviewShop.ShopReview;
 import org.nearbyshops.Model.Shop;
 import org.nearbyshops.Model.ModelRoles.DeliveryGuyData;
 import org.nearbyshops.Model.ModelRoles.ShopStaffPermissions;
@@ -169,7 +168,7 @@ public class DAOShopStaff {
 			rowCountUpdated = statement.executeUpdate();
 
 
-			if(role==GlobalConstants.ROLE_SHOP_STAFF_CODE)
+			if(role== Constants.ROLE_SHOP_STAFF_CODE)
 			{
 				statement = connection.prepareStatement(insertPermissions,PreparedStatement.RETURN_GENERATED_KEYS);
 				i = 0;
@@ -179,7 +178,7 @@ public class DAOShopStaff {
 				statement.executeUpdate();
 
 			}
-			else if(role==GlobalConstants.ROLE_DELIVERY_GUY_SELF_CODE)
+			else if(role== Constants.ROLE_DELIVERY_GUY_SELF_CODE)
 			{
 				statement = connection.prepareStatement(insertDeliveryData,PreparedStatement.RETURN_GENERATED_KEYS);
 				i = 0;
@@ -470,9 +469,9 @@ public class DAOShopStaff {
 
 		// add joining credit to the users account
 		String updateRole =  " UPDATE " + User.TABLE_NAME
-				+ " SET " + User.ROLE + " = " + GlobalConstants.ROLE_SHOP_ADMIN_CODE
+				+ " SET " + User.ROLE + " = " + Constants.ROLE_SHOP_ADMIN_CODE
 				+ " WHERE " + User.TABLE_NAME + "." + User.USER_ID + " = ? "
-				+ " AND " + User.TABLE_NAME + "." + User.ROLE + " = " + GlobalConstants.ROLE_END_USER_CODE ;
+				+ " AND " + User.TABLE_NAME + "." + User.ROLE + " = " + Constants.ROLE_END_USER_CODE ;
 
 
 

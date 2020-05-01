@@ -4,7 +4,7 @@ import org.nearbyshops.DAOs.ItemCategoryDAO;
 import org.nearbyshops.DAOs.ShopItemByItemDAO;
 import org.nearbyshops.DAOs.ShopItemByShopDAO;
 import org.nearbyshops.DAOs.ShopItemDAO;
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.ItemCategory;
 import org.nearbyshops.Model.ShopItem;
@@ -17,7 +17,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -36,7 +35,7 @@ public class ShopItemResource {
 	@PUT
 	@Path("/UpdateBulk")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN, GlobalConstants.ROLE_SHOP_STAFF})
+	@RolesAllowed({Constants.ROLE_SHOP_ADMIN, Constants.ROLE_SHOP_STAFF})
 	public Response updateShopItemBulk(List<ShopItem> itemList)
 	{
 
@@ -48,11 +47,11 @@ public class ShopItemResource {
 		User shopAdmin = (User) Globals.accountApproved;
 
 
-		if(shopAdmin.getRole()==GlobalConstants.ROLE_SHOP_ADMIN_CODE)
+		if(shopAdmin.getRole()== Constants.ROLE_SHOP_ADMIN_CODE)
 		{
 			shopID = Globals.daoUserUtility.getShopIDForShopAdmin(shopAdmin.getUserID());
 		}
-		else if(shopAdmin.getRole()==GlobalConstants.ROLE_SHOP_STAFF_CODE)
+		else if(shopAdmin.getRole()== Constants.ROLE_SHOP_STAFF_CODE)
 		{
 
 			shopID = Globals.daoUserUtility.getShopIDforShopStaff(shopAdmin.getUserID());
@@ -112,7 +111,7 @@ public class ShopItemResource {
 	@POST
 	@Path("/CreateBulk")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN, GlobalConstants.ROLE_SHOP_STAFF})
+	@RolesAllowed({Constants.ROLE_SHOP_ADMIN, Constants.ROLE_SHOP_STAFF})
 	public Response createShopItemBulk(List<ShopItem> itemList)
 	{
 		int rowCountSum = 0;
@@ -121,7 +120,7 @@ public class ShopItemResource {
 
 		User user = (User) Globals.accountApproved;
 
-		if(user.getRole()==GlobalConstants.ROLE_SHOP_STAFF_CODE) {
+		if(user.getRole()== Constants.ROLE_SHOP_STAFF_CODE) {
 
 			int shopID = Globals.daoUserUtility.getShopIDforShopStaff(user.getUserID());
 			ShopStaffPermissions permissions = Globals.daoShopStaff.getShopStaffPermissions(user.getUserID());
@@ -142,7 +141,7 @@ public class ShopItemResource {
 
 
 		}
-		else if(user.getRole()==GlobalConstants.ROLE_SHOP_ADMIN_CODE)
+		else if(user.getRole()== Constants.ROLE_SHOP_ADMIN_CODE)
 		{
 			int shopID = Globals.daoUserUtility.getShopIDForShopAdmin(user.getUserID());
 
@@ -186,7 +185,7 @@ public class ShopItemResource {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN})
+	@RolesAllowed({Constants.ROLE_SHOP_ADMIN})
 	public Response createShopItem(ShopItem shopItem)
 	{
 		int rowCount = 0;
@@ -195,11 +194,11 @@ public class ShopItemResource {
 		User user = (User) Globals.accountApproved;
 
 
-		if(user.getRole()==GlobalConstants.ROLE_SHOP_ADMIN_CODE)
+		if(user.getRole()== Constants.ROLE_SHOP_ADMIN_CODE)
 		{
 			shopID = Globals.daoUserUtility.getShopIDForShopAdmin(user.getUserID());
 		}
-		else if (user.getRole()==GlobalConstants.ROLE_SHOP_STAFF_CODE)
+		else if (user.getRole()== Constants.ROLE_SHOP_STAFF_CODE)
 		{
 
 			shopID = Globals.daoUserUtility.getShopIDforShopStaff(user.getUserID());
@@ -244,7 +243,7 @@ public class ShopItemResource {
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN,GlobalConstants.ROLE_SHOP_STAFF})
+	@RolesAllowed({Constants.ROLE_SHOP_ADMIN, Constants.ROLE_SHOP_STAFF})
 	public Response updateShopItem(ShopItem shopItem)
 	{
 
@@ -258,11 +257,11 @@ public class ShopItemResource {
 		User user = (User) Globals.accountApproved;
 
 
-		if(user.getRole()==GlobalConstants.ROLE_SHOP_ADMIN_CODE)
+		if(user.getRole()== Constants.ROLE_SHOP_ADMIN_CODE)
 		{
 			shopID = Globals.daoUserUtility.getShopIDForShopAdmin(user.getUserID());
 		}
-		else if (user.getRole()==GlobalConstants.ROLE_SHOP_STAFF_CODE)
+		else if (user.getRole()== Constants.ROLE_SHOP_STAFF_CODE)
 		{
 
 			shopID = Globals.daoUserUtility.getShopIDforShopStaff(user.getUserID());
@@ -301,7 +300,7 @@ public class ShopItemResource {
 
 
 	@DELETE
-	@RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN,GlobalConstants.ROLE_SHOP_STAFF})
+	@RolesAllowed({Constants.ROLE_SHOP_ADMIN, Constants.ROLE_SHOP_STAFF})
 	public Response deleteShopItem(@QueryParam("ShopID")int ShopID, @QueryParam("ItemID") int itemID)
 	{
 		int rowCount = 0;
@@ -310,11 +309,11 @@ public class ShopItemResource {
 		User user = (User) Globals.accountApproved;
 
 
-		if(user.getRole()==GlobalConstants.ROLE_SHOP_ADMIN_CODE)
+		if(user.getRole()== Constants.ROLE_SHOP_ADMIN_CODE)
 		{
 			shopID = Globals.daoUserUtility.getShopIDForShopAdmin(user.getUserID());
 		}
-		else if (user.getRole()==GlobalConstants.ROLE_SHOP_STAFF_CODE)
+		else if (user.getRole()== Constants.ROLE_SHOP_STAFF_CODE)
 		{
 
 			shopID = Globals.daoUserUtility.getShopIDforShopStaff(user.getUserID());
@@ -356,7 +355,7 @@ public class ShopItemResource {
 	@POST
 	@Path("/DeleteBulk")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN, GlobalConstants.ROLE_SHOP_STAFF})
+	@RolesAllowed({Constants.ROLE_SHOP_ADMIN, Constants.ROLE_SHOP_STAFF})
 	public Response deleteShopItemBulk(List<ShopItem> itemList)
 	{
 		int rowCountSum = 0;
@@ -365,12 +364,12 @@ public class ShopItemResource {
 
 		int shopID = 0;
 
-		if(user.getRole()==GlobalConstants.ROLE_SHOP_ADMIN_CODE)
+		if(user.getRole()== Constants.ROLE_SHOP_ADMIN_CODE)
 		{
 			 shopID = Globals.daoUserUtility.getShopIDForShopAdmin(user.getUserID());
 
 		}
-		else if (user.getRole()==GlobalConstants.ROLE_SHOP_STAFF_CODE)
+		else if (user.getRole()== Constants.ROLE_SHOP_STAFF_CODE)
 		{
 
 			ShopStaffPermissions permissions = Globals.daoShopStaff.getShopStaffPermissions(user.getUserID());
@@ -449,7 +448,7 @@ public class ShopItemResource {
 
 
 		endPoint.setLimit(limit);
-		endPoint.setMax_limit(GlobalConstants.max_limit);
+		endPoint.setMax_limit(Constants.max_limit);
 		endPoint.setOffset(offset);
 
 
@@ -561,7 +560,7 @@ public class ShopItemResource {
 
 
 		endPoint.setLimit(limit);
-		endPoint.setMax_limit(GlobalConstants.max_limit);
+		endPoint.setMax_limit(Constants.max_limit);
 		endPoint.setOffset(offset);
 
 

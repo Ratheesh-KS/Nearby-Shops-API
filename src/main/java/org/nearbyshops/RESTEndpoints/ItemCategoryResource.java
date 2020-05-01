@@ -4,7 +4,7 @@ import net.coobird.thumbnailator.Thumbnails;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import org.nearbyshops.DAOs.ItemCategoryDAO;
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.Image;
 import org.nearbyshops.Model.ItemCategory;
@@ -41,7 +41,7 @@ public class ItemCategoryResource {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_ADMIN, GlobalConstants.ROLE_STAFF})
+	@RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF})
 	public Response saveItemCategory(ItemCategory itemCategory)
 	{
 
@@ -49,7 +49,7 @@ public class ItemCategoryResource {
 
 		User user = (User) Globals.accountApproved;
 
-		if(user.getRole()==GlobalConstants.ROLE_STAFF_CODE) {
+		if(user.getRole()== Constants.ROLE_STAFF_CODE) {
 
 			StaffPermissions permissions = Globals.daoStaff.getStaffPermissions(user.getUserID());
 
@@ -95,7 +95,7 @@ public class ItemCategoryResource {
 	@DELETE
 	@Path("/{ItemCategoryID}")
 	@Produces(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_ADMIN, GlobalConstants.ROLE_STAFF})
+	@RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF})
 	public Response deleteItemCategory(@PathParam("ItemCategoryID")int itemCategoryID)
 	{
 
@@ -103,7 +103,7 @@ public class ItemCategoryResource {
 
 		User user = (User) Globals.accountApproved;
 
-		if(user.getRole()==GlobalConstants.ROLE_STAFF_CODE) {
+		if(user.getRole()== Constants.ROLE_STAFF_CODE) {
 
 			StaffPermissions permissions = Globals.daoStaff.getStaffPermissions(user.getUserID());
 
@@ -158,7 +158,7 @@ public class ItemCategoryResource {
 	@PUT
 	@Path("/ChangeParent/{ItemCategoryID}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_ADMIN, GlobalConstants.ROLE_STAFF})
+	@RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF})
 	public Response changeParent(@PathParam("ItemCategoryID")int itemCategoryID, ItemCategory itemCategory)
 	{
 
@@ -166,7 +166,7 @@ public class ItemCategoryResource {
 
 		User user = (User) Globals.accountApproved;
 
-		if(user.getRole()==GlobalConstants.ROLE_STAFF_CODE) {
+		if(user.getRole()== Constants.ROLE_STAFF_CODE) {
 
 			StaffPermissions permissions = Globals.daoStaff.getStaffPermissions(user.getUserID());
 
@@ -209,7 +209,7 @@ public class ItemCategoryResource {
 	@PUT
 	@Path("/ChangeParent")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_ADMIN, GlobalConstants.ROLE_STAFF})
+	@RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF})
 	public Response changeParentBulk(List<ItemCategory> itemCategoryList)
 	{
 
@@ -218,7 +218,7 @@ public class ItemCategoryResource {
 
 		User user = (User) Globals.accountApproved;
 
-		if(user.getRole()==GlobalConstants.ROLE_STAFF_CODE) {
+		if(user.getRole()== Constants.ROLE_STAFF_CODE) {
 
 			StaffPermissions permissions = Globals.daoStaff.getStaffPermissions(user.getUserID());
 
@@ -269,7 +269,7 @@ public class ItemCategoryResource {
 	@PUT
 	@Path("/{ItemCategoryID}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_ADMIN, GlobalConstants.ROLE_STAFF})
+	@RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF})
 	public Response updateItemCategory(@PathParam("ItemCategoryID")int itemCategoryID, ItemCategory itemCategory)
 	{
 
@@ -277,7 +277,7 @@ public class ItemCategoryResource {
 
 		User user = (User) Globals.accountApproved;
 
-		if(user.getRole()==GlobalConstants.ROLE_STAFF_CODE) {
+		if(user.getRole()== Constants.ROLE_STAFF_CODE) {
 
 			StaffPermissions permissions = Globals.daoStaff.getStaffPermissions(user.getUserID());
 
@@ -319,14 +319,14 @@ public class ItemCategoryResource {
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_ADMIN, GlobalConstants.ROLE_STAFF})
+	@RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF})
 	public Response updateItemCategoryBulk(List<ItemCategory> itemCategoryList)
 	{
 
 
 		User user = (User) Globals.accountApproved;
 
-		if(user.getRole()==GlobalConstants.ROLE_STAFF_CODE) {
+		if(user.getRole()== Constants.ROLE_STAFF_CODE) {
 
 			StaffPermissions permissions = Globals.daoStaff.getStaffPermissions(user.getUserID());
 
@@ -656,7 +656,7 @@ public class ItemCategoryResource {
 	@POST
 	@Path("/Image")
 	@Consumes({MediaType.APPLICATION_OCTET_STREAM})
-	@RolesAllowed({GlobalConstants.ROLE_ADMIN, GlobalConstants.ROLE_STAFF})
+	@RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF})
 	public Response uploadImage(InputStream in, @HeaderParam("Content-Length") long fileSize,
                                 @QueryParam("PreviousImageName") String previousImageName
 	) throws Exception
@@ -666,7 +666,7 @@ public class ItemCategoryResource {
 
 		User user = (User) Globals.accountApproved;
 
-		if(user.getRole()==GlobalConstants.ROLE_STAFF_CODE) {
+		if(user.getRole()== Constants.ROLE_STAFF_CODE) {
 
 			StaffPermissions permissions = Globals.daoStaff.getStaffPermissions(user.getUserID());
 
@@ -794,13 +794,13 @@ public class ItemCategoryResource {
 
 	@DELETE
 	@Path("/Image/{name}")
-	@RolesAllowed({GlobalConstants.ROLE_ADMIN, GlobalConstants.ROLE_STAFF})
+	@RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF})
 	public Response deleteImageFile(@PathParam("name")String fileName)
 	{
 
 		User user = (User) Globals.accountApproved;
 
-		if(user.getRole()==GlobalConstants.ROLE_STAFF_CODE) {
+		if(user.getRole()== Constants.ROLE_STAFF_CODE) {
 
 			StaffPermissions permissions = Globals.daoStaff.getStaffPermissions(user.getUserID());
 

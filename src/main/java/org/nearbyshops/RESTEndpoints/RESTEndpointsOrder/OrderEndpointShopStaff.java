@@ -6,7 +6,7 @@ import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
 import org.nearbyshops.DAOs.DAOOrders.DAOOrderUtility;
 import org.nearbyshops.DAOs.DAOPushNotifications.DAOOneSignal;
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Globals.SendSMS;
 import org.nearbyshops.Model.Order;
@@ -41,7 +41,7 @@ public class OrderEndpointShopStaff {
 	@GET
 	@Path("/FetchDeliveryGuys")
 	@Produces(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN, GlobalConstants.ROLE_SHOP_STAFF})
+	@RolesAllowed({Constants.ROLE_SHOP_ADMIN, Constants.ROLE_SHOP_STAFF})
 	public Response fetchDeliveryGuys(
 			@QueryParam("StatusHomeDelivery")Integer homeDeliveryStatus,
 			@QueryParam("SortBy") String sortBy,
@@ -61,11 +61,11 @@ public class OrderEndpointShopStaff {
 
 		User user = (User) Globals.accountApproved;
 
-		if(user.getRole()==GlobalConstants.ROLE_SHOP_ADMIN_CODE)
+		if(user.getRole()== Constants.ROLE_SHOP_ADMIN_CODE)
 		{
 			shopID = Globals.daoUserUtility.getShopIDForShopAdmin(user.getUserID());
 		}
-		else if(user.getRole()==GlobalConstants.ROLE_SHOP_STAFF_CODE)
+		else if(user.getRole()== Constants.ROLE_SHOP_STAFF_CODE)
 		{
 			shopID = Globals.daoUserUtility.getShopIDforShopStaff(user.getUserID());
 		}
@@ -75,9 +75,9 @@ public class OrderEndpointShopStaff {
 
 		if(limit!=null)
 		{
-			if(limit >= GlobalConstants.max_limit)
+			if(limit >= Constants.max_limit)
 			{
-				limit = GlobalConstants.max_limit;
+				limit = Constants.max_limit;
 			}
 
 			if(offset==null)
@@ -112,7 +112,7 @@ public class OrderEndpointShopStaff {
 		{
 			endpoint.setLimit(limit);
 			endpoint.setOffset(offset);
-			endpoint.setMax_limit(GlobalConstants.max_limit);
+			endpoint.setMax_limit(Constants.max_limit);
 		}
 
 
@@ -134,7 +134,7 @@ public class OrderEndpointShopStaff {
 	@PUT
 	@Path("/SetConfirmed/{OrderID}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN, GlobalConstants.ROLE_SHOP_STAFF})
+	@RolesAllowed({Constants.ROLE_SHOP_ADMIN, Constants.ROLE_SHOP_STAFF})
 	public Response confirmOrder(@PathParam("OrderID")int orderID)
 	{
 
@@ -143,7 +143,7 @@ public class OrderEndpointShopStaff {
 		User user = (User) Globals.accountApproved;
 
 
- 		if(user.getRole()==GlobalConstants.ROLE_SHOP_STAFF_CODE)
+ 		if(user.getRole()== Constants.ROLE_SHOP_STAFF_CODE)
 		{
 			ShopStaffPermissions permissions = Globals.daoShopStaff.getShopStaffPermissions(user.getUserID());
 
@@ -182,7 +182,7 @@ public class OrderEndpointShopStaff {
 
 
 
-			String topic = GlobalConstants.market_id_for_fcm + "end_user_" + orderResult.getEndUserID();
+			String topic = Constants.market_id_for_fcm + "end_user_" + orderResult.getEndUserID();
 
 			// See documentation on defining a message payload.
 			Message messageEndUser = Message.builder()
@@ -256,7 +256,7 @@ public class OrderEndpointShopStaff {
 	@PUT
 	@Path("/SetOrderPacked/{OrderID}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN, GlobalConstants.ROLE_SHOP_STAFF})
+	@RolesAllowed({Constants.ROLE_SHOP_ADMIN, Constants.ROLE_SHOP_STAFF})
 	public Response setOrderPacked(@PathParam("OrderID")int orderID)
 	{
 //		Order order = Globals.orderService.readStatusHomeDelivery(orderID);
@@ -264,7 +264,7 @@ public class OrderEndpointShopStaff {
 
 
 
-		if(user.getRole()==GlobalConstants.ROLE_SHOP_STAFF_CODE)
+		if(user.getRole()== Constants.ROLE_SHOP_STAFF_CODE)
 		{
 			ShopStaffPermissions permissions = Globals.daoShopStaff.getShopStaffPermissions(user.getUserID());
 
@@ -312,7 +312,7 @@ public class OrderEndpointShopStaff {
 
 
 
-				String topic = GlobalConstants.market_id_for_fcm + "end_user_" + orderResult.getEndUserID();
+				String topic = Constants.market_id_for_fcm + "end_user_" + orderResult.getEndUserID();
 
 				// See documentation on defining a message payload.
 				Message messageEndUser = Message.builder()
@@ -361,7 +361,7 @@ public class OrderEndpointShopStaff {
 	@PUT
 	@Path("/HandoverToDelivery/{DeliveryGuySelfID}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN,GlobalConstants.ROLE_SHOP_STAFF})
+	@RolesAllowed({Constants.ROLE_SHOP_ADMIN, Constants.ROLE_SHOP_STAFF})
 	public Response handoverToDelivery(@PathParam("DeliveryGuySelfID")int deliveryGuyID, List<Order> ordersList)
 	{
 
@@ -373,7 +373,7 @@ public class OrderEndpointShopStaff {
 
 		User user = (User) Globals.accountApproved;
 
-		if(user.getRole()==GlobalConstants.ROLE_SHOP_STAFF_CODE)
+		if(user.getRole()== Constants.ROLE_SHOP_STAFF_CODE)
 		{
 			ShopStaffPermissions permissions = Globals.daoShopStaff.getShopStaffPermissions(user.getUserID());
 
@@ -418,9 +418,9 @@ public class OrderEndpointShopStaff {
 
 			Globals.oneSignalNotifications.sendNotificationToUser(
 					deliveryGuyID,
-					GlobalConstants.ONE_SIGNAL_APP_ID_SHOP_OWNER_APP,
-					GlobalConstants.ONE_SIGNAL_API_KEY_SHOP_OWNER_APP,
-					GlobalConstants.url_for_notification_icon_value,
+					Constants.ONE_SIGNAL_APP_ID_SHOP_OWNER_APP,
+					Constants.ONE_SIGNAL_API_KEY_SHOP_OWNER_APP,
+					Constants.url_for_notification_icon_value,
 					null,
 					null,
 					10,
@@ -458,14 +458,14 @@ public class OrderEndpointShopStaff {
 	@PUT
 	@Path("/UndoHandover/{OrderID}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN, GlobalConstants.ROLE_SHOP_STAFF})
+	@RolesAllowed({Constants.ROLE_SHOP_ADMIN, Constants.ROLE_SHOP_STAFF})
 	public Response undoHandover(@PathParam("OrderID")int orderID)
 	{
 //		Order order = Globals.orderService.readStatusHomeDelivery(orderID);
 
 		User user = (User) Globals.accountApproved;
 
-		if(user.getRole()==GlobalConstants.ROLE_SHOP_STAFF_CODE)
+		if(user.getRole()== Constants.ROLE_SHOP_STAFF_CODE)
 		{
 			ShopStaffPermissions permissions = Globals.daoShopStaff.getShopStaffPermissions(user.getUserID());
 
@@ -505,14 +505,14 @@ public class OrderEndpointShopStaff {
 	@PUT
 	@Path("/AcceptReturn/{OrderID}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN, GlobalConstants.ROLE_SHOP_STAFF})
+	@RolesAllowed({Constants.ROLE_SHOP_ADMIN, Constants.ROLE_SHOP_STAFF})
 	public Response acceptReturn(@PathParam("OrderID")int orderID)
 	{
 //		Order order = Globals.orderService.readStatusHomeDelivery(orderID);
 
 		User user = (User) Globals.accountApproved;
 
-		if(user.getRole()==GlobalConstants.ROLE_SHOP_STAFF_CODE)
+		if(user.getRole()== Constants.ROLE_SHOP_STAFF_CODE)
 		{
 			ShopStaffPermissions permissions = Globals.daoShopStaff.getShopStaffPermissions(user.getUserID());
 
@@ -559,7 +559,7 @@ public class OrderEndpointShopStaff {
 
 
 
-			String topic = GlobalConstants.market_id_for_fcm + "end_user_" + orderResult.getEndUserID();
+			String topic = Constants.market_id_for_fcm + "end_user_" + orderResult.getEndUserID();
 
 			// See documentation on defining a message payload.
 			Message messageEndUser = Message.builder()
@@ -609,14 +609,14 @@ public class OrderEndpointShopStaff {
 	@PUT
 	@Path("/UnpackOrder/{OrderID}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN, GlobalConstants.ROLE_SHOP_STAFF})
+	@RolesAllowed({Constants.ROLE_SHOP_ADMIN, Constants.ROLE_SHOP_STAFF})
 	public Response unpackOrder(@PathParam("OrderID")int orderID)
 	{
 //		Order order = Globals.orderService.readStatusHomeDelivery(orderID);
 
 		User user = (User) Globals.accountApproved;
 
-		if(user.getRole()==GlobalConstants.ROLE_SHOP_STAFF_CODE)
+		if(user.getRole()== Constants.ROLE_SHOP_STAFF_CODE)
 		{
 			ShopStaffPermissions permissions = Globals.daoShopStaff.getShopStaffPermissions(user.getUserID());
 
@@ -662,14 +662,14 @@ public class OrderEndpointShopStaff {
 	@PUT
 	@Path("/PaymentReceived/{OrderID}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN, GlobalConstants.ROLE_SHOP_STAFF})
+	@RolesAllowed({Constants.ROLE_SHOP_ADMIN, Constants.ROLE_SHOP_STAFF})
 	public Response paymentReceived(@PathParam("OrderID")int orderID)
 	{
 //		Order order = Globals.orderService.readStatusHomeDelivery(orderID);
 
 		User user = (User) Globals.accountApproved;
 
-		if(user.getRole()==GlobalConstants.ROLE_SHOP_STAFF_CODE)
+		if(user.getRole()== Constants.ROLE_SHOP_STAFF_CODE)
 		{
 			ShopStaffPermissions permissions = Globals.daoShopStaff.getShopStaffPermissions(user.getUserID());
 
@@ -706,7 +706,7 @@ public class OrderEndpointShopStaff {
 
 
 
-			String topic = GlobalConstants.market_id_for_fcm + "end_user_" + orderResult.getEndUserID();
+			String topic = Constants.market_id_for_fcm + "end_user_" + orderResult.getEndUserID();
 
 
 			// See documentation on defining a message payload.
@@ -756,7 +756,7 @@ public class OrderEndpointShopStaff {
 	@PUT
 	@Path("/SetConfirmedPFS/{OrderID}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN, GlobalConstants.ROLE_SHOP_STAFF})
+	@RolesAllowed({Constants.ROLE_SHOP_ADMIN, Constants.ROLE_SHOP_STAFF})
 	public Response confirmOrderPFS(@PathParam("OrderID")int orderID)
 	{
 
@@ -765,7 +765,7 @@ public class OrderEndpointShopStaff {
 		User user = (User) Globals.accountApproved;
 
 
-		if(user.getRole()==GlobalConstants.ROLE_SHOP_STAFF_CODE)
+		if(user.getRole()== Constants.ROLE_SHOP_STAFF_CODE)
 		{
 			ShopStaffPermissions permissions = Globals.daoShopStaff.getShopStaffPermissions(user.getUserID());
 
@@ -804,31 +804,11 @@ public class OrderEndpointShopStaff {
 
 
 
-			String topic = GlobalConstants.market_id_for_fcm + "end_user_" + orderResult.getEndUserID();
 
-			// See documentation on defining a message payload.
-			Message messageEndUser = Message.builder()
-					.setNotification(new Notification("Order Confirmed", "Order number " + String.valueOf(orderID) + " has been Confirmed!"))
-					.putData("notification_type",GlobalConstants.NOTIFICATION_ORDER_PACKED)
-					.setTopic(topic)
-					.build();
-
-
-			System.out.println("Topic : " + topic);
-
-
-			try {
-
-
-				String responseEndUser = FirebaseMessaging.getInstance().send(messageEndUser);
-				System.out.println("Sent Notification to EndUser: " + responseEndUser);
-
-
-			} catch (FirebaseMessagingException e) {
-				e.printStackTrace();
-			}
-
-
+			String topic = Constants.market_id_for_fcm + "end_user_" + orderResult.getEndUserID();
+			String notificationTitle = "Order Confirmed";
+			String notificationMessage = "Order number " + String.valueOf(orderID) + " has been Confirmed!";
+			Globals.sendFCMPushNotification(topic,notificationTitle,notificationMessage,Constants.NOTIFICATION_TYPE_ORDER_UPDATES);
 
 
 
@@ -847,7 +827,7 @@ public class OrderEndpointShopStaff {
 
 
 				Email emailComposed = EmailBuilder.startingBlank()
-						.from(GlobalConstants.EMAIL_SENDER_NAME, GlobalConstants.EMAIL_ADDRESS_FOR_SENDER)
+						.from(Constants.EMAIL_SENDER_NAME, Constants.EMAIL_ADDRESS_FOR_SENDER)
 						.to(orderResult.getRt_end_user_profile().getName(),orderResult.getRt_end_user_profile().getEmail())
 						.withSubject("Order No. " + orderID + " Confirmed")
 						.withHTMLText(htmlText)
@@ -880,7 +860,7 @@ public class OrderEndpointShopStaff {
 	@PUT
 	@Path("/SetOrderPackedPFS/{OrderID}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN, GlobalConstants.ROLE_SHOP_STAFF})
+	@RolesAllowed({Constants.ROLE_SHOP_ADMIN, Constants.ROLE_SHOP_STAFF})
 	public Response setOrderPackedPFS(@PathParam("OrderID")int orderID)
 	{
 //		Order order = Globals.orderService.readStatusHomeDelivery(orderID);
@@ -888,7 +868,7 @@ public class OrderEndpointShopStaff {
 
 
 
-		if(user.getRole()==GlobalConstants.ROLE_SHOP_STAFF_CODE)
+		if(user.getRole()== Constants.ROLE_SHOP_STAFF_CODE)
 		{
 			ShopStaffPermissions permissions = Globals.daoShopStaff.getShopStaffPermissions(user.getUserID());
 
@@ -932,31 +912,10 @@ public class OrderEndpointShopStaff {
 
 
 
-			String topic = GlobalConstants.market_id_for_fcm + "end_user_" + orderResult.getEndUserID();
-
-			// See documentation on defining a message payload.
-			Message messageEndUser = Message.builder()
-					.setNotification(new Notification("Order Packed", "Order number " + String.valueOf(orderID) + " has been Packed !"))
-					.putData("notification_type",GlobalConstants.NOTIFICATION_ORDER_PACKED)
-					.setTopic(topic)
-					.build();
-
-
-			System.out.println("Topic : " + topic);
-
-
-			try {
-
-
-				String responseEndUser = FirebaseMessaging.getInstance().send(messageEndUser);
-				System.out.println("Sent Notification to EndUser: " + responseEndUser);
-
-
-			} catch (FirebaseMessagingException e) {
-				e.printStackTrace();
-			}
-
-
+			String topic = Constants.market_id_for_fcm + "end_user_" + orderResult.getEndUserID();
+			String notificationTitle = "Order Packed";
+			String notificationMessage = "Order number " + String.valueOf(orderID) + " has been Packed !";
+			Globals.sendFCMPushNotification(topic,notificationTitle,notificationMessage,Constants.NOTIFICATION_TYPE_ORDER_UPDATES);
 
 
 
@@ -972,7 +931,7 @@ public class OrderEndpointShopStaff {
 
 
 				Email emailComposed = EmailBuilder.startingBlank()
-						.from(GlobalConstants.EMAIL_SENDER_NAME, GlobalConstants.EMAIL_ADDRESS_FOR_SENDER)
+						.from(Constants.EMAIL_SENDER_NAME, Constants.EMAIL_ADDRESS_FOR_SENDER)
 						.to(orderResult.getRt_end_user_profile().getName(),orderResult.getRt_end_user_profile().getEmail())
 						.withSubject("Order No. " + orderID + " Packed")
 						.withHTMLText(htmlText)
@@ -1003,7 +962,7 @@ public class OrderEndpointShopStaff {
 	@PUT
 	@Path("/SetOrderReadyForPickupPFS/{OrderID}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN, GlobalConstants.ROLE_SHOP_STAFF})
+	@RolesAllowed({Constants.ROLE_SHOP_ADMIN, Constants.ROLE_SHOP_STAFF})
 	public Response setOrderReadyForPickupPFS(@PathParam("OrderID")int orderID)
 	{
 //		Order order = Globals.orderService.readStatusHomeDelivery(orderID);
@@ -1011,7 +970,7 @@ public class OrderEndpointShopStaff {
 
 
 
-		if(user.getRole()==GlobalConstants.ROLE_SHOP_STAFF_CODE)
+		if(user.getRole()== Constants.ROLE_SHOP_STAFF_CODE)
 		{
 			ShopStaffPermissions permissions = Globals.daoShopStaff.getShopStaffPermissions(user.getUserID());
 
@@ -1057,29 +1016,10 @@ public class OrderEndpointShopStaff {
 
 
 
-			String topic = GlobalConstants.market_id_for_fcm + "end_user_" + orderResult.getEndUserID();
-
-			// See documentation on defining a message payload.
-			Message messageEndUser = Message.builder()
-					.setNotification(new Notification("Order Ready for Pickup", "Order number " + String.valueOf(orderID) + " is Ready for Pickup !"))
-					.putData("notification_type",GlobalConstants.NOTIFICATION_ORDER_PACKED)
-					.setTopic(topic)
-					.build();
-
-
-			System.out.println("Topic : " + topic);
-
-
-			try {
-
-
-				String responseEndUser = FirebaseMessaging.getInstance().send(messageEndUser);
-				System.out.println("Sent Notification to EndUser: " + responseEndUser);
-
-
-			} catch (FirebaseMessagingException e) {
-				e.printStackTrace();
-			}
+			String topic = Constants.market_id_for_fcm + "end_user_" + orderResult.getEndUserID();
+			String notificationTitle = "Order Ready for Pickup";
+			String notificationMessage = "Order number " + String.valueOf(orderID) + " is Ready for Pickup !";
+			Globals.sendFCMPushNotification(topic,notificationTitle,notificationMessage,Constants.NOTIFICATION_TYPE_ORDER_UPDATES);
 
 
 
@@ -1095,7 +1035,7 @@ public class OrderEndpointShopStaff {
 
 
 				Email emailComposed = EmailBuilder.startingBlank()
-						.from(GlobalConstants.EMAIL_SENDER_NAME, GlobalConstants.EMAIL_ADDRESS_FOR_SENDER)
+						.from(Constants.EMAIL_SENDER_NAME, Constants.EMAIL_ADDRESS_FOR_SENDER)
 						.to(orderResult.getRt_end_user_profile().getName(),orderResult.getRt_end_user_profile().getEmail())
 						.withSubject("Order No. " + orderID + " is Ready for Pickup")
 						.withHTMLText(htmlText)
@@ -1134,14 +1074,14 @@ public class OrderEndpointShopStaff {
 	@PUT
 	@Path("/PaymentReceivedPFS/{OrderID}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN, GlobalConstants.ROLE_SHOP_STAFF})
+	@RolesAllowed({Constants.ROLE_SHOP_ADMIN, Constants.ROLE_SHOP_STAFF})
 	public Response paymentReceivedPFS(@PathParam("OrderID")int orderID)
 	{
 //		Order order = Globals.orderService.readStatusHomeDelivery(orderID);
 
 		User user = (User) Globals.accountApproved;
 
-		if(user.getRole()==GlobalConstants.ROLE_SHOP_STAFF_CODE)
+		if(user.getRole()== Constants.ROLE_SHOP_STAFF_CODE)
 		{
 			ShopStaffPermissions permissions = Globals.daoShopStaff.getShopStaffPermissions(user.getUserID());
 
@@ -1177,31 +1117,11 @@ public class OrderEndpointShopStaff {
 
 
 
-			String topic = GlobalConstants.market_id_for_fcm + "end_user_" + orderResult.getEndUserID();
+			String topic = Constants.market_id_for_fcm + "end_user_" + orderResult.getEndUserID();
+			String notificationTitle = "Order Delivered";
+			String notificationMessage = "Order number " + String.valueOf(orderID) + " has been delivered and amount paid !";
 
-			// See documentation on defining a message payload.
-			Message messageEndUser = Message.builder()
-					.setNotification(new Notification("Order Delivered", "Order number " + String.valueOf(orderID) + " has been delivered and amount paid !"))
-					.putData("notification_type",GlobalConstants.NOTIFICATION_ORDER_PACKED)
-					.setTopic(topic)
-					.build();
-
-
-			System.out.println("Topic : " + topic);
-
-
-			try {
-
-
-				String responseEndUser = FirebaseMessaging.getInstance().send(messageEndUser);
-				System.out.println("Sent Notification to EndUser: " + responseEndUser);
-
-
-			} catch (FirebaseMessagingException e) {
-				e.printStackTrace();
-			}
-
-
+			Globals.sendFCMPushNotification(topic,notificationTitle,notificationMessage,Constants.NOTIFICATION_TYPE_ORDER_UPDATES);
 
 
 
@@ -1217,7 +1137,7 @@ public class OrderEndpointShopStaff {
 
 
 				Email emailComposed = EmailBuilder.startingBlank()
-						.from(GlobalConstants.EMAIL_SENDER_NAME, GlobalConstants.EMAIL_ADDRESS_FOR_SENDER)
+						.from(Constants.EMAIL_SENDER_NAME, Constants.EMAIL_ADDRESS_FOR_SENDER)
 						.to(orderResult.getRt_end_user_profile().getName(),orderResult.getRt_end_user_profile().getEmail())
 						.withSubject("Order No. " + orderID + " is Delivered")
 						.withHTMLText(htmlText)

@@ -4,7 +4,7 @@ import net.coobird.thumbnailator.Thumbnails;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import org.nearbyshops.DAOs.DAOImages.ItemImagesDAO;
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.Image;
 import org.nearbyshops.Model.ItemImage;
@@ -39,7 +39,7 @@ public class ItemImageResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({GlobalConstants.ROLE_ADMIN, GlobalConstants.ROLE_STAFF,GlobalConstants.ROLE_SHOP_ADMIN})
+    @RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF, Constants.ROLE_SHOP_ADMIN})
     public Response createItemImage(ItemImage itemImage)
     {
         int idOfInsertedRow = -1;
@@ -76,7 +76,7 @@ public class ItemImageResource {
     @PUT
     @Path("/{ImageID}")
     @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({GlobalConstants.ROLE_ADMIN, GlobalConstants.ROLE_STAFF})
+    @RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF})
     public Response updateItemImage(ItemImage itemImage, @PathParam("ImageID")int imageID)
     {
 
@@ -111,7 +111,7 @@ public class ItemImageResource {
     @DELETE
     @Path("/{ImageID}")
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({GlobalConstants.ROLE_ADMIN, GlobalConstants.ROLE_STAFF})
+    @RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF})
     public Response deleteImage(@PathParam("ImageID")int imageID)
     {
 
@@ -164,9 +164,9 @@ public class ItemImageResource {
 
 
 
-        if(limit!=null && limit >= GlobalConstants.max_limit)
+        if(limit!=null && limit >= Constants.max_limit)
         {
-            limit = GlobalConstants.max_limit;
+            limit = Constants.max_limit;
         }
 
 
@@ -196,7 +196,7 @@ public class ItemImageResource {
         {
             endPoint.setLimit(limit);
             endPoint.setOffset(offset);
-            endPoint.setMax_limit(GlobalConstants.max_limit);
+            endPoint.setMax_limit(Constants.max_limit);
         }
 
 
@@ -362,7 +362,7 @@ public class ItemImageResource {
     @POST
     @Path("/Image")
     @Consumes({MediaType.APPLICATION_OCTET_STREAM})
-    @RolesAllowed({GlobalConstants.ROLE_ADMIN, GlobalConstants.ROLE_STAFF, GlobalConstants.ROLE_SHOP_ADMIN})
+    @RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF, Constants.ROLE_SHOP_ADMIN})
     public Response uploadImage(InputStream in, @HeaderParam("Content-Length") long fileSize,
                                 @QueryParam("PreviousImageName") String previousImageName
     ) throws Exception
@@ -494,7 +494,7 @@ public class ItemImageResource {
 
     @DELETE
     @Path("/Image/{name}")
-    @RolesAllowed({GlobalConstants.ROLE_ADMIN, GlobalConstants.ROLE_STAFF, GlobalConstants.ROLE_SHOP_ADMIN, GlobalConstants.ROLE_SHOP_STAFF})
+    @RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF, Constants.ROLE_SHOP_ADMIN, Constants.ROLE_SHOP_STAFF})
     public Response deleteImageFile(@PathParam("name")String fileName)
     {
 

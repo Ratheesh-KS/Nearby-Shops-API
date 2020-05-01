@@ -1,7 +1,7 @@
 package org.nearbyshops.DAOs.DAORoles;
 
 import com.zaxxer.hikari.HikariDataSource;
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.ModelRoles.*;
 import org.nearbyshops.Model.ModelRoles.Endpoints.UserEndpoint;
@@ -1359,7 +1359,7 @@ public class DAOUserNew {
         if(shopID!=null)
         {
 
-            if(userRole==null || userRole==GlobalConstants.ROLE_DELIVERY_GUY_SELF_CODE)
+            if(userRole==null || userRole== Constants.ROLE_DELIVERY_GUY_SELF_CODE)
             {
                 queryJoin = queryJoin + " AND ( " + DeliveryGuyData.TABLE_NAME + "." + DeliveryGuyData.SHOP_ID + " = ? )";
             }

@@ -4,7 +4,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.Order;
 import org.nearbyshops.Model.ModelEndpoint.OrderEndPoint;
@@ -41,37 +41,16 @@ public class OrderResource {
 
 
 			// send push notification
-			if(GlobalConstants.push_notification_provider==1)
+			if(Constants.push_notification_provider==1)
 			{
 
 				// send notification using fcm
-				String topic = GlobalConstants.market_id_for_fcm + "shop_" + orderResult.getShopID();
+				String topic = Constants.market_id_for_fcm + "shop_" + orderResult.getShopID();
 
-				// See documentation on defining a message payload.
-				Message message = Message.builder()
-						.setNotification(new Notification("Order Received", "You have received an order. Please check the order and respond to the customer !"))
-						.putData("notification_type",GlobalConstants.NOTIFICATION_ORDER_RECIEVED)
-						.setTopic(topic)
-						.build();
+				String notificationTitle = "Order Delivered";
+				String notificationMessage = "You have received an order. Please check the order and respond to the customer !";
 
-
-
-
-				System.out.println("Topic : " + topic);
-
-
-				try {
-
-
-					String response = FirebaseMessaging.getInstance().send(message);
-					System.out.println("Sent Notification : " + response);
-
-
-				} catch (FirebaseMessagingException e) {
-					e.printStackTrace();
-				}
-
-
+				Globals.sendFCMPushNotification(topic,notificationTitle,notificationMessage,Constants.NOTIFICATION_ORDER_RECIEVED);
 
 			}
 
@@ -97,7 +76,7 @@ public class OrderResource {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_END_USER})
+	@RolesAllowed({Constants.ROLE_END_USER})
 	public Response getOrders(
 			@QueryParam("FilterOrdersByShopID") boolean filterOrdersByShopID,
 			@QueryParam("FilterOrdersByUserID") boolean filterOrdersByUserID,
@@ -134,11 +113,11 @@ public class OrderResource {
 
 		if(filterOrdersByShopID)
 		{
-			if(user.getRole()==GlobalConstants.ROLE_SHOP_ADMIN_CODE)
+			if(user.getRole()== Constants.ROLE_SHOP_ADMIN_CODE)
 			{
 				shopID = Globals.daoUserUtility.getShopIDForShopAdmin(user.getUserID());
 			}
-			else if(user.getRole()==GlobalConstants.ROLE_SHOP_STAFF_CODE)
+			else if(user.getRole()== Constants.ROLE_SHOP_STAFF_CODE)
 			{
 				shopID = Globals.daoUserUtility.getShopIDforShopStaff(user.getUserID());
 			}
@@ -155,9 +134,9 @@ public class OrderResource {
 
 
 
-		if(limit >= GlobalConstants.max_limit)
+		if(limit >= Constants.max_limit)
 		{
-			limit = GlobalConstants.max_limit;
+			limit = Constants.max_limit;
 		}
 
 
@@ -200,7 +179,7 @@ public class OrderResource {
 
 		endpoint.setLimit(limit);
 		endpoint.setOffset(offset);
-		endpoint.setMax_limit(GlobalConstants.max_limit);
+		endpoint.setMax_limit(Constants.max_limit);
 
 
 
@@ -227,7 +206,7 @@ public class OrderResource {
 	// requires authentication by the Distributor
 	@PUT
 	@Path("/CancelByUser/{OrderID}")
-	@RolesAllowed({GlobalConstants.ROLE_END_USER})
+	@RolesAllowed({Constants.ROLE_END_USER})
 	public Response cancelledByShop(@PathParam("OrderID")int orderID)
 	{
 		Order order = Globals.daoOrderUtility.readStatusHomeDelivery(orderID);

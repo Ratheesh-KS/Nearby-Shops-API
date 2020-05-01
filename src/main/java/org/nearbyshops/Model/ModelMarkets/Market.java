@@ -1,11 +1,11 @@
-package org.nearbyshops.Model.ModelSettings;
+package org.nearbyshops.Model.ModelMarkets;
 
 import java.sql.Timestamp;
 
 /**
  * Created by sumeet on 19/6/16.
  */
-public class ServiceConfigurationLocal {
+public class Market {
 
 
     // Table Name
@@ -60,39 +60,39 @@ public class ServiceConfigurationLocal {
 
     // Create Table Statement
     public static final String createTablePostgres
-            = "CREATE TABLE IF NOT EXISTS " + ServiceConfigurationLocal.TABLE_NAME + "("
-            + " " + ServiceConfigurationLocal.SERVICE_CONFIGURATION_ID + " SERIAL PRIMARY KEY,"
+            = "CREATE TABLE IF NOT EXISTS " + Market.TABLE_NAME + "("
+            + " " + Market.SERVICE_CONFIGURATION_ID + " SERIAL PRIMARY KEY,"
 
-            + " " + ServiceConfigurationLocal.LOGO_IMAGE_PATH + " text,"
-            + " " + ServiceConfigurationLocal.BACKDROP_IMAGE_PATH + " text,"
+            + " " + Market.LOGO_IMAGE_PATH + " text,"
+            + " " + Market.BACKDROP_IMAGE_PATH + " text,"
 
-            + " " + ServiceConfigurationLocal.SERVICE_NAME + " text,"
-            + " " + ServiceConfigurationLocal.HELPLINE_NUMBER + " text,"
+            + " " + Market.SERVICE_NAME + " text,"
+            + " " + Market.HELPLINE_NUMBER + " text,"
 
-            + " " + ServiceConfigurationLocal.DESCRIPTION_SHORT + " text,"
-            + " " + ServiceConfigurationLocal.DESCRIPTION_LONG + " text,"
+            + " " + Market.DESCRIPTION_SHORT + " text,"
+            + " " + Market.DESCRIPTION_LONG + " text,"
 
 
-            + " " + ServiceConfigurationLocal.ADDRESS + " text,"
-            + " " + ServiceConfigurationLocal.CITY + " text,"
-            + " " + ServiceConfigurationLocal.PINCODE + " BIGINT,"
-            + " " + ServiceConfigurationLocal.LANDMARK + " text,"
-            + " " + ServiceConfigurationLocal.STATE + " text,"
-            + " " + ServiceConfigurationLocal.COUNTRY + " text not null default 'India',"
+            + " " + Market.ADDRESS + " text,"
+            + " " + Market.CITY + " text,"
+            + " " + Market.PINCODE + " BIGINT,"
+            + " " + Market.LANDMARK + " text,"
+            + " " + Market.STATE + " text,"
+            + " " + Market.COUNTRY + " text not null default 'India',"
 
-            + " " + ServiceConfigurationLocal.ISO_COUNTRY_CODE + " text not null default 'IN',"
-            + " " + ServiceConfigurationLocal.ISO_LANGUAGE_CODE + " text,"
-            + " " + ServiceConfigurationLocal.ISO_CURRENCY_CODE + " text,"
+            + " " + Market.ISO_COUNTRY_CODE + " text not null default 'IN',"
+            + " " + Market.ISO_LANGUAGE_CODE + " text,"
+            + " " + Market.ISO_CURRENCY_CODE + " text,"
 
 //            + " " + ServiceConfigurationLocal.SERVICE_TYPE + " INT,"
 //            + " " + ServiceConfigurationLocal.SERVICE_LEVEL + " INT,"
 
-            + " " + ServiceConfigurationLocal.LAT_CENTER + " FLOAT not null default 0,"
-            + " " + ServiceConfigurationLocal.LON_CENTER + " FLOAT not null default 0,"
-            + " " + ServiceConfigurationLocal.SERVICE_RANGE + " FLOAT not null default 0,"
+            + " " + Market.LAT_CENTER + " FLOAT not null default 0,"
+            + " " + Market.LON_CENTER + " FLOAT not null default 0,"
+            + " " + Market.SERVICE_RANGE + " FLOAT not null default 0,"
 
-            + " " + ServiceConfigurationLocal.UPDATED + " timestamp with time zone,"
-            + " " + ServiceConfigurationLocal.CREATED + " timestamp with time zone NOT NULL DEFAULT now()"
+            + " " + Market.UPDATED + " timestamp with time zone,"
+            + " " + Market.CREATED + " timestamp with time zone NOT NULL DEFAULT now()"
 
 //            + " " + ServiceConfigurationLocal.STYLE_URL + " text,"
 //            + " " + ServiceConfigurationLocal.MQTT_SERVER_ADDRESS + " text"
@@ -155,9 +155,9 @@ public class ServiceConfigurationLocal {
 
 
 
-    public static ServiceConfigurationLocal getDefaultConfig()
+    public static Market getDefaultConfig()
     {
-        ServiceConfigurationLocal serviceConfig = new ServiceConfigurationLocal();
+        Market serviceConfig = new Market();
 
 
         serviceConfig.setServiceID(1);

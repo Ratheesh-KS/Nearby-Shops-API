@@ -4,7 +4,7 @@ package org.nearbyshops;
 
 
 import org.nearbyshops.DAOs.DAORoles.DAOUserNew;
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.ModelRoles.User;
 
@@ -176,56 +176,56 @@ public class AuthenticationFilterBackup implements ContainerRequestFilter {
 //                System.out.println("Shop Admin null ...");
 
 
-            if(role.equals(GlobalConstants.ROLE_ADMIN))
+            if(role.equals(Constants.ROLE_ADMIN))
             {
-                roleID = GlobalConstants.ROLE_ADMIN_CODE;
+                roleID = Constants.ROLE_ADMIN_CODE;
 
-                if(user.getRole()==GlobalConstants.ROLE_ADMIN_CODE ||
-                        user.getRole()==GlobalConstants.ROLE_STAFF_CODE)
+                if(user.getRole()== Constants.ROLE_ADMIN_CODE ||
+                        user.getRole()== Constants.ROLE_STAFF_CODE)
                 {
                     return user;
                 }
 
             }
-            else if(role.equals(GlobalConstants.ROLE_STAFF))
+            else if(role.equals(Constants.ROLE_STAFF))
             {
-                roleID = GlobalConstants.ROLE_STAFF_CODE;
+                roleID = Constants.ROLE_STAFF_CODE;
             }
-            else if(role.equals(GlobalConstants.ROLE_SHOP_ADMIN))
+            else if(role.equals(Constants.ROLE_SHOP_ADMIN))
             {
-                roleID = GlobalConstants.ROLE_SHOP_ADMIN_CODE;
+                roleID = Constants.ROLE_SHOP_ADMIN_CODE;
 
-                if(user.getRole()==GlobalConstants.ROLE_SHOP_ADMIN_CODE ||
-                        user.getRole()==GlobalConstants.ROLE_SHOP_STAFF_CODE ||
-                        user.getRole()==GlobalConstants.ROLE_DELIVERY_GUY_CODE)
+                if(user.getRole()== Constants.ROLE_SHOP_ADMIN_CODE ||
+                        user.getRole()== Constants.ROLE_SHOP_STAFF_CODE ||
+                        user.getRole()== Constants.ROLE_DELIVERY_GUY_CODE)
                 {
                     return user;
                 }
 
             }
-            else if(role.equals(GlobalConstants.ROLE_DELIVERY_GUY_SELF))
+            else if(role.equals(Constants.ROLE_DELIVERY_GUY_SELF))
             {
-                roleID=GlobalConstants.ROLE_DELIVERY_GUY_SELF_CODE;
+                roleID= Constants.ROLE_DELIVERY_GUY_SELF_CODE;
             }
-            else if(role.equals(GlobalConstants.ROLE_SHOP_STAFF))
+            else if(role.equals(Constants.ROLE_SHOP_STAFF))
             {
-                roleID = GlobalConstants.ROLE_SHOP_STAFF_CODE;
+                roleID = Constants.ROLE_SHOP_STAFF_CODE;
             }
-            else if(role.equals(GlobalConstants.ROLE_DELIVERY_GUY))
+            else if(role.equals(Constants.ROLE_DELIVERY_GUY))
             {
-                roleID = GlobalConstants.ROLE_DELIVERY_GUY_CODE;
+                roleID = Constants.ROLE_DELIVERY_GUY_CODE;
             }
-            else if(role.equals(GlobalConstants.ROLE_END_USER))
+            else if(role.equals(Constants.ROLE_END_USER))
             {
 
-                roleID = GlobalConstants.ROLE_END_USER_CODE;
+                roleID = Constants.ROLE_END_USER_CODE;
 
                 // any role can login in place of end user
 
 
-                if(user.getRole()==GlobalConstants.ROLE_SHOP_ADMIN_CODE ||
-                        user.getRole()==GlobalConstants.ROLE_SHOP_STAFF_CODE ||
-                        user.getRole()==GlobalConstants.ROLE_DELIVERY_GUY_CODE)
+                if(user.getRole()== Constants.ROLE_SHOP_ADMIN_CODE ||
+                        user.getRole()== Constants.ROLE_SHOP_STAFF_CODE ||
+                        user.getRole()== Constants.ROLE_DELIVERY_GUY_CODE)
                 {
                     return user;
                 }

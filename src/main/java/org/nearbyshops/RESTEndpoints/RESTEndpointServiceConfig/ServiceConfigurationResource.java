@@ -6,10 +6,10 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import org.nearbyshops.DAOs.DAOSettings.ServiceConfigurationDAO;
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.Image;
-import org.nearbyshops.Model.ModelSettings.ServiceConfigurationLocal;
+import org.nearbyshops.Model.ModelMarkets.Market;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
@@ -42,16 +42,16 @@ public class ServiceConfigurationResource {
 	{
 //		@PathParam("ServiceID")int service
 
-		ServiceConfigurationLocal serviceConfigurationLocal = daoPrepared.getServiceConfiguration(latCenter,lonCenter);
+		Market market = daoPrepared.getServiceConfiguration(latCenter,lonCenter);
 
-		if(serviceConfigurationLocal != null)
+		if(market != null)
 		{
-			serviceConfigurationLocal.setRt_login_using_otp_enabled(GlobalConstants.enable_login_using_otp_value);
-			serviceConfigurationLocal.setRt_market_id_for_fcm(GlobalConstants.market_id_for_fcm);
+			market.setRt_login_using_otp_enabled(Constants.enable_login_using_otp_value);
+			market.setRt_market_id_for_fcm(Constants.market_id_for_fcm);
 
 
 			return Response.status(Status.OK)
-					.entity(serviceConfigurationLocal)
+					.entity(market)
 					.build();
 
 		} else
@@ -69,12 +69,12 @@ public class ServiceConfigurationResource {
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({GlobalConstants.ROLE_ADMIN})
-	public Response updateService(ServiceConfigurationLocal serviceConfigurationLocal)
+	@RolesAllowed({Constants.ROLE_ADMIN})
+	public Response updateService(Market market)
 	{
 
-		serviceConfigurationLocal.setServiceID(1);
-		int rowCount =	daoPrepared.updateService(serviceConfigurationLocal);
+		market.setServiceID(1);
+		int rowCount =	daoPrepared.updateService(market);
 
 
 
@@ -106,12 +106,12 @@ public class ServiceConfigurationResource {
 	//	@POST
 //	@Consumes(MediaType.APPLICATION_JSON)
 //	@Produces(MediaType.APPLICATION_JSON)
-	public Response createService(ServiceConfigurationLocal serviceConfigurationLocal)
+	public Response createService(Market market)
 	{
 
-		int idOfInsertedRow = daoPrepared.saveService(serviceConfigurationLocal);
+		int idOfInsertedRow = daoPrepared.saveService(market);
 
-		serviceConfigurationLocal.setServiceID(idOfInsertedRow);
+		market.setServiceID(idOfInsertedRow);
 
 		if(idOfInsertedRow >=1)
 		{
@@ -119,7 +119,7 @@ public class ServiceConfigurationResource {
 
 			return Response.status(Status.CREATED)
 					.location(URI.create("/api/CurrentServiceConfiguration/" + idOfInsertedRow))
-					.entity(serviceConfigurationLocal)
+					.entity(market)
 					.build();
 			
 		}else if(idOfInsertedRow <=0)
@@ -185,10 +185,10 @@ public class ServiceConfigurationResource {
 	{
 
 
-		List<ServiceConfigurationLocal> servicesList = daoPrepared.readServices(serviceLevel,serviceType,latCenterQuery,lonCenterQuery,
+		List<Market> servicesList = daoPrepared.readServices(serviceLevel,serviceType,latCenterQuery,lonCenterQuery,
                                     								sortBy,limit,offset);
 
-		GenericEntity<List<ServiceConfigurationLocal>> listEntity = new GenericEntity<List<ServiceConfigurationLocal>>(servicesList){
+		GenericEntity<List<Market>> listEntity = new GenericEntity<List<Market>>(servicesList){
 			
 		};
 	
@@ -231,7 +231,7 @@ public class ServiceConfigurationResource {
 	@POST
 	@Path("/Image")
 	@Consumes({MediaType.APPLICATION_OCTET_STREAM})
-	@RolesAllowed({GlobalConstants.ROLE_ADMIN})
+	@RolesAllowed({Constants.ROLE_ADMIN})
 	public Response uploadImage(InputStream in, @HeaderParam("Content-Length") long fileSize,
                                 @QueryParam("PreviousImageName") String previousImageName
 	) throws Exception
@@ -351,7 +351,7 @@ public class ServiceConfigurationResource {
 
 	@DELETE
 	@Path("/Image/{name}")
-	@RolesAllowed({GlobalConstants.ROLE_ADMIN})
+	@RolesAllowed({Constants.ROLE_ADMIN})
 	public Response deleteImageFile(@PathParam("name")String fileName)
 	{
 
@@ -403,7 +403,7 @@ public class ServiceConfigurationResource {
 	// utility methods
 	void updateMarketEntryAtSDS()
 	{
-		for(String url : GlobalConstants.trusted_market_aggregators_value)
+		for(String url : Constants.trusted_market_aggregators_value)
 		{
 			// for each url send a ping
 			updateSDSEntry(url);
@@ -421,7 +421,7 @@ public class ServiceConfigurationResource {
 
 
 		String url = "";
-		url = sdsURL + "/api/v1/ServiceConfiguration/UpdateService?ServiceURL=" + GlobalConstants.domain_name_for_api;
+		url = sdsURL + "/api/v1/ServiceConfiguration/UpdateService?ServiceURL=" + Constants.domain_name_for_api;
 
 
 //        System.out.println("Ping URL" + url);

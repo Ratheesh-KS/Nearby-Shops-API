@@ -7,8 +7,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import org.glassfish.jersey.jetty.JettyHttpContainerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
-import org.nearbyshops.Globals.GlobalConfig;
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.ConfigUtility;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.*;
 import org.nearbyshops.Model.ModelAnalytics.ItemAnalytics;
@@ -26,7 +26,7 @@ import org.nearbyshops.Model.ModelReviewShop.FavouriteShop;
 import org.nearbyshops.Model.ModelReviewShop.ShopReview;
 import org.nearbyshops.Model.ModelReviewShop.ShopReviewThanks;
 import org.nearbyshops.Model.ModelRoles.*;
-import org.nearbyshops.Model.ModelSettings.ServiceConfigurationLocal;
+import org.nearbyshops.Model.ModelMarkets.Market;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -56,8 +56,8 @@ public class Main {
         final ResourceConfig rc = new ResourceConfig().packages("org.nearbyshops");
 
 
-        System.out.println("Base URL : " + GlobalConstants.BASE_URI);
-        JettyHttpContainerFactory.createServer(URI.create(GlobalConstants.BASE_URI),rc);
+        System.out.println("Base URL : " + Constants.BASE_URI);
+        JettyHttpContainerFactory.createServer(URI.create(Constants.BASE_URI),rc);
     }
 
 
@@ -67,7 +67,7 @@ public class Main {
 
 
 
-        GlobalConfig.loadGlobalConfiguration();
+        ConfigUtility.loadGlobalConfiguration();
 
 //        createDB();
         upgradeTables();
@@ -98,8 +98,8 @@ public class Main {
 
         try {
 
-            connection = DriverManager.getConnection(GlobalConstants.POSTGRES_CONNECTION_URL,
-                    GlobalConstants.POSTGRES_USERNAME, GlobalConstants.POSTGRES_PASSWORD);
+            connection = DriverManager.getConnection(Constants.POSTGRES_CONNECTION_URL,
+                    Constants.POSTGRES_USERNAME, Constants.POSTGRES_PASSWORD);
 
 
             statement = connection.createStatement();
@@ -154,7 +154,7 @@ public class Main {
             statement.executeUpdate(ItemSpecificationItem.createTableItemSpecificationItemPostgres);
 
 
-            statement.executeUpdate(ServiceConfigurationLocal.createTablePostgres);
+            statement.executeUpdate(Market.createTablePostgres);
 
 
 
@@ -180,18 +180,18 @@ public class Main {
             // Create admin account with given username and password if it does not exit | or update in case admin account exist
 
             User admin = new User();
-            admin.setEmail(GlobalConstants.ADMIN_EMAIL);
+            admin.setEmail(Constants.ADMIN_EMAIL);
             admin.setRole(1);
-            admin.setPassword(GlobalConstants.ADMIN_PASSWORD);
+            admin.setPassword(Constants.ADMIN_PASSWORD);
 
 
-            System.out.println("Admin Username : " + GlobalConstants.ADMIN_EMAIL + " | " + " Admin Password : " + GlobalConstants.ADMIN_PASSWORD);
+            System.out.println("Admin Username : " + Constants.ADMIN_EMAIL + " | " + " Admin Password : " + Constants.ADMIN_PASSWORD);
 
 
 
 
 //            boolean adminRoleExist = Globals.daoUserUtility.checkRoleExists(GlobalConstants.ROLE_ADMIN_CODE);
-            int userID = Globals.daoUserUtility.getUserID(GlobalConstants.ADMIN_EMAIL);
+            int userID = Globals.daoUserUtility.getUserID(Constants.ADMIN_EMAIL);
 
             if(userID==-1)
             {
@@ -274,7 +274,7 @@ public class Main {
             if(Globals.serviceConfigDAO.getServiceConfiguration(null,null)==null)
             {
 
-                ServiceConfigurationLocal defaultConfiguration = new ServiceConfigurationLocal();
+                Market defaultConfiguration = new Market();
 
 //                defaultConfiguration.setServiceLevel(GlobalConstants.SERVICE_LEVEL_CITY);
 //                defaultConfiguration.setServiceType(GlobalConstants.SERVICE_TYPE_NONPROFIT);
@@ -398,8 +398,8 @@ public class Main {
 
 //            connection = DriverManager.getConnection(connection_url, username,password);
 
-            connection = DriverManager.getConnection(GlobalConstants.POSTGRES_CONNECTION_URL,
-                    GlobalConstants.POSTGRES_USERNAME, GlobalConstants.POSTGRES_PASSWORD);
+            connection = DriverManager.getConnection(Constants.POSTGRES_CONNECTION_URL,
+                    Constants.POSTGRES_USERNAME, Constants.POSTGRES_PASSWORD);
 
 
             statement = connection.createStatement();
@@ -468,12 +468,12 @@ public class Main {
 //            "/media/sumeet/data/aNearbyShops/NearbyShopsAPI/firebase/nearbyshops-f7b77-firebase-adminsdk-phmoy-50db87dde4.json"
 //            "https://nearbyshops-f7b77.firebaseio.com"
 
-            serviceAccount = new FileInputStream(GlobalConstants.fcm_config_file_path);
+            serviceAccount = new FileInputStream(Constants.fcm_config_file_path);
 
 
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                    .setDatabaseUrl(GlobalConstants.fcm_database_url)
+                    .setDatabaseUrl(Constants.fcm_database_url)
                     .build();
 
 
@@ -532,7 +532,7 @@ public class Main {
             public void run() {
 
 
-                for(String url : GlobalConstants.trusted_market_aggregators_value)
+                for(String url : Constants.trusted_market_aggregators_value)
                 {
                     // for each url send a ping
                     sendPing(url);
@@ -565,7 +565,7 @@ public class Main {
 
 
         String url = "";
-        url = sdsURL + "/api/v1/ServiceConfiguration/Ping?ServiceURL=" + GlobalConstants.domain_name_for_api;
+        url = sdsURL + "/api/v1/ServiceConfiguration/Ping?ServiceURL=" + Constants.domain_name_for_api;
 
 
 //        System.out.println("Ping URL" + url);

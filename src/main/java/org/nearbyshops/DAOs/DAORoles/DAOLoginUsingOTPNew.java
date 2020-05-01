@@ -1,7 +1,7 @@
 package org.nearbyshops.DAOs.DAORoles;
 
 import com.zaxxer.hikari.HikariDataSource;
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.ModelRoles.User;
 import org.nearbyshops.Model.ModelRoles.UserTokens;
@@ -62,7 +62,7 @@ public class DAOLoginUsingOTPNew {
             int i = 0;
 
             statement.setObject(++i,userProfile.getPhone());
-            statement.setObject(++i, GlobalConstants.ROLE_END_USER_CODE);
+            statement.setObject(++i, Constants.ROLE_END_USER_CODE);
             statement.setObject(++i, Integer.parseInt(String.valueOf(Globals.generateOTP(5))));
             statement.setObject(++i,userProfile.getToken());
 
@@ -187,7 +187,7 @@ public class DAOLoginUsingOTPNew {
             int i = 0;
 
             statement.setObject(++i,userProfile.getEmail());
-            statement.setObject(++i, GlobalConstants.ROLE_END_USER_CODE);
+            statement.setObject(++i, Constants.ROLE_END_USER_CODE);
             statement.setObject(++i, Integer.parseInt(String.valueOf(Globals.generateOTP(5))));
             statement.setObject(++i,userProfile.getToken());
 

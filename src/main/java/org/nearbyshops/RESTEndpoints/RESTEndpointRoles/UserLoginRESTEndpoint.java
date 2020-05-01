@@ -2,7 +2,7 @@ package org.nearbyshops.RESTEndpoints.RESTEndpointRoles;
 
 import net.coobird.thumbnailator.Thumbnails;
 import org.nearbyshops.DAOs.DAORoles.DAOUserNew;
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.Image;
 import org.nearbyshops.Model.ModelRoles.Endpoints.UserEndpoint;
@@ -39,7 +39,7 @@ public class UserLoginRESTEndpoint {
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({GlobalConstants.ROLE_END_USER})
+    @RolesAllowed({Constants.ROLE_END_USER})
     public Response updateProfile(User user)
     {
 
@@ -70,13 +70,13 @@ public class UserLoginRESTEndpoint {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/UpdateProfileByAdmin")
-    @RolesAllowed({GlobalConstants.ROLE_ADMIN,GlobalConstants.ROLE_STAFF})
+    @RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF})
     public Response updateProfileByAdmin(User user)
     {
         User userStaff = ((User)Globals.accountApproved);
         StaffPermissions permissions = Globals.daoStaff.getStaffPermissions(userStaff.getUserID());
 
-        if(userStaff.getRole()==GlobalConstants.ROLE_STAFF_CODE)
+        if(userStaff.getRole()== Constants.ROLE_STAFF_CODE)
         {
 
         }
@@ -107,7 +107,7 @@ public class UserLoginRESTEndpoint {
 
     @PUT
     @Path("/UpdateOneSignalID/{OneSignalID}")
-    @RolesAllowed({GlobalConstants.ROLE_END_USER})
+    @RolesAllowed({Constants.ROLE_END_USER})
     public Response updateOneSignalID(@PathParam("OneSignalID") String oneSignalID)
     {
 
@@ -147,7 +147,7 @@ public class UserLoginRESTEndpoint {
     @PUT
     @Path("/UpdateEmail")
     @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN,GlobalConstants.ROLE_END_USER,GlobalConstants.ROLE_STAFF,GlobalConstants.ROLE_ADMIN})
+    @RolesAllowed({Constants.ROLE_SHOP_ADMIN, Constants.ROLE_END_USER, Constants.ROLE_STAFF, Constants.ROLE_ADMIN})
     public Response updateEmail(User user)
     {
 
@@ -177,7 +177,7 @@ public class UserLoginRESTEndpoint {
     @PUT
     @Path("/UpdatePhone")
     @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN,GlobalConstants.ROLE_END_USER,GlobalConstants.ROLE_STAFF,GlobalConstants.ROLE_ADMIN})
+    @RolesAllowed({Constants.ROLE_SHOP_ADMIN, Constants.ROLE_END_USER, Constants.ROLE_STAFF, Constants.ROLE_ADMIN})
     public Response updatePhone(User user)
     {
 
@@ -207,7 +207,7 @@ public class UserLoginRESTEndpoint {
     @PUT
     @Path("/ChangePassword/{OldPassword}")
     @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed({GlobalConstants.ROLE_SHOP_ADMIN,GlobalConstants.ROLE_END_USER,GlobalConstants.ROLE_STAFF,GlobalConstants.ROLE_ADMIN})
+    @RolesAllowed({Constants.ROLE_SHOP_ADMIN, Constants.ROLE_END_USER, Constants.ROLE_STAFF, Constants.ROLE_ADMIN})
     public Response changePassword(User user, @PathParam("OldPassword")String oldPassword)
     {
 
@@ -235,7 +235,7 @@ public class UserLoginRESTEndpoint {
     @GET
     @Path("/GetProfile")
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({GlobalConstants.ROLE_END_USER})
+    @RolesAllowed({Constants.ROLE_END_USER})
     public Response getProfile()
     {
 
@@ -290,7 +290,7 @@ public class UserLoginRESTEndpoint {
 
 
         String token = new BigInteger(130, Globals.random).toString(32);
-        Timestamp timestampExpiry = new Timestamp(System.currentTimeMillis() + GlobalConstants.TOKEN_DURATION_MINUTES * 60 * 10);
+        Timestamp timestampExpiry = new Timestamp(System.currentTimeMillis() + Constants.TOKEN_DURATION_MINUTES * 60 * 10);
 
         User user = daoUser.getProfile(username,password);
 
@@ -316,14 +316,14 @@ public class UserLoginRESTEndpoint {
 
             
 
-            if(user.getRole() == GlobalConstants.ROLE_STAFF_CODE)
+            if(user.getRole() == Constants.ROLE_STAFF_CODE)
             {
 
                 StaffPermissions permissions = Globals.daoStaff.getStaffPermissions(user.getUserID());
                 user.setRt_staff_permissions(permissions);
 
             }
-            else if (user.getRole() == GlobalConstants.ROLE_SHOP_STAFF_CODE)
+            else if (user.getRole() == Constants.ROLE_SHOP_STAFF_CODE)
             {
 //                 if role is driver then add vehicle if it exists
 //                    user.setRt_vehicle(Globals.);
@@ -415,7 +415,7 @@ public class UserLoginRESTEndpoint {
 
         String token = new BigInteger(130, Globals.random).toString(32);
 
-        Timestamp timestampExpiry = new Timestamp(System.currentTimeMillis() + GlobalConstants.TOKEN_DURATION_MINUTES*60*1000);
+        Timestamp timestampExpiry = new Timestamp(System.currentTimeMillis() + Constants.TOKEN_DURATION_MINUTES*60*1000);
 
 
 //        Date dt = new Date();
@@ -472,7 +472,7 @@ public class UserLoginRESTEndpoint {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({GlobalConstants.ROLE_ADMIN,GlobalConstants.ROLE_STAFF,GlobalConstants.ROLE_SHOP_ADMIN,GlobalConstants.ROLE_SHOP_STAFF})
+    @RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF, Constants.ROLE_SHOP_ADMIN, Constants.ROLE_SHOP_STAFF})
     public Response getUsers(
             @QueryParam("UserRole") Integer userRole,
             @QueryParam("Gender") Boolean gender,
@@ -488,19 +488,19 @@ public class UserLoginRESTEndpoint {
 
             Integer shopID = null;
 
-            if(user.getRole()==GlobalConstants.ROLE_SHOP_ADMIN_CODE)
+            if(user.getRole()== Constants.ROLE_SHOP_ADMIN_CODE)
             {
                 shopID = Globals.daoUserUtility.getShopIDForShopAdmin(user.getUserID());
             }
-            else if(user.getRole()==GlobalConstants.ROLE_SHOP_STAFF_CODE)
+            else if(user.getRole()== Constants.ROLE_SHOP_STAFF_CODE)
             {
                 shopID = Globals.daoUserUtility.getShopIDforShopStaff(user.getUserID());
             }
 
 
-            if(limit >= GlobalConstants.max_limit)
+            if(limit >= Constants.max_limit)
             {
-                limit = GlobalConstants.max_limit;
+                limit = Constants.max_limit;
             }
 
 
@@ -519,7 +519,7 @@ public class UserLoginRESTEndpoint {
 
             endPoint.setLimit(limit);
             endPoint.setOffset(offset);
-            endPoint.setMax_limit(GlobalConstants.max_limit);
+            endPoint.setMax_limit(Constants.max_limit);
 
 
 //        try {
@@ -544,7 +544,7 @@ public class UserLoginRESTEndpoint {
     @GET
     @Path("/GetUserDetails/{UserID}")
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({GlobalConstants.ROLE_ADMIN,GlobalConstants.ROLE_STAFF})
+    @RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_STAFF})
     public Response getUserDetails(@PathParam("UserID")int userID)
     {
 
@@ -582,7 +582,7 @@ public class UserLoginRESTEndpoint {
     @POST
     @Path("/Image")
     @Consumes({MediaType.APPLICATION_OCTET_STREAM})
-    @RolesAllowed({GlobalConstants.ROLE_ADMIN,GlobalConstants.ROLE_SHOP_ADMIN,GlobalConstants.ROLE_STAFF,GlobalConstants.ROLE_END_USER})
+    @RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_SHOP_ADMIN, Constants.ROLE_STAFF, Constants.ROLE_END_USER})
     public Response uploadImage(InputStream in, @HeaderParam("Content-Length") long fileSize,
                                 @QueryParam("PreviousImageName") String previousImageName
     ) throws Exception
@@ -707,7 +707,7 @@ public class UserLoginRESTEndpoint {
 
     @DELETE
     @Path("/Image/{name}")
-    @RolesAllowed({GlobalConstants.ROLE_ADMIN,GlobalConstants.ROLE_SHOP_ADMIN,GlobalConstants.ROLE_STAFF,GlobalConstants.ROLE_END_USER})
+    @RolesAllowed({Constants.ROLE_ADMIN, Constants.ROLE_SHOP_ADMIN, Constants.ROLE_STAFF, Constants.ROLE_END_USER})
     public Response deleteImageFile(@PathParam("name")String fileName)
     {
 

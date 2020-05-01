@@ -6,7 +6,7 @@ import okhttp3.Request;
 import org.nearbyshops.DAOs.DAORoles.DAOLoginUsingOTP;
 import org.nearbyshops.DAOs.DAORoles.DAOPhoneVerificationCodes;
 import org.nearbyshops.DAOs.DAORoles.DAOUserNew;
-import org.nearbyshops.Globals.GlobalConstants;
+import org.nearbyshops.Globals.Constants;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.ModelRoles.ShopStaffPermissions;
 import org.nearbyshops.Model.ModelRoles.StaffPermissions;
@@ -94,7 +94,7 @@ public class LoginUsingOTPRESTEndpoint24Mar20 {
 
 
 
-            if(user.getRole() == GlobalConstants.ROLE_STAFF_CODE) {
+            if(user.getRole() == Constants.ROLE_STAFF_CODE) {
 
                 StaffPermissions permissions = Globals.daoStaff.getStaffPermissions(user.getUserID());
 
@@ -103,7 +103,7 @@ public class LoginUsingOTPRESTEndpoint24Mar20 {
                     user.setRt_staff_permissions(permissions);
                 }
             }
-            else if (user.getRole() == GlobalConstants.ROLE_SHOP_STAFF_CODE)
+            else if (user.getRole() == Constants.ROLE_SHOP_STAFF_CODE)
             {
                 ShopStaffPermissions permissions = Globals.daoShopStaff.getShopStaffPermissions(user.getUserID());
 
@@ -170,7 +170,7 @@ public class LoginUsingOTPRESTEndpoint24Mar20 {
 
         boolean trusted = false;
 
-        for(String url : GlobalConstants.trusted_market_aggregators_value)
+        for(String url : Constants.trusted_market_aggregators_value)
         {
 
 //            System.out.println("URL SDS : " + url);
@@ -356,7 +356,7 @@ public class LoginUsingOTPRESTEndpoint24Mar20 {
 
 
                 if (getServiceConfig) {
-                    userProfile.setServiceConfigurationLocal(Globals.serviceConfigDAO.getServiceConfiguration(0.0, 0.0));
+                    userProfile.setMarket(Globals.serviceConfigDAO.getServiceConfiguration(0.0, 0.0));
                 }
 
                 if (getUserProfileGlobal) {
