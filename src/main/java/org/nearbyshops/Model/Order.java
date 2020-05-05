@@ -33,6 +33,7 @@ public class Order {
     public static final String APP_SERVICE_CHARGE = "APP_SERVICE_CHARGE";
     public static final String DELIVERY_CHARGES = "DELIVERY_CHARGES";
 //    public static final String TAX_AMOUNT = "TAX_AMOUNT";
+    public static final String SAVINGS_OVER_MRP = "SAVINGS_OVER_MRP";
     public static final String NET_PAYABLE = "NET_PAYABLE";
 
     public static final String IS_CANCELLED_BY_END_USER = "CANCELLED_BY";   // true implies the order is cancelled by end-user and false implies the order is cancelled by shop
@@ -75,6 +76,7 @@ public class Order {
             + " " + Order.APP_SERVICE_CHARGE + " float not null default 0,"
             + " " + Order.DELIVERY_CHARGES + " float not null default 0,"
 //            + " " + Order.TAX_AMOUNT + " float not null default 0,"
+            + " " + Order.SAVINGS_OVER_MRP + " float not null default 0,"
             + " " + Order.NET_PAYABLE + " float not null default 0,"
 
             + " " + Order.IS_CANCELLED_BY_END_USER + " boolean not null default 't',"
@@ -101,6 +103,13 @@ public class Order {
 
 
 
+
+    public static final String addColumns =
+            " ALTER TABLE IF EXISTS " + Order.TABLE_NAME
+                    + "  ADD COLUMN IF NOT EXISTS  " + Order.SAVINGS_OVER_MRP + "  float NOT NULL default 0 ";
+
+
+
 //    + " " + Order.DELIVERY_RECEIVED + " boolean,"
 //            + " " + Order.PAYMENT_RECEIVED + " boolean,"
 
@@ -122,6 +131,7 @@ public class Order {
     private double itemTotal;
     private double appServiceCharge;
     private double deliveryCharges;
+    private double savingsOverMRP;
     private double netPayable;
 
     private boolean isCancelledByEndUser;
@@ -171,6 +181,14 @@ public class Order {
 
     // getter and setter
 
+
+    public double getSavingsOverMRP() {
+        return savingsOverMRP;
+    }
+
+    public void setSavingsOverMRP(double savingsOverMRP) {
+        this.savingsOverMRP = savingsOverMRP;
+    }
 
     public User getRt_end_user_profile() {
         return rt_end_user_profile;

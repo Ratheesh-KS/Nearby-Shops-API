@@ -43,6 +43,17 @@ public class ShopResource {
 	public Response createShop(Shop shop)
 	{
 
+		if(Globals.licensingRestrictionsEnabled)
+		{
+			if(Globals.daoUtility.getShopCount(null) >= Globals.maxVendorCount)
+			{
+				// shop creation not allowed beyond maximum vendor count !
+				return Response.status(Status.NOT_MODIFIED)
+						.build();
+			}
+
+		}
+
 
 
 
@@ -750,6 +761,9 @@ public class ShopResource {
 
 		return Response.status(Status.CREATED).location(URI.create("/api/Images/" + fileName)).entity(image).build();
 	}
+
+
+
 
 
 

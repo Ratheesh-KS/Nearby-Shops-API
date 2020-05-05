@@ -356,7 +356,7 @@ public class LoginUsingOTPRESTEndpoint24Mar20 {
 
 
                 if (getServiceConfig) {
-                    userProfile.setMarket(Globals.serviceConfigDAO.getServiceConfiguration(0.0, 0.0));
+                    userProfile.setServiceConfigurationLocal(Globals.serviceConfigDAO.getServiceConfiguration(0.0, 0.0));
                 }
 
                 if (getUserProfileGlobal) {

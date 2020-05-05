@@ -175,11 +175,7 @@ public class User {
     private String rt_oneSignalPlayerID;
 
 
-    private Market market;
-
-
-
-
+    private Market serviceConfigurationLocal;
 
 
 
@@ -230,13 +226,12 @@ public class User {
     }
 
 
-
-    public Market getMarket() {
-        return market;
+    public Market getServiceConfigurationLocal() {
+        return serviceConfigurationLocal;
     }
 
-    public void setMarket(Market market) {
-        this.market = market;
+    public void setServiceConfigurationLocal(Market serviceConfigurationLocal) {
+        this.serviceConfigurationLocal = serviceConfigurationLocal;
     }
 
     public DeliveryGuyData getRt_delivery_guy_data() {

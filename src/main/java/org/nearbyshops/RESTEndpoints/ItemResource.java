@@ -454,6 +454,8 @@ public class ItemResource {
 
 
 
+
+
 		if(getSubcategories)
 		{
 			ItemCategoryEndPoint endPointCat = itemCategoryDAO
@@ -461,7 +463,7 @@ public class ItemResource {
 							itemCategoryID,
 							parentIsNull,
 							searchString,
-							ItemCategory.CATEGORY_ORDER,limit,offset);
+							ItemCategory.CATEGORY_ORDER,null,null);
 
 			endPoint.setSubcategories(endPointCat.getResults());
 		}

@@ -124,6 +124,7 @@ public class PlaceOrderDAO {
                         " and " + Order.TABLE_NAME + "." + Order.ORDER_ID + " = ?";
 
 
+
         String deleteCartItems = " DELETE FROM " + CartItem.TABLE_NAME +
                             " WHERE " + Cart.CART_ID + " = ?";
 
@@ -232,6 +233,8 @@ public class PlaceOrderDAO {
                 netPayable = itemTotal + appServiceCharge + deliveryCharges;
 
             }
+
+
 
 
 
@@ -355,5 +358,6 @@ public class PlaceOrderDAO {
 
         return orderID;
     }
+
 
 }

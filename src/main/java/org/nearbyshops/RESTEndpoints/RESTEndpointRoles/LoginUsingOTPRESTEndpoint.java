@@ -265,7 +265,7 @@ public class LoginUsingOTPRESTEndpoint {
     @GET
     @Path("/LoginUsingGlobalCredentials")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getProfileWithLogin(
+    public Response loginWithGlobalCredentials(
             @HeaderParam("Authorization")String headerParam,
             @QueryParam("ServiceURLSDS")String serviceURLForSDS,
             @QueryParam("MarketID")int marketID,
@@ -467,8 +467,10 @@ public class LoginUsingOTPRESTEndpoint {
 
 
                 if (getServiceConfig) {
-                    userProfile.setMarket(Globals.serviceConfigDAO.getServiceConfiguration(0.0, 0.0));
+                    userProfile.setServiceConfigurationLocal(Globals.serviceConfigDAO.getServiceConfiguration(0.0, 0.0));
                 }
+
+
 
                 if (getUserProfileGlobal) {
 

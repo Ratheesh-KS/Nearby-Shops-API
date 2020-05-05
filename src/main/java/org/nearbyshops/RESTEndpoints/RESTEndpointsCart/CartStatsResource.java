@@ -46,6 +46,12 @@ public class CartStatsResource {
 
 
 
+//
+//		try {
+//			Thread.sleep(3000);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
 
 
 		if(cartStats.size()<=0)

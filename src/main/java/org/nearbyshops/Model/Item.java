@@ -28,9 +28,11 @@ public class Item {
 	public static final String ITEM_DESCRIPTION_LONG = "ITEM_DESCRIPTION_LONG";
 
 	public static final String LIST_PRICE = "LIST_PRICE";
+	public static final String DISCOUNTED_PRICE = "DISCOUNTED_PRICE";
 	public static final String BARCODE = "BARCODE";
 	public static final String BARCODE_FORMAT = "BARCODE_FORMAT";
 	public static final String IMAGE_COPYRIGHTS = "IMAGE_COPYRIGHTS";
+
 
 
 
@@ -51,7 +53,8 @@ public class Item {
 			+ " " + Item.TIMESTAMP_UPDATED + "  timestamp with time zone ,"
 			+ " " + Item.ITEM_DESCRIPTION_LONG + " text,"
 
-			+ " " + Item.LIST_PRICE + " float,"
+			+ " " + Item.LIST_PRICE + " float not null default 0,"
+			+ " " + Item.DISCOUNTED_PRICE + " float not null default 0,"
 			+ " " + Item.BARCODE + " text,"
 			+ " " + Item.BARCODE_FORMAT + " text,"
 			+ " " + Item.IMAGE_COPYRIGHTS + " text,"
@@ -62,6 +65,10 @@ public class Item {
 
 
 
+
+	public static final String addColumns =
+			" ALTER TABLE IF EXISTS " + Item.TABLE_NAME
+					+ "  ADD COLUMN IF NOT EXISTS  " + Item.DISCOUNTED_PRICE + "  float NOT NULL default 0 ";
 
 
 

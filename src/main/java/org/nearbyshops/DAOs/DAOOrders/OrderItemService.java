@@ -267,8 +267,12 @@ public class OrderItemService {
 				+ Item.TABLE_NAME + "." + Item.ITEM_IMAGE_URL + ""
 
 				+ " FROM " + OrderItem.TABLE_NAME
-				+ " LEFT OUTER JOIN " + Item.TABLE_NAME + " ON ( " + OrderItem.TABLE_NAME + "." + OrderItem.ITEM_ID + " = " + Item.TABLE_NAME + "." + Item.ITEM_ID + " ) "
+				+ " LEFT OUTER JOIN " + Item.TABLE_NAME
+				+ " ON ( " + OrderItem.TABLE_NAME + "." + OrderItem.ITEM_ID + " = " + Item.TABLE_NAME + "." + Item.ITEM_ID + " ) "
 				+ " WHERE TRUE ";
+
+
+
 
 
 

@@ -409,6 +409,9 @@ public class Main {
             statement.executeUpdate(User.removeNotNullforPassword);
             statement.executeUpdate(ShopItem.addColumns);
 
+            statement.executeUpdate(OrderItem.addColumns);
+            statement.executeUpdate(Item.addColumns);
+
 
 //            statement.executeUpdate(Shop.removeNotNull);
 

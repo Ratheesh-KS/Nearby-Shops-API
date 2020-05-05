@@ -69,7 +69,6 @@ public class Globals {
 
     public static DAOOrderUtility daoOrderUtility = new DAOOrderUtility();
 
-
     public static FavoriteItemDAOPrepared favoriteItemDAOPrepared = new FavoriteItemDAOPrepared();
     public static ItemReviewDAOPrepared itemReviewDAOPrepared = new ItemReviewDAOPrepared();
     public static ItemReviewThanksDAOPrepared itemReviewThanksDAOPrepared = new ItemReviewThanksDAOPrepared();
@@ -123,6 +122,8 @@ public class Globals {
 
 
     public static DAOItemAnalytics daoItemAnalytics = new DAOItemAnalytics();
+
+    public static DAOUtility daoUtility = new DAOUtility();
 
 
 
@@ -198,11 +199,13 @@ public class Globals {
 
 
 
-    public static boolean licensingRestrictionsEnabled = false;
+    public static boolean licensingRestrictionsEnabled = true;
     private static Market market;
 
 
-    public static double maxMarketRangeInKms = 50;
+
+    public static double maxMarketRangeInKms = 30;
+    public static double maxVendorCount = 10;
 
 
 
