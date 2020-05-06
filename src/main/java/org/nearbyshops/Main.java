@@ -412,6 +412,14 @@ public class Main {
             statement.executeUpdate(OrderItem.addColumns);
             statement.executeUpdate(Item.addColumns);
 
+            statement.executeUpdate(ItemCategory.dropColumns);
+
+            statement.executeUpdate(Shop.addColumnsMinOrder);
+
+
+
+
+
 
 //            statement.executeUpdate(Shop.removeNotNull);
 

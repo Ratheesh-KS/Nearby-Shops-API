@@ -70,7 +70,7 @@ public class ItemCategoryDAOStaff {
                 + ItemCategory.IMAGE_PATH + ","
                 + ItemCategory.ITEM_CATEGORY_DESCRIPTION + ","
 
-                + ItemCategory.ITEM_CATEGORY_DESCRIPTION_SHORT + ","
+//                + ItemCategory.ITEM_CATEGORY_DESCRIPTION_SHORT + ","
                 + ItemCategory.IS_ABSTRACT + ","
 
                 + ItemCategory.IS_LEAF_NODE + ","
@@ -85,7 +85,7 @@ public class ItemCategoryDAOStaff {
                 + ItemCategory.TABLE_NAME + "." + ItemCategory.IMAGE_PATH + ","
                 + ItemCategory.TABLE_NAME + "." + ItemCategory.ITEM_CATEGORY_DESCRIPTION + ","
 
-                + ItemCategory.TABLE_NAME + "." + ItemCategory.ITEM_CATEGORY_DESCRIPTION_SHORT + ","
+//                + ItemCategory.TABLE_NAME + "." + ItemCategory.ITEM_CATEGORY_DESCRIPTION_SHORT + ","
                 + ItemCategory.TABLE_NAME + "." + ItemCategory.IS_ABSTRACT + ","
 
                 + ItemCategory.TABLE_NAME + "." + ItemCategory.IS_LEAF_NODE + ","
@@ -108,7 +108,7 @@ public class ItemCategoryDAOStaff {
                 + "cat." + ItemCategory.IMAGE_PATH + ","
                 + "cat." + ItemCategory.ITEM_CATEGORY_DESCRIPTION + ","
 
-                + "cat." + ItemCategory.ITEM_CATEGORY_DESCRIPTION_SHORT + ","
+//                + "cat." + ItemCategory.ITEM_CATEGORY_DESCRIPTION_SHORT + ","
                 + "cat." + ItemCategory.IS_ABSTRACT + ","
 
                 + "cat." + ItemCategory.IS_LEAF_NODE + ","
@@ -126,7 +126,7 @@ public class ItemCategoryDAOStaff {
                 + ItemCategory.IMAGE_PATH + ","
                 + ItemCategory.ITEM_CATEGORY_DESCRIPTION + ","
 
-                + ItemCategory.ITEM_CATEGORY_DESCRIPTION_SHORT + ","
+//                + ItemCategory.ITEM_CATEGORY_DESCRIPTION_SHORT + ","
                 + ItemCategory.IS_ABSTRACT + ","
 
                 + ItemCategory.IS_LEAF_NODE + ","
@@ -221,7 +221,7 @@ public class ItemCategoryDAOStaff {
                 itemCategory.setCategoryName(rs.getString(ItemCategory.ITEM_CATEGORY_NAME));
 
                 itemCategory.setisAbstractNode(rs.getBoolean(ItemCategory.IS_ABSTRACT));
-                itemCategory.setDescriptionShort(rs.getString(ItemCategory.ITEM_CATEGORY_DESCRIPTION_SHORT));
+//                itemCategory.setDescriptionShort(rs.getString(ItemCategory.ITEM_CATEGORY_DESCRIPTION_SHORT));
 
                 itemCategory.setCategoryDescription(rs.getString(ItemCategory.ITEM_CATEGORY_DESCRIPTION));
                 itemCategoryList.add(itemCategory);

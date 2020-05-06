@@ -1,6 +1,5 @@
 package org.nearbyshops.Model;
 
-import org.graalvm.compiler.core.common.type.ArithmeticOpTable;
 
 /**
  * Created by sumeet on 29/5/16.

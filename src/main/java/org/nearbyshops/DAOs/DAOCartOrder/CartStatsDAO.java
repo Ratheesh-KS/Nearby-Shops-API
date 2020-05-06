@@ -4,6 +4,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.nearbyshops.Globals.Globals;
 import org.nearbyshops.Model.Cart;
 import org.nearbyshops.Model.CartItem;
+import org.nearbyshops.Model.Item;
 import org.nearbyshops.Model.ShopItem;
 import org.nearbyshops.Model.ModelStats.CartStats;
 
@@ -63,23 +64,40 @@ public class CartStatsDAO {
 
 
 
+        String queryWithSavings =  " select " +
+                " sum(" + CartItem.ITEM_QUANTITY + "*" + ShopItem.ITEM_PRICE + ") as Cart_Total," +
+                " count(" + CartItem.TABLE_NAME + "." + CartItem.ITEM_ID + ") as Items_In_Cart," +
+                " sum( Greatest ( " + CartItem.ITEM_QUANTITY + " * ( " + Item.LIST_PRICE + " - " + ShopItem.ITEM_PRICE + " ) " + " , 0)) as Savings_Over_MRP," +
+                Cart.TABLE_NAME + "." + Cart.SHOP_ID + "," +
+                Cart.TABLE_NAME + "." + Cart.CART_ID  +
+                " from " + ShopItem.TABLE_NAME +
+                " INNER JOIN " + Cart.TABLE_NAME + " ON ( " + Cart.TABLE_NAME + "." + Cart.SHOP_ID + " = "  + ShopItem.TABLE_NAME + "." + ShopItem.SHOP_ID + " )" +
+                " INNER JOIN " + CartItem.TABLE_NAME + " ON ( " + Cart.TABLE_NAME + "." + Cart.CART_ID + " = " + CartItem.TABLE_NAME + "."  + CartItem.CART_ID + ")" +
+                " INNER JOIN " + Item.TABLE_NAME + " ON ( " + ShopItem.TABLE_NAME + "." + ShopItem.ITEM_ID + " = " + Item.TABLE_NAME + "." + Item.ITEM_ID + ")" +
+                " where "
+                + " ( " + ShopItem.TABLE_NAME + "." + ShopItem.ITEM_ID + " = " + CartItem.TABLE_NAME + "." + CartItem.ITEM_ID + " ) "
+                + " and " + Cart.END_USER_ID + " = " + endUserID ;
+
+
+
+
         if(cartID != null)
         {
-            query = query + "and " + Cart.TABLE_NAME + "." + Cart.CART_ID + " = " + cartID;
+            queryWithSavings = queryWithSavings + "and " + Cart.TABLE_NAME + "." + Cart.CART_ID + " = " + cartID;
         }
 
 
 
         if(shopID != null)
         {
-            query = query + " and " + Cart.TABLE_NAME + "." + Cart.SHOP_ID + " = " + shopID;
+            queryWithSavings = queryWithSavings + " and " + Cart.TABLE_NAME + "." + Cart.SHOP_ID + " = " + shopID;
         }
 
 
         String groupByQueryPart =  " group by " +
                                     " cart.shop_id," + Cart.TABLE_NAME + "." + Cart.CART_ID;
 
-        query = query + groupByQueryPart;
+        queryWithSavings = queryWithSavings + groupByQueryPart;
 
 
         Connection connection = null;
@@ -96,7 +114,7 @@ public class CartStatsDAO {
 
             connection = dataSource.getConnection();
             statement = connection.createStatement();
-            rs = statement.executeQuery(query);
+            rs = statement.executeQuery(queryWithSavings);
 
             while(rs.next())
             {
@@ -106,6 +124,7 @@ public class CartStatsDAO {
                 cartStats.setShopID(rs.getInt(Cart.SHOP_ID));
                 cartStats.setItemsInCart(rs.getInt("items_in_cart"));
                 cartStats.setCart_Total(rs.getDouble("cart_total"));
+                cartStats.setSavingsOverMRP(rs.getDouble("Savings_Over_MRP"));
 
                 cartStatsList.add(cartStats);
             }

@@ -460,6 +460,8 @@ public class CartItemService {
 
 
 
+
+
 	public ArrayList<CartItem> getCartItemRefined(Integer endUserID, Integer shopID,
                                                   String sortBy,
                                                   Integer limit, Integer offset)
@@ -473,15 +475,12 @@ public class CartItemService {
 				+ ShopItem.AVAILABLE_ITEM_QUANTITY + ","
 				+ ShopItem.ITEM_PRICE + ","
 
-				+ Item.TABLE_NAME + "." + Item.ITEM_CATEGORY_ID + ","
+
 				+ Item.TABLE_NAME + "." + Item.ITEM_ID + ","
 				+ Item.TABLE_NAME + "." + Item.ITEM_IMAGE_URL + ","
 				+ Item.TABLE_NAME + "." + Item.ITEM_NAME + ","
-				+ Item.TABLE_NAME + "." + Item.ITEM_DESC + ","
-
-				+ Item.TABLE_NAME + "." + Item.QUANTITY_UNIT + ","
-				+ Item.TABLE_NAME + "." + Item.DATE_TIME_CREATED + ","
-				+ Item.TABLE_NAME + "." + Item.ITEM_DESCRIPTION_LONG + ""
+				+ Item.TABLE_NAME + "." + Item.LIST_PRICE + ","
+				+ Item.TABLE_NAME + "." + Item.QUANTITY_UNIT + ""
 
 				+ " FROM " + CartItem.TABLE_NAME
 				+ " LEFT OUTER JOIN " + Cart.TABLE_NAME + " ON(" + CartItem.TABLE_NAME + "." + CartItem.CART_ID + " = " + Cart.TABLE_NAME + "." + Cart.CART_ID + ")"
@@ -491,12 +490,7 @@ public class CartItemService {
 				+ " and " + ShopItem.TABLE_NAME + "." + ShopItem.ITEM_ID + " = " + CartItem.TABLE_NAME + "." + CartItem.ITEM_ID;
 
 
-		//" shop_item.item_id = cart_item.item_id " +
-//		+ " (item_quantity * item_price) as Item_total,"
-//		+ " item_quantity, "
 
-		//+ " available_item_quantity,"
-		//+ " item_price," +
 
 
 		if(endUserID!=null)
@@ -569,15 +563,18 @@ public class CartItemService {
 				Item item = new Item();
 
 				item.setItemID(rs.getInt(Item.ITEM_ID));
-				item.setItemName(rs.getString(Item.ITEM_NAME));
-				item.setItemDescription(rs.getString(Item.ITEM_DESC));
-
 				item.setItemImageURL(rs.getString(Item.ITEM_IMAGE_URL));
-				item.setItemCategoryID(rs.getInt(Item.ITEM_CATEGORY_ID));
-
-				item.setItemDescriptionLong(rs.getString(Item.ITEM_DESCRIPTION_LONG));
-				item.setDateTimeCreated(rs.getTimestamp(Item.DATE_TIME_CREATED));
+				item.setItemName(rs.getString(Item.ITEM_NAME));
+				item.setListPrice(rs.getFloat(Item.LIST_PRICE));
 				item.setQuantityUnit(rs.getString(Item.QUANTITY_UNIT));
+
+
+
+				//				item.setItemCategoryID(rs.getInt(Item.ITEM_CATEGORY_ID));
+//				item.setItemDescriptionLong(rs.getString(Item.ITEM_DESCRIPTION_LONG));
+//				item.setDateTimeCreated(rs.getTimestamp(Item.DATE_TIME_CREATED));
+				//				item.setItemDescription(rs.getString(Item.ITEM_DESC));
+
 
 
 				cartItem.setItem(item);

@@ -20,8 +20,6 @@ public class Item {
 	public static final String ITEM_IMAGE_URL = "ITEM_IMAGE_URL";
 	public static final String ITEM_CATEGORY_ID = "ITEM_CATEGORY_ID";
 
-
-	// recently added
 	public static final String QUANTITY_UNIT = "QUANTITY_UNIT";
 	public static final String DATE_TIME_CREATED = "DATE_TIME_CREATED";
 	public static final String TIMESTAMP_UPDATED = "TIMESTAMP_UPDATED";
@@ -32,6 +30,9 @@ public class Item {
 	public static final String BARCODE = "BARCODE";
 	public static final String BARCODE_FORMAT = "BARCODE_FORMAT";
 	public static final String IMAGE_COPYRIGHTS = "IMAGE_COPYRIGHTS";
+
+	public static final String SOURCE_MARKET_URL = "SOURCE_MARKET_URL";
+	public static final String SOURCE_MARKET_ITEM_ID = "SOURCE_MARKET_ITEM_ID";
 
 
 

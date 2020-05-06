@@ -12,6 +12,7 @@ public class CartStats {
     private int cartID;
     private int itemsInCart;
     private double cart_Total;
+    private double savingsOverMRP;
     private int shopID;
     private Shop shop;
 
@@ -21,6 +22,14 @@ public class CartStats {
 
     // Getter and Setter
 
+
+    public double getSavingsOverMRP() {
+        return savingsOverMRP;
+    }
+
+    public void setSavingsOverMRP(double savingsOverMRP) {
+        this.savingsOverMRP = savingsOverMRP;
+    }
 
     public int getCartID() {
         return cartID;

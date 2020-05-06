@@ -19,13 +19,14 @@ public class Shop {
 
 	public static final String DELIVERY_CHARGES = "DELIVERY_CHARGES";
 	public static final String BILL_AMOUNT_FOR_FREE_DELIVERY = "BILL_AMOUNT_FOR_FREE_DELIVERY";
-	// to be added
+	public static final String MINIMUM_ORDER_AMOUNT = "MINIMUM_ORDER_AMOUNT";
+
 	public static final String PICK_FROM_SHOP_AVAILABLE = "PICK_FROM_SHOP_AVAILABLE";
 	public static final String HOME_DELIVERY_AVAILABLE = "HOME_DELIVERY_AVAILABLE";
 
+
 	public static final String LOGO_IMAGE_PATH = "LOGO_IMAGE_PATH";
 
-	// recently Added
 	public static final String SHOP_ADDRESS = "SHOP_ADDRESS";
 	public static final String CITY = "CITY";
 	public static final String PINCODE = "PINCODE";
@@ -38,7 +39,7 @@ public class Shop {
 	public static final String TIMESTAMP_CREATED = "TIMESTAMP_CREATED";
 	public static final String IS_OPEN = "IS_SHOP_OPEN";
 
-	// to be added
+
 	public static final String SHOP_ENABLED = "SHOP_ENABLED";
 	public static final String SHOP_WAITLISTED = "SHOP_WAITLISTED";
 
@@ -50,36 +51,6 @@ public class Shop {
 	public static final String ACCOUNT_BALANCE = "ACCOUNT_BALANCE";
 	public static final String EXTENDED_CREDIT_LIMIT = "EXTENDED_CREDIT_LIMIT";
 
-
-
-	// deprecated columns
-//	public static final String LAT_MAX = "LAT_MAX";
-//	public static final String LON_MAX = "LON_MAX";
-//	public static final String LAT_MIN = "LAT_MIN";
-//	public static final String LON_MIN = "LON_MIN";
-//	public static final String DISTRIBUTOR_ID = "Distributor";
-
-
-	// deleted columns
-
-//	+ " " + Shop.DISTRIBUTOR_ID + " INT,"
-
-//			+ " " + Shop.LON_MAX + " FLOAT,"
-//			+ " " + Shop.LAT_MAX + " FLOAT,"
-//			+ " " + Shop.LON_MIN + " FLOAT,"
-//			+ " " + Shop.LAT_MIN + " FLOAT,"
-
-	//	public static final String IMAGE_PATH = "IMAGE_PATH";
-//	public static final String BACKDROP_IMAGE_PATH = "BACKDROP_IMAGE_PATH";
-
-	// shop admin fields / columns
-//			+ " " + ShopAdmin.NAME_ADMIN + " text,"
-//			+ " " + ShopAdmin.USERNAME + " text UNIQUE,"
-//			+ " " + ShopAdmin.PASSWORD + " text,"
-//			+ " " + ShopAdmin.PROFILE_IMAGE_URL + " text,"
-//			+ " " + ShopAdmin.PHONE_NUMBER + " text,"
-//			+ " " + ShopAdmin.ADMIN_ENABLED + " boolean,"
-//			+ " " + ShopAdmin.ADMIN_WAITLISTED + " boolean" +
 
 
 
@@ -98,6 +69,8 @@ public class Shop {
 
 			+ " " + Shop.DELIVERY_CHARGES + " FLOAT,"
 			+ " " + Shop.BILL_AMOUNT_FOR_FREE_DELIVERY + " INT,"
+			+ " " + Shop.MINIMUM_ORDER_AMOUNT + " INT not null default 0,"
+
 			+ " " + Shop.PICK_FROM_SHOP_AVAILABLE + " boolean not null default true,"
 			+ " " + Shop.HOME_DELIVERY_AVAILABLE + " boolean not null default true,"
 
@@ -136,6 +109,14 @@ public class Shop {
 
 
 
+	public static final String addColumnsMinOrder =
+			" ALTER TABLE IF EXISTS " + Shop.TABLE_NAME
+					+ "  ADD COLUMN IF NOT EXISTS  " + Shop.MINIMUM_ORDER_AMOUNT + " int NOT NULL default 0 ";
+
+
+
+
+
 	public static final String addColumns =
 					" ALTER TABLE IF EXISTS " + Shop.TABLE_NAME
 					+ "  ADD COLUMN IF NOT EXISTS  " + Shop.ACCOUNT_BALANCE + "  float NOT NULL default 0 ,"
@@ -169,6 +150,8 @@ public class Shop {
 	// delivery charger per order
 	private double deliveryCharges;
 	private int billAmountForFreeDelivery;
+	private int minimumOrderAmount;
+
 	private boolean pickFromShopAvailable;
 	private boolean homeDeliveryAvailable;
 
@@ -212,16 +195,17 @@ public class Shop {
 
 
 
-	// deleted columns
-	// bounding coordinates for the shop generated using shop center coordinates and delivery range.
-//	private double latMax;
-//	private double lonMax;
-//	private double latMin;
-//	private double lonMin;
-
 
 	// getter and setters
 
+
+	public int getMinimumOrderAmount() {
+		return minimumOrderAmount;
+	}
+
+	public void setMinimumOrderAmount(int minimumOrderAmount) {
+		this.minimumOrderAmount = minimumOrderAmount;
+	}
 
 	public double getExtendedCreditLimit() {
 		return extendedCreditLimit;

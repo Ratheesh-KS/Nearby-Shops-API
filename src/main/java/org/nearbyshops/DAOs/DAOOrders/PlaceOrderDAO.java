@@ -54,6 +54,358 @@ public class PlaceOrderDAO {
                 + " " + Order.ITEM_TOTAL + ","
                 + " " + Order.APP_SERVICE_CHARGE + ","
                 + " " + Order.DELIVERY_CHARGES + ","
+                + " " + Order.SAVINGS_OVER_MRP + ","
+                + " " + Order.NET_PAYABLE + ","
+
+
+                + " " + Order.DELIVERY_ADDRESS_ID + ","
+                + Order.PICK_FROM_SHOP + ""
+                + " ) " +
+                " select "
+                + Cart.END_USER_ID + ","
+                + Cart.SHOP_ID + ","
+                + " 1 " + ","
+                + " 1 " + ","
+
+//                + " false " + ","
+//                + " false " + ","
+
+                + " ? " + ","
+                + " ? " + ","
+                + " ? " + ","
+                + " ? " + ","
+                + " ? " + ","
+                + " ? " + ","
+
+                + " ? " + ","
+                + " ? " + ""
+                + " from " + Cart.TABLE_NAME
+                + " where " + Cart.CART_ID + " = ?";
+
+
+
+
+        String copyCartItemToOrderItem =
+
+                "insert into " + OrderItem.TABLE_NAME +
+                        " ("
+                        + OrderItem.ORDER_ID  + ","
+                        + OrderItem.ITEM_ID + ","
+                        + OrderItem.ITEM_PRICE_AT_ORDER + ","
+                        + OrderItem.LIST_PRICE_AT_ORDER + ","
+                        + OrderItem.ITEM_QUANTITY + ") " +
+
+
+                        " select " + " ? " + ","
+                        + ShopItem.TABLE_NAME+ "." + ShopItem.ITEM_ID + ","
+                        + ShopItem.TABLE_NAME + "." + ShopItem.ITEM_PRICE + ","
+                        + Item.TABLE_NAME + "." + Item.LIST_PRICE + ","
+                        + CartItem.TABLE_NAME + "." + CartItem.ITEM_QUANTITY
+                        + " from "
+                        + CartItem.TABLE_NAME + ","
+                        + Cart.TABLE_NAME + ","
+                        + ShopItem.TABLE_NAME  + ","
+                        + Item.TABLE_NAME  +
+                        " where "
+                        + Cart.TABLE_NAME + "." + Cart.CART_ID + " = " + CartItem.TABLE_NAME + "." + CartItem.CART_ID +
+                        " and "
+                        + ShopItem.TABLE_NAME + "." + ShopItem.SHOP_ID + " = " + Cart.TABLE_NAME + "." + Cart.SHOP_ID +
+                        " and "
+                        + ShopItem.TABLE_NAME + "." + ShopItem.ITEM_ID + " = " + CartItem.TABLE_NAME + "." + CartItem.ITEM_ID +
+                        " and "
+                        + ShopItem.TABLE_NAME + "." + ShopItem.ITEM_ID + " = " + Item.TABLE_NAME + "." + Item.ITEM_ID +
+                        " and "
+                        + Cart.TABLE_NAME + "." + Cart.CART_ID + " = ? ";
+
+
+
+
+        // reduce the item available quantity from the inventory
+        String updateQuantity =
+                        " Update " + ShopItem.TABLE_NAME +
+                        " SET " +  ShopItem.AVAILABLE_ITEM_QUANTITY + " = " +  ShopItem.AVAILABLE_ITEM_QUANTITY + " - " +  OrderItem.ITEM_QUANTITY +
+                        " from " +  OrderItem.TABLE_NAME + "," + Order.TABLE_NAME +
+                        " where " + OrderItem.TABLE_NAME + "." + OrderItem.ITEM_ID + " = " + ShopItem.TABLE_NAME + "." + ShopItem.ITEM_ID +
+                        " and " + Order.TABLE_NAME+ "." + Order.ORDER_ID + " = " + OrderItem.TABLE_NAME+ "."  + OrderItem.ORDER_ID +
+                        " and " + ShopItem.TABLE_NAME + "." + ShopItem.SHOP_ID + " = " + Order.TABLE_NAME + "." + Order.SHOP_ID +
+                        " and " + Order.TABLE_NAME + "." + Order.ORDER_ID + " = ?";
+
+
+
+        String deleteCartItems = " DELETE FROM " + CartItem.TABLE_NAME +
+                            " WHERE " + Cart.CART_ID + " = ?";
+
+
+        String deleteCart = " DELETE FROM " + Cart.TABLE_NAME +
+                                 " WHERE " + Cart.CART_ID + " = ?";
+
+
+
+
+
+
+        String updateAccountBalance = "UPDATE " + Shop.TABLE_NAME
+
+                + " SET " + " " + Shop.ACCOUNT_BALANCE + " = " + Shop.ACCOUNT_BALANCE + " - ? "
+                + " WHERE " + Shop.SHOP_ID
+                + " = ( SELECT " + Order.SHOP_ID + " FROM " + Order.TABLE_NAME + " WHERE " + Order.ORDER_ID + " = ? )";
+
+
+
+
+
+        String createTransactionRecord = "INSERT INTO " + Transaction.TABLE_NAME
+                + "("
+
+                + Transaction.USER_ID + ","
+
+                + Transaction.TITLE + ","
+                + Transaction.DESCRIPTION + ","
+
+                + Transaction.TRANSACTION_TYPE + ","
+                + Transaction.TRANSACTION_AMOUNT + ","
+
+                + Transaction.IS_CREDIT + ","
+
+                + Transaction.BALANCE_AFTER_TRANSACTION + ""
+
+                + ") "
+                + " SELECT "
+
+                + User.TABLE_NAME + "." + User.USER_ID + ","
+
+                + " 'App fee : ' ,"
+                + " 'App fee for Order ID '" +  " || " + Order.TABLE_NAME + "." +  Order.ORDER_ID + "::text " + ","
+
+                + Transaction.TRANSACTION_TYPE_APP_FEE + ","
+                + " ? ,"
+
+                + " false " + ","
+                + Shop.TABLE_NAME + "." + Shop.ACCOUNT_BALANCE + ""
+
+                + " FROM " + User.TABLE_NAME
+                + " INNER JOIN " + Shop.TABLE_NAME + " ON ( " + Shop.TABLE_NAME + "." +  Shop.SHOP_ADMIN_ID + " = " + User.TABLE_NAME + "." + User.USER_ID + " ) "
+                + " INNER JOIN " + Order.TABLE_NAME + " ON ( " + Order.TABLE_NAME + "." + Order.SHOP_ID + " = " + Shop.TABLE_NAME + "." + Shop.SHOP_ID + " ) "
+                + " WHERE " + Order.TABLE_NAME + "." + Order.ORDER_ID + " = ? ";
+
+
+
+
+
+
+
+        try {
+
+            connection = dataSource.getConnection();
+            connection.setAutoCommit(false);
+
+            int itemCount = 0;
+            double itemTotal = 0;
+            double appServiceCharge = 0;
+            double deliveryCharges = 0;
+            double savingsOverMRP = 0;
+            double netPayable = 0;
+
+
+
+            // calculate and set different kind of charges
+            if(cartStats.size()==1)
+            {
+
+                itemCount = cartStats.get(0).getItemsInCart();
+                itemTotal = cartStats.get(0).getCart_Total();
+                savingsOverMRP = cartStats.get(0).getSavingsOverMRP();
+//                    appServiceCharge = 10;
+
+                if(order.isPickFromShop())
+                {
+
+                    deliveryCharges = 0;
+                    appServiceCharge = Constants.app_service_charge_pick_for_shop_value;
+                }
+                else
+                {
+
+
+                    if(cartStats.get(0).getCart_Total() < shop.getBillAmountForFreeDelivery())
+                    {
+                        deliveryCharges = shop.getDeliveryCharges();
+                    }
+                    else
+                    {
+                        deliveryCharges = 0; // delivery free above this amount
+                    }
+
+                    appServiceCharge = Constants.app_service_charge_home_delivery_value;
+                }
+
+                netPayable = itemTotal + appServiceCharge + deliveryCharges;
+
+            }
+
+
+
+
+
+            statement = connection.prepareStatement(copyCartToOrder,PreparedStatement.RETURN_GENERATED_KEYS);
+
+            statement.setInt(1,itemCount); // item count
+            statement.setDouble(2,itemTotal); // item total
+            statement.setDouble(3,appServiceCharge); // app service charge
+            statement.setDouble(4,deliveryCharges); // delivery charge
+            statement.setDouble(5,savingsOverMRP); // Savings Over MRP
+            statement.setDouble(6,netPayable); // net payable
+
+            statement.setInt(7,order.getDeliveryAddressID());
+            statement.setBoolean(8,order.isPickFromShop());
+            statement.setInt(9,cartID);
+
+
+            statement.executeUpdate();
+
+            ResultSet rsCopyCartToOrder = statement.getGeneratedKeys();
+
+            if(rsCopyCartToOrder.next())
+            {
+                orderID = rsCopyCartToOrder.getInt(1);
+            }
+
+
+            statement = connection.prepareStatement(copyCartItemToOrderItem,PreparedStatement.RETURN_GENERATED_KEYS);
+            statement.setInt(1,orderID);
+            statement.setInt(2,cartID);
+            copiedItemsCount = statement.executeUpdate();
+
+
+            statement = connection.prepareStatement(updateQuantity,PreparedStatement.RETURN_GENERATED_KEYS);
+            statement.setInt(1,orderID);
+            updatedItemsCount = statement.executeUpdate();
+
+
+
+            statement = connection.prepareStatement(deleteCart,PreparedStatement.RETURN_GENERATED_KEYS);
+            statement.setInt(1,cartID);
+            statement.executeUpdate();
+
+
+            statement = connection.prepareStatement(deleteCartItems,PreparedStatement.RETURN_GENERATED_KEYS);
+            statement.setInt(1,cartID);
+            statement.executeUpdate();
+
+
+
+
+
+            statement = connection.prepareStatement(updateAccountBalance);
+
+            int i = 0;
+
+            statement.setObject(++i, appServiceCharge);
+            statement.setObject(++i,orderID);
+
+            statement.executeUpdate();
+
+
+
+
+            statement = connection.prepareStatement(createTransactionRecord);
+
+            i = 0;
+
+            statement.setObject(++i, appServiceCharge);
+            statement.setObject(++i,orderID);
+
+            statement.executeUpdate();
+
+
+
+
+            connection.commit();
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+
+            if (connection != null) {
+                try {
+
+//                    rowIdUserID = -1;
+                    orderID = -1;
+                    connection.rollback();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            }
+
+        } finally {
+
+
+
+            if (statement != null) {
+                try {
+
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+
+
+            try {
+
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
+
+
+        return orderID;
+    }
+
+
+
+
+
+    public int placeOrderBackup(Order order, int cartID) {
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+
+
+        Cart cart = Globals.cartService.readCart(cartID);
+        List<CartStats> cartStats = Globals.cartStatsDAO.getCartStats(cart.getEndUserID(),cartID,cart.getShopID());
+        Shop shop = Globals.daoOrderUtility.getShopDetailsForCreateOrder(cart.getShopID());
+//        Shop shop = Globals.shopDAO.getShopDetails(cart.getShopID(),null,null);
+
+
+        int orderID = -1;
+        int copiedItemsCount = -1;
+        int updatedItemsCount = -1;
+
+
+        String copyCartToOrder = " insert into " + Order.TABLE_NAME
+                + " ( "
+                + Order.END_USER_ID + ","
+                + Order.SHOP_ID + ","
+
+                + " " + Order.STATUS_HOME_DELIVERY + ","
+                + " " + Order.STATUS_PICK_FROM_SHOP + ","
+
+//                + " " + Order.PAYMENT_RECEIVED + ","
+//                + " " + Order.DELIVERY_RECEIVED + ","
+
+                + " " + Order.ITEM_COUNT + ","
+                + " " + Order.ITEM_TOTAL + ","
+                + " " + Order.APP_SERVICE_CHARGE + ","
+                + " " + Order.DELIVERY_CHARGES + ","
                 + " " + Order.NET_PAYABLE + ","
 
 
@@ -115,7 +467,7 @@ public class PlaceOrderDAO {
 
         // reduce the item available quantity from the inventory
         String updateQuantity =
-                        " Update " + ShopItem.TABLE_NAME +
+                " Update " + ShopItem.TABLE_NAME +
                         " SET " +  ShopItem.AVAILABLE_ITEM_QUANTITY + " = " +  ShopItem.AVAILABLE_ITEM_QUANTITY + " - " +  OrderItem.ITEM_QUANTITY +
                         " from " +  OrderItem.TABLE_NAME + "," + Order.TABLE_NAME +
                         " where " + OrderItem.TABLE_NAME + "." + OrderItem.ITEM_ID + " = " + ShopItem.TABLE_NAME + "." + ShopItem.ITEM_ID +
@@ -126,11 +478,11 @@ public class PlaceOrderDAO {
 
 
         String deleteCartItems = " DELETE FROM " + CartItem.TABLE_NAME +
-                            " WHERE " + Cart.CART_ID + " = ?";
+                " WHERE " + Cart.CART_ID + " = ?";
 
 
         String deleteCart = " DELETE FROM " + Cart.TABLE_NAME +
-                                 " WHERE " + Cart.CART_ID + " = ?";
+                " WHERE " + Cart.CART_ID + " = ?";
 
 
 
@@ -358,6 +710,5 @@ public class PlaceOrderDAO {
 
         return orderID;
     }
-
 
 }

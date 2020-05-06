@@ -51,7 +51,7 @@ public class ShopItemDAO {
 				+ " )"
 				+ " select "
 				+ " ? " + ","
-				+ Item.LIST_PRICE + ","
+				+ Item.DISCOUNTED_PRICE + ","
 				+ " ? " + ","
 
 				+ " ? " + ","
@@ -296,24 +296,15 @@ public class ShopItemDAO {
 	
 	public int updateShopItem(ShopItem shopItem)
 	{
-		/*
-
-				+ ShopItemContract.QUANTITY_MULTIPLE + " ="
-				+ "" + shopItem.getQuantityMultiple() + ","
-				+ ShopItemContract.QUANTITY_UNIT + " ="
-				+ "'" + shopItem.getQuantityUnit() + "',"
-		 */
 
 		String updateStatement = "UPDATE " + ShopItem.TABLE_NAME
 				+ " SET "
 
 				+ ShopItem.AVAILABLE_ITEM_QUANTITY + " = ?,"
-//				+ ShopItem.ITEM_ID + " = ?,"
 				+ ShopItem.ITEM_PRICE + " = ?,"
 				+ ShopItem.ALLOW_QUARTER_QUANTITY + " = ?,"
 				+ ShopItem.ALLOW_HALF_QUANTITY + " = ?,"
 
-//				+ ShopItem.SHOP_ID + " = ?,"
 				+ ShopItem.EXTRA_DELIVERY_CHARGE + " = ?,"
 				+ ShopItem.LAST_UPDATE_DATE_TIME + " = ?"
 
@@ -334,24 +325,21 @@ public class ShopItemDAO {
 
 			int i = 0;
 			statement.setObject(++i,shopItem.getAvailableItemQuantity());
-//			statement.setObject(++i,shopItem.getItemID());
 			statement.setObject(++i,shopItem.getItemPrice());
 			statement.setBoolean(++i,shopItem.isAllowQuarterQuantity());
 			statement.setBoolean(++i,shopItem.isAllowHalfQuantity());
 
-//			statement.setObject(++i,shopItem.getShopID());
 			statement.setObject(++i,shopItem.getExtraDeliveryCharge());
 			statement.setTimestamp(++i,new Timestamp(System.currentTimeMillis()));
-
 
 			statement.setObject(++i,shopItem.getShopID());
 			statement.setObject(++i,shopItem.getItemID());
 
-
 			updatedRows = statement.executeUpdate();
-//			System.out.println("Total rows updated: " + updatedRows);
-			
-			//conn.close();
+
+
+
+
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

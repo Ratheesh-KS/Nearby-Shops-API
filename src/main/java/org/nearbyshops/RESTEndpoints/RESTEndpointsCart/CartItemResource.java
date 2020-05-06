@@ -257,6 +257,78 @@ public class CartItemResource {
 
 		List<CartItem> cartList;
 
+
+//		cartList = Globals.cartItemService
+//				.getCartItemRefined(endUserID, shopID, sortBy,limit,offset);
+
+
+
+		if(shopID != null)
+		{
+
+			cartList = Globals.cartItemService
+					.getCartItemRefined(endUserID, shopID, sortBy,limit,offset);
+
+
+		}else
+		{
+
+			cartList = Globals.cartItemService.getCartItem(cartID,itemID,endUserID);
+
+			for(CartItem cartItem: cartList)
+			{
+				if(cartID == null)
+				{
+					cartItem.setCart(Globals.cartService.readCart(cartItem.getCartID()));
+				}
+
+			}
+
+		}
+
+
+
+
+
+		GenericEntity<List<CartItem>> listEntity = new GenericEntity<List<CartItem>>(cartList){
+		};
+	
+		
+		if(cartList.size()<=0)
+		{
+
+			return Response.status(Status.NO_CONTENT)
+					.entity(listEntity)
+					.build();
+			
+		}else
+		{
+
+			return Response.status(Status.OK)
+					.entity(listEntity)
+					.build();
+		}
+		
+	}
+
+
+
+
+
+
+	public Response getCartItemBackup(@QueryParam("CartID")Integer cartID,
+								@QueryParam("ItemID")Integer itemID,
+								@QueryParam("EndUserID") Integer endUserID,
+								@QueryParam("ShopID") Integer shopID,
+								@QueryParam("GetItems") Boolean getItems,
+								@QueryParam("SortBy") String sortBy,
+								@QueryParam("Limit")Integer limit, @QueryParam("Offset")Integer offset,
+								@QueryParam("metadata_only")Boolean metaonly)
+	{
+
+
+		List<CartItem> cartList;
+
 		if(shopID != null)
 		{
 
@@ -291,12 +363,6 @@ public class CartItemResource {
 					cartItem.setCart(Globals.cartService.readCart(cartItem.getCartID()));
 				}
 
-				/*
-				if(itemID == null && getItems!=null && getItems)
-				{
-					cartItem.setItem(itemDAO.getItem(cartItem.getItemID()));
-				}*/
-
 			}
 
 		}
@@ -304,15 +370,15 @@ public class CartItemResource {
 
 		GenericEntity<List<CartItem>> listEntity = new GenericEntity<List<CartItem>>(cartList){
 		};
-	
-		
+
+
 		if(cartList.size()<=0)
 		{
 
 			return Response.status(Status.NO_CONTENT)
 					.entity(listEntity)
 					.build();
-			
+
 		}else
 		{
 
@@ -320,7 +386,8 @@ public class CartItemResource {
 					.entity(listEntity)
 					.build();
 		}
-		
+
 	}
+
 
 }
