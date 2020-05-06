@@ -111,6 +111,7 @@ public class DAOOrderUtility {
 
                     + Order.TABLE_NAME + "." + Order.ITEM_TOTAL + ","
                     + Order.TABLE_NAME + "." + Order.APP_SERVICE_CHARGE + ","
+                    + Order.TABLE_NAME + "." + Order.SAVINGS_OVER_MRP + ","
                     + Order.TABLE_NAME + "." + Order.DELIVERY_CHARGES + ""
 
                     + " FROM " + Order.TABLE_NAME
@@ -134,6 +135,7 @@ public class DAOOrderUtility {
                 order = new Order();
                 order.setItemTotal((Double) rs.getObject(Order.ITEM_TOTAL));
                 order.setAppServiceCharge(rs.getDouble(Order.APP_SERVICE_CHARGE));
+                order.setSavingsOverMRP(rs.getDouble(Order.SAVINGS_OVER_MRP));
                 order.setDeliveryCharges(rs.getDouble(Order.DELIVERY_CHARGES));
             }
 

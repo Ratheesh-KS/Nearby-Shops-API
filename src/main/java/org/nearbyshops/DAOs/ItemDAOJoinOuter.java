@@ -45,6 +45,7 @@ public class ItemDAOJoinOuter {
 				+ Item.TABLE_NAME + "." + Item.ITEM_IMAGE_URL + ","
 				+ Item.TABLE_NAME + "." + Item.QUANTITY_UNIT + ","
 				+ Item.TABLE_NAME + "." + Item.LIST_PRICE + ","
+				+ Item.TABLE_NAME + "." + Item.DISCOUNTED_PRICE + ","
 
 				+  "avg(" + ItemReview.TABLE_NAME + "." + ItemReview.RATING + ") as avg_rating" + ","
 				+  "count( DISTINCT " + ItemReview.TABLE_NAME + "." + ItemReview.END_USER_ID + ") as rating_count" + ""
@@ -156,6 +157,7 @@ public class ItemDAOJoinOuter {
 					item.setItemImageURL(rs.getString(Item.ITEM_IMAGE_URL));
 					item.setQuantityUnit(rs.getString(Item.QUANTITY_UNIT));
 					item.setListPrice(rs.getFloat(Item.LIST_PRICE));
+					item.setDiscountedPrice(rs.getFloat(Item.DISCOUNTED_PRICE));
 
 
 					ItemStats itemStats = new ItemStats();

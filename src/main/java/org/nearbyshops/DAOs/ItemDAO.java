@@ -49,11 +49,12 @@ public class ItemDAO {
 				+ Item.ITEM_DESCRIPTION_LONG + ","
 
 				+ Item.LIST_PRICE + ","
+				+ Item.DISCOUNTED_PRICE + ","
 				+ Item.BARCODE + ","
 				+ Item.BARCODE_FORMAT + ","
 				+ Item.IMAGE_COPYRIGHTS + ""
 
-				+ ") VALUES(?,? ,?,?, ?,?,?, ?,?,?,?)";
+				+ ") VALUES(?,? ,?,?, ?,?,?, ?,?,?,?,?)";
 
 		try {
 
@@ -72,6 +73,7 @@ public class ItemDAO {
 			statement.setString(++i,item.getItemDescriptionLong());
 
 			statement.setFloat(++i,item.getListPrice());
+			statement.setFloat(++i,item.getDiscountedPrice());
 			statement.setString(++i,item.getBarcode());
 			statement.setString(++i,item.getBarcodeFormat());
 			statement.setString(++i,item.getImageCopyrights());
@@ -319,6 +321,7 @@ public class ItemDAO {
 				+ Item.ITEM_DESCRIPTION_LONG + "=?,"
 
 				+ Item.LIST_PRICE + "=?,"
+				+ Item.DISCOUNTED_PRICE + "=?,"
 				+ Item.BARCODE + "=?,"
 				+ Item.BARCODE_FORMAT + "=?,"
 				+ Item.IMAGE_COPYRIGHTS + "=?"
@@ -348,6 +351,7 @@ public class ItemDAO {
 			statement.setString(++i,item.getItemDescriptionLong());
 
 			statement.setFloat(++i,item.getListPrice());
+			statement.setFloat(++i,item.getDiscountedPrice());
 			statement.setString(++i,item.getBarcode());
 			statement.setString(++i,item.getBarcodeFormat());
 			statement.setString(++i,item.getImageCopyrights());

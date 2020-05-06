@@ -259,6 +259,7 @@ public class OrderItemService {
 				+ OrderItem.TABLE_NAME + "." + OrderItem.ORDER_ID + ","
 				+ OrderItem.TABLE_NAME + "." + OrderItem.ITEM_ID + ","
 				+ OrderItem.TABLE_NAME + "." + OrderItem.ITEM_PRICE_AT_ORDER + ","
+				+ OrderItem.TABLE_NAME + "." + OrderItem.LIST_PRICE_AT_ORDER + ","
 				+ OrderItem.TABLE_NAME + "." + OrderItem.ITEM_QUANTITY + ","
 
 				+ Item.TABLE_NAME + "." + Item.ITEM_ID + ","
@@ -333,6 +334,8 @@ public class OrderItemService {
 				orderItem.setOrderID(rs.getInt(OrderItem.ORDER_ID));
 				orderItem.setItemID(rs.getInt(OrderItem.ITEM_ID));
 				orderItem.setItemPriceAtOrder(rs.getDouble(OrderItem.ITEM_PRICE_AT_ORDER));
+				orderItem.setListPriceAtOrder(rs.getDouble(OrderItem.LIST_PRICE_AT_ORDER));
+
 				orderItem.setItemQuantity(rs.getDouble(OrderItem.ITEM_QUANTITY));
 
 

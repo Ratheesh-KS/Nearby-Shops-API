@@ -39,6 +39,7 @@ public class Item {
 
 
 
+
 	// Create Table Statement
 	public static final String createTableItemPostgres = "CREATE TABLE IF NOT EXISTS "
 			+ Item.TABLE_NAME + "("
@@ -107,6 +108,7 @@ public class Item {
 	private String itemDescriptionLong;
 
 	private float listPrice;
+	private float discountedPrice;
 	private String barcode;
 	private String barcodeFormat;
 	private String imageCopyrights;
@@ -121,8 +123,18 @@ public class Item {
 
 
 
+
+
+
 	// Getter and Setter Statements
 
+	public float getDiscountedPrice() {
+		return discountedPrice;
+	}
+
+	public void setDiscountedPrice(float discountedPrice) {
+		this.discountedPrice = discountedPrice;
+	}
 
 	public ItemStats getItemStats() {
 		return itemStats;

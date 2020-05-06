@@ -416,6 +416,8 @@ public class Main {
 
             statement.executeUpdate(Shop.addColumnsMinOrder);
 
+            statement.executeUpdate(Order.addColumns);
+
 
 
 
