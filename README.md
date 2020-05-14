@@ -8,13 +8,6 @@ width="120">
 </a>
 
 
-How it works ? 
------------------
-Nearby Shops is a **Open Source**  Local Market Server. Anyone can self-host their local market Instance (server) & and create a free marketplace for food delivery and hyperlocal business in just 10 Minutes Installation. 
-
-Website :  https://nearbyshops.org | Developers Guide: http://developer.nearbyshops.org
-
-
 ### Install with Docker 
 
 
@@ -48,7 +41,6 @@ Website :  https://nearbyshops.org | Developers Guide: http://developer.nearbysh
 
 
 ## 🚩 Table of Contents
-- [Concept](#concept)
 - [Third Party Integrations](#third-party-integrations)
 - [Connect with Us](#community---need-help-)
 - [Contributions Required](#contributions-welcome)
@@ -56,37 +48,14 @@ Website :  https://nearbyshops.org | Developers Guide: http://developer.nearbysh
 - [License](#license)
 
 
-Concept
-----------
-Nearby Shops is a Hyperlocal Shopping platform where a customer can buy directly from the shops available in his/her local area and get their orders delivered to their home or just pick the order up from the shop. 
-
-In the new emerging world, customers are getting tired of going outside the home to shop every day. They would much prefer to simply place an order and have the products delivered to their home the same day. 
-
-Conventional e-commerce has issues ... the delivery takes a long time and it's more difficult to trust unknown vendors whom you cannot see and meet. Hyperlocal e-commerce solves these issues because delivery is faster and customers can reach out to the vendors easily. 
-
-Nearby Shops can also be used as a food Delivery platform where restaurants can use it to deliver food. 
-
-Nearby Shops implements Alibaba's New Offline-to-Online Concept, where customers discover products online and then pick those products up from physical stores. 
-
-![Online to Offline](https://www.innovationiseverywhere.com/wp-content/uploads/2015/05/what-is-o2o-online-to-offline-digital-ecommerce-retail-china-gmic-1-2.jpg)
-
-
 
 
 
 Third Party Integrations
 -------------------------
-SMS-OTP using MSG91 (More Integrations coming soon ...)
+Please see our Integrations guide given in the Developer Section. 
+https://developer.nearbyshops.org/integrations/e-mail-integration.html
 
-E-mail using Simple-Java-Mail E-mail Library
-
-Push Notifications using Firebase and One-Signal
-
-Maps using Mapbox Android SDK and Google Maps
-
-Payment Gateway (Coming Soon ...)
-
-For more information please see our developer guide !
 
 
 Connect With us - Need Help ? 
@@ -104,33 +73,20 @@ Facebook Group - https://www.facebook.com/groups/1144257952430940/
 
 
 
-Contributions Welcome
------------------------------------------------
-
-https://forum.nearbyshops.org/t/project-roadmap-and-contributions-required/34/4
-
-Improved Search with Search Suggestions for android app
-
-Develop a PWA and Web app for Nearby Shops
-
-i18n Internationalization support
-
-Payment Gateway Integrations
-
-Performance Testing and Optimization
-
-Suggestions and Improvements in App Architecture
-
-Code Review and Architecture
-
 
 
 Development Instructions
 -------------------------
 
-Use the latest stable community version of Intellij Idea. 
+Clone this repository and open the source code in the Latest Stable version of Intellij Idea. 
+Then Rename the api_config_example.properties to api_config.properties in the data folder and set the custom values. 
 
-Rename the api_config_example.properties to api_config.properties and set the appropriate values. 
+You need to create a Database for PostgreSQL and put your database name and database username and password in the config
+file. 
+
+
+Create Docker Image
+--------------------
 
 You can create a docker image with the instructions given in the docker_image_creation.odt file. 
 
